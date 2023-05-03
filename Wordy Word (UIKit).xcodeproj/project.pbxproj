@@ -9,21 +9,39 @@
 /* Begin PBXBuildFile section */
 		4C397F4C2A000CF8006F8D3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C397F4B2A000CF8006F8D3C /* AppDelegate.swift */; };
 		4C397F4E2A000CF8006F8D3C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C397F4D2A000CF8006F8D3C /* SceneDelegate.swift */; };
-		4C397F502A000CF8006F8D3C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C397F4F2A000CF8006F8D3C /* ViewController.swift */; };
-		4C397F532A000CF8006F8D3C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C397F512A000CF8006F8D3C /* Main.storyboard */; };
+		4C397F502A000CF8006F8D3C /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C397F4F2A000CF8006F8D3C /* EditorViewController.swift */; };
 		4C397F552A000CFA006F8D3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C397F542A000CFA006F8D3C /* Assets.xcassets */; };
-		4C397F582A000CFA006F8D3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C397F562A000CFA006F8D3C /* LaunchScreen.storyboard */; };
+		4C8474732A026FD7006F0930 /* EditorNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8474722A026FD7006F0930 /* EditorNavigationBar.swift */; };
+		4C8474752A027016006F0930 /* NavigationBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8474742A027016006F0930 /* NavigationBarLabel.swift */; };
+		4CABA4EE2A00111700442908 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CABA4EC2A00111700442908 /* Poppins-Medium.ttf */; };
+		4CABA4EF2A00111700442908 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CABA4ED2A00111700442908 /* Poppins-SemiBold.ttf */; };
+		4CABA4F72A00155E00442908 /* TextEditorCapsuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA4F62A00155E00442908 /* TextEditorCapsuleView.swift */; };
+		4CABA5012A00157200442908 /* PillLabelsWithStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA4F92A00157200442908 /* PillLabelsWithStroke.swift */; };
+		4CABA5022A00157200442908 /* ButtonAndLabelStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA4FB2A00157200442908 /* ButtonAndLabelStack.swift */; };
+		4CABA5032A00157200442908 /* EditorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA4FC2A00157200442908 /* EditorStackView.swift */; };
+		4CABA5042A00157200442908 /* EditorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA4FE2A00157200442908 /* EditorTextView.swift */; };
+		4CABA5052A00157200442908 /* PillButtonImageWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA5002A00157200442908 /* PillButtonImageWithText.swift */; };
+		4CABA5092A0015A200442908 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA5082A0015A200442908 /* UIColor+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4C397F482A000CF8006F8D3C /* Wordy Word (UIKit).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wordy Word (UIKit).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C397F4B2A000CF8006F8D3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C397F4D2A000CF8006F8D3C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4C397F4F2A000CF8006F8D3C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4C397F522A000CF8006F8D3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4C397F4F2A000CF8006F8D3C /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		4C397F542A000CFA006F8D3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4C397F572A000CFA006F8D3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C397F592A000CFA006F8D3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C8474722A026FD7006F0930 /* EditorNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBar.swift; sourceTree = "<group>"; };
+		4C8474742A027016006F0930 /* NavigationBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarLabel.swift; sourceTree = "<group>"; };
+		4CABA4EC2A00111700442908 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		4CABA4ED2A00111700442908 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		4CABA4F62A00155E00442908 /* TextEditorCapsuleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorCapsuleView.swift; sourceTree = "<group>"; };
+		4CABA4F92A00157200442908 /* PillLabelsWithStroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PillLabelsWithStroke.swift; sourceTree = "<group>"; };
+		4CABA4FB2A00157200442908 /* ButtonAndLabelStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonAndLabelStack.swift; sourceTree = "<group>"; };
+		4CABA4FC2A00157200442908 /* EditorStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorStackView.swift; sourceTree = "<group>"; };
+		4CABA4FE2A00157200442908 /* EditorTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTextView.swift; sourceTree = "<group>"; };
+		4CABA5002A00157200442908 /* PillButtonImageWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PillButtonImageWithText.swift; sourceTree = "<group>"; };
+		4CABA5082A0015A200442908 /* UIColor+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C176EC92A0020C10024A791 /* Navigation Bar */ = {
+			isa = PBXGroup;
+			children = (
+				4C8474722A026FD7006F0930 /* EditorNavigationBar.swift */,
+			);
+			path = "Navigation Bar";
+			sourceTree = "<group>";
+		};
 		4C397F3F2A000CF8006F8D3C = {
 			isa = PBXGroup;
 			children = (
@@ -56,15 +82,136 @@
 		4C397F4A2A000CF8006F8D3C /* Wordy Word (UIKit) */ = {
 			isa = PBXGroup;
 			children = (
+				4CABA5062A00158F00442908 /* Utilities */,
+				4CABA4F02A00138D00442908 /* Screens */,
+				4C397F5F2A000D6D006F8D3C /* Resources */,
 				4C397F4B2A000CF8006F8D3C /* AppDelegate.swift */,
 				4C397F4D2A000CF8006F8D3C /* SceneDelegate.swift */,
-				4C397F4F2A000CF8006F8D3C /* ViewController.swift */,
-				4C397F512A000CF8006F8D3C /* Main.storyboard */,
 				4C397F542A000CFA006F8D3C /* Assets.xcassets */,
-				4C397F562A000CFA006F8D3C /* LaunchScreen.storyboard */,
 				4C397F592A000CFA006F8D3C /* Info.plist */,
 			);
 			path = "Wordy Word (UIKit)";
+			sourceTree = "<group>";
+		};
+		4C397F5F2A000D6D006F8D3C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4CABA4EB2A00111700442908 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4CABA4EB2A00111700442908 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4CABA4EC2A00111700442908 /* Poppins-Medium.ttf */,
+				4CABA4ED2A00111700442908 /* Poppins-SemiBold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		4CABA4F02A00138D00442908 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				4CABA4F12A0013A900442908 /* Editor */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		4CABA4F12A0013A900442908 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				4CABA4F22A00141F00442908 /* Controller */,
+				4CABA4F32A00142A00442908 /* Views */,
+				4CABA4F42A00143100442908 /* Custom Views */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
+		4CABA4F22A00141F00442908 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4C397F4F2A000CF8006F8D3C /* EditorViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4CABA4F32A00142A00442908 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C176EC92A0020C10024A791 /* Navigation Bar */,
+				4CABA4F52A00155E00442908 /* Text Editor */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4CABA4F42A00143100442908 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				4CABA4FF2A00157200442908 /* Buttons */,
+				4CABA4F82A00157200442908 /* Labels */,
+				4CABA4FA2A00157200442908 /* Stacks */,
+				4CABA4FD2A00157200442908 /* TextViews */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		4CABA4F52A00155E00442908 /* Text Editor */ = {
+			isa = PBXGroup;
+			children = (
+				4CABA4F62A00155E00442908 /* TextEditorCapsuleView.swift */,
+			);
+			path = "Text Editor";
+			sourceTree = "<group>";
+		};
+		4CABA4F82A00157200442908 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				4CABA4F92A00157200442908 /* PillLabelsWithStroke.swift */,
+				4C8474742A027016006F0930 /* NavigationBarLabel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
+		4CABA4FA2A00157200442908 /* Stacks */ = {
+			isa = PBXGroup;
+			children = (
+				4CABA4FB2A00157200442908 /* ButtonAndLabelStack.swift */,
+				4CABA4FC2A00157200442908 /* EditorStackView.swift */,
+			);
+			path = Stacks;
+			sourceTree = "<group>";
+		};
+		4CABA4FD2A00157200442908 /* TextViews */ = {
+			isa = PBXGroup;
+			children = (
+				4CABA4FE2A00157200442908 /* EditorTextView.swift */,
+			);
+			path = TextViews;
+			sourceTree = "<group>";
+		};
+		4CABA4FF2A00157200442908 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				4CABA5002A00157200442908 /* PillButtonImageWithText.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		4CABA5062A00158F00442908 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4CABA5072A0015A200442908 /* Extensions */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		4CABA5072A0015A200442908 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4CABA5082A0015A200442908 /* UIColor+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,9 +272,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C397F582A000CFA006F8D3C /* LaunchScreen.storyboard in Resources */,
+				4CABA4EF2A00111700442908 /* Poppins-SemiBold.ttf in Resources */,
 				4C397F552A000CFA006F8D3C /* Assets.xcassets in Resources */,
-				4C397F532A000CF8006F8D3C /* Main.storyboard in Resources */,
+				4CABA4EE2A00111700442908 /* Poppins-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,32 +285,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C397F502A000CF8006F8D3C /* ViewController.swift in Sources */,
+				4C8474752A027016006F0930 /* NavigationBarLabel.swift in Sources */,
+				4CABA5032A00157200442908 /* EditorStackView.swift in Sources */,
+				4C397F502A000CF8006F8D3C /* EditorViewController.swift in Sources */,
+				4CABA5012A00157200442908 /* PillLabelsWithStroke.swift in Sources */,
 				4C397F4C2A000CF8006F8D3C /* AppDelegate.swift in Sources */,
+				4CABA5022A00157200442908 /* ButtonAndLabelStack.swift in Sources */,
+				4CABA4F72A00155E00442908 /* TextEditorCapsuleView.swift in Sources */,
+				4CABA5052A00157200442908 /* PillButtonImageWithText.swift in Sources */,
+				4CABA5092A0015A200442908 /* UIColor+Ext.swift in Sources */,
+				4CABA5042A00157200442908 /* EditorTextView.swift in Sources */,
+				4C8474732A026FD7006F0930 /* EditorNavigationBar.swift in Sources */,
 				4C397F4E2A000CF8006F8D3C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		4C397F512A000CF8006F8D3C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4C397F522A000CF8006F8D3C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4C397F562A000CFA006F8D3C /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4C397F572A000CFA006F8D3C /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		4C397F5A2A000CFA006F8D3C /* Debug */ = {
@@ -292,19 +429,22 @@
 				INFOPLIST_FILE = "Wordy Word (UIKit)/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "app.mikecaesario.Wordy-Word--UIKit-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -320,19 +460,22 @@
 				INFOPLIST_FILE = "Wordy Word (UIKit)/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "app.mikecaesario.Wordy-Word--UIKit-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
