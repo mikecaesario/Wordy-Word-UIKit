@@ -19,7 +19,7 @@ class EditorTextView: UITextView {
     }
     
     private func configure() {
-        font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        font = UIFont.systemFont(ofSize: 23, weight: .medium)
         textColor = .text.black
         textAlignment = .left
         backgroundColor = .clear

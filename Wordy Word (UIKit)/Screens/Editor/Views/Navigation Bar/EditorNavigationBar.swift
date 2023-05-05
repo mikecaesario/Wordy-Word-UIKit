@@ -14,25 +14,7 @@ protocol EditorNavigationBarDelegate: AnyObject {
 class EditorNavigationBar: UIView {
 
     private let navigationTitle = NavigationBarLabel()
-    private let editorMenuButton: UIButton = {
-        let button = UIButton()
-        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .light, scale: .small)
-        button.setImage(UIImage(systemName: "slider.horizontal.3", withConfiguration: config), for: .normal)
-        button.backgroundColor = .background.thirtiary
-        button.tintColor = .text.white
-        button.layer.cornerRadius = 28
-        button.layer.masksToBounds = true
-        return button
-    }()
-    
-    private let stack: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.alignment = .center
-        stack.distribution = .fillProportionally
-        stack.spacing = 20
-        return stack
-    }()
+    private let editorMenuButton = NavigationBarCircleButton()
     
     private var navigationTitleText = "Wordy Word"
     
@@ -77,8 +59,8 @@ class EditorNavigationBar: UIView {
             
             editorMenuButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             editorMenuButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            editorMenuButton.heightAnchor.constraint(equalToConstant: 56),
-            editorMenuButton.widthAnchor.constraint(equalToConstant: 56)
+            editorMenuButton.heightAnchor.constraint(equalToConstant: 58),
+            editorMenuButton.widthAnchor.constraint(equalToConstant: 58)
         ])
     }
 }

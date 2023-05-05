@@ -16,7 +16,6 @@ class TextEditorCapsuleView: UIView {
 
     private let textEditor = EditorTextView()
     private let buttonStack = ButtonAndLabelStack()
-    private let editorStack = EditorStackView()
     private let buttonScrollview = UIScrollView()
     private let pasteButton = PillButtonImageWithText()
     private let characterLabel = PillLabelsWithStroke()
@@ -31,14 +30,16 @@ class TextEditorCapsuleView: UIView {
     
     private var editingText = "" { didSet { } }
     
+    private let editorPlaceholderText = "Enter or paste your text here"
+    
     weak var delegate: TextEditorCapsuleViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         configureView()
-//        prepareViews()
-//        layoutUI()
+        prepareViews()
+        layoutUI()
     }
     
     required init(coder: NSCoder) {
@@ -47,12 +48,11 @@ class TextEditorCapsuleView: UIView {
     
     private func prepareViews() {
         
-        let labelInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        let labelInsets = UIEdgeInsets(top: 15, left: 30, bottom: 15, right: 30)
         
-        textEditor.text = "Enter or paste your text here"
+        textEditor.text = editingText
         textEditor.textColor = .text.editor
-        
-        pasteButton.backgroundColor = .button.paste
+                
         pasteButton.setTitleColor(.text.white, for: .normal)
         pasteButton.setImage(UIImage(systemName: "doc.on.doc"), for: .normal)
         pasteButton.setTitle("Paste", for: .normal)
@@ -76,30 +76,118 @@ class TextEditorCapsuleView: UIView {
     private func configureView() {
         
         self.backgroundColor = .background.quarternary
-        self.layer.cornerRadius = 40
+        self.layer.cornerRadius = 50
         self.layer.masksToBounds = true
+        
+        textEditor.delegate = self
     }
     
     private func layoutUI() {
         
         textEditor.translatesAutoresizingMaskIntoConstraints = false
+        
         buttonScrollview.translatesAutoresizingMaskIntoConstraints = false
+        buttonStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        pasteButton.translatesAutoresizingMaskIntoConstraints = false
+        characterLabel.translatesAutoresizingMaskIntoConstraints = false
+        wordLabel.translatesAutoresizingMaskIntoConstraints = false
+        sentenceLabel.translatesAutoresizingMaskIntoConstraints = false
+        paragraphLabel.translatesAutoresizingMaskIntoConstraints = false
                 
-        buttonStack.insertSubview(pasteButton, at: 0)
-        buttonStack.insertSubview(characterLabel, at: 1)
-        buttonStack.insertSubview(wordLabel, at: 2)
-        buttonStack.insertSubview(sentenceLabel, at: 3)
-        buttonStack.insertSubview(paragraphLabel, at: 4)
+        buttonStack.insertArrangedSubview(pasteButton, at: 0)
+        buttonStack.insertArrangedSubview(characterLabel, at: 1)
+        buttonStack.insertArrangedSubview(wordLabel, at: 2)
+        buttonStack.insertArrangedSubview(sentenceLabel, at: 3)
+        buttonStack.insertArrangedSubview(paragraphLabel, at: 4)
         
         buttonScrollview.addSubview(buttonStack)
+
+        self.addSubview(textEditor)
+        self.addSubview(buttonScrollview)
         
-        editorStack.insertSubview(textEditor, at: 1)
-        editorStack.insertSubview(buttonScrollview, at: 2)
+        let padding = 8.0
         
-        self.addSubview(editorStack)
+        NSLayoutConstraint.activate([
+        
+            textEditor.topAnchor.constraint(equalTo: self.topAnchor),
+            textEditor.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            textEditor.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            textEditor.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
+            
+            buttonScrollview.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            buttonScrollview.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            buttonScrollview.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
+            buttonScrollview.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2),
+
+            buttonStack.topAnchor.constraint(equalTo: buttonScrollview.topAnchor),
+            buttonStack.leadingAnchor.constraint(equalTo: buttonScrollview.leadingAnchor),
+            buttonStack.trailingAnchor.constraint(equalTo: buttonScrollview.trailingAnchor),
+            buttonStack.bottomAnchor.constraint(equalTo: buttonScrollview.bottomAnchor),
+
+            characterLabel.heightAnchor.constraint(equalTo: buttonScrollview.heightAnchor, multiplier: 0.9),
+            wordLabel.heightAnchor.constraint(equalTo: buttonScrollview.heightAnchor, multiplier: 0.9),
+            sentenceLabel.heightAnchor.constraint(equalTo: buttonScrollview.heightAnchor, multiplier: 0.9),
+            paragraphLabel.heightAnchor.constraint(equalTo: buttonScrollview.heightAnchor, multiplier: 0.9),
+            
+            pasteButton.heightAnchor.constraint(equalTo: buttonScrollview.heightAnchor, multiplier: 0.9),
+            pasteButton.widthAnchor.constraint(equalToConstant: 130)
+        ])
     }
 }
 
 extension TextEditorCapsuleView: UITextViewDelegate {
     
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        // dismiss the keyboard when the user tap return on the keyboard
+        if(text == "\n") {
+            textEditor.resignFirstResponder()
+            return false
+        }
+        
+        return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        // Remove textview placeholder and switch the text font color to normal when the user begins editing inside the textview
+        if textView.text == editorPlaceholderText {
+            textView.text = ""
+            textView.textColor = .text.editor
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        print("TEXT HAS CHANGED")
+        
+        /*
+            if the texview value changed and textview color is not in placeholder color,
+            set the textview value to editing text variable
+        */
+        if textView.textColor != .text.placeholder {
+            editingText = textView.text
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        print("EDITING ENDS")
+        
+        /*
+         if textview text is empty when the user ends editing inside the textview,
+         set placeholder text for the textview and switch back the text color on the textview to placeholder color
+         */
+        if textView.text == "" {
+            textView.text = editorPlaceholderText
+            textView.textColor = .text.placeholder
+        }
+        
+        /*
+         if the textview text color is not in placeholder color
+         run editing text method
+         */
+        if textView.textColor != .text.placeholder {
+
+        }
+    }
 }

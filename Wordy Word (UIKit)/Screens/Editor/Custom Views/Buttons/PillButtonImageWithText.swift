@@ -15,15 +15,22 @@ class PillButtonImageWithText: UIButton {
         configure()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layer.cornerRadius = (self.layer.frame.height / 2)
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     private func configure() {
-        titleLabel?.font = UIFont(name: "Poppins-Medium", size: 16)
-        layer.cornerRadius = 20
-        clipsToBounds = true
-        titleLabel?.adjustsFontSizeToFitWidth = true
-        titleLabel?.minimumScaleFactor = 1.0
+        self.titleLabel?.font = UIFont(name: "Poppins-Medium", size: 16)
+        self.clipsToBounds = true
+        self.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.titleLabel?.minimumScaleFactor = 1.0
+        self.tintColor = .text.white
+        self.backgroundColor = .button.paste
+        self.setTitleColor(.text.white, for: .normal)
     }
 }

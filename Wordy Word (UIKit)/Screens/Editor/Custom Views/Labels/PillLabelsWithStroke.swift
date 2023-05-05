@@ -28,10 +28,11 @@ class PillLabelsWithStroke: UILabel {
         textAlignment = .center
         minimumScaleFactor = 0.7
         font = UIFont(name: "Poppins-Medium", size: 16)
-        layer.cornerRadius = 20
-        layer.borderWidth = 0.7
+        layer.cornerRadius = self.frame.height / 2
+        layer.borderWidth = 1.0
         textColor = .text.black
         layer.borderColor = UIColor.text.black?.cgColor
         clipsToBounds = true
+        backgroundColor = .clear
     }
 }

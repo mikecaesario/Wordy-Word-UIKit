@@ -21,10 +21,10 @@ class ButtonAndLabelStack: UIStackView {
     
     private func configure() {
         axis = .horizontal
-        spacing = 5
+        spacing = 3
         distribution = .fill
         alignment = .leading
-        layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layoutMargins = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)
         isLayoutMarginsRelativeArrangement = true
     }
 }
