@@ -16,7 +16,7 @@ class TextEditorCapsuleView: UIView {
 
     private let textEditor = EditorTextView()
     private let buttonStack = ButtonAndLabelStack()
-    private let buttonScrollview = UIScrollView()
+    private let buttonScrollView = UIScrollView()
     private let pasteButton = PillButtonImageWithText()
     private let characterLabel = PillLabelsWithStroke()
     private let wordLabel = PillLabelsWithStroke()
@@ -50,21 +50,21 @@ class TextEditorCapsuleView: UIView {
         
         let labelInsets = UIEdgeInsets(top: 15, left: 30, bottom: 15, right: 30)
         
-        textEditor.text = editingText
-        textEditor.textColor = .text.editor
+        textEditor.text = editorPlaceholderText
+        textEditor.textColor = .text.placeholder
                 
         pasteButton.setTitleColor(.text.white, for: .normal)
-        pasteButton.setImage(UIImage(systemName: "doc.on.doc"), for: .normal)
+        pasteButton.setImage(UIImage(systemName: "doc.on.clipboard"), for: .normal)
         pasteButton.setTitle("Paste", for: .normal)
         
-        buttonScrollview.alwaysBounceHorizontal = true
-        buttonScrollview.showsHorizontalScrollIndicator = false
+        buttonScrollView.alwaysBounceHorizontal = true
+        buttonScrollView.showsHorizontalScrollIndicator = false
         
         characterLabel.insets = labelInsets
         characterLabel.text = "0 Character"
         
         wordLabel.insets = labelInsets
-        wordLabel.text = "0 word"
+        wordLabel.text = "0 Word"
         
         sentenceLabel.insets = labelInsets
         sentenceLabel.text = "0 Sentence"
@@ -86,7 +86,7 @@ class TextEditorCapsuleView: UIView {
         
         textEditor.translatesAutoresizingMaskIntoConstraints = false
         
-        buttonScrollview.translatesAutoresizingMaskIntoConstraints = false
+        buttonScrollView.translatesAutoresizingMaskIntoConstraints = false
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
         
         pasteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -101,10 +101,10 @@ class TextEditorCapsuleView: UIView {
         buttonStack.insertArrangedSubview(sentenceLabel, at: 3)
         buttonStack.insertArrangedSubview(paragraphLabel, at: 4)
         
-        buttonScrollview.addSubview(buttonStack)
+        buttonScrollView.addSubview(buttonStack)
 
         self.addSubview(textEditor)
-        self.addSubview(buttonScrollview)
+        self.addSubview(buttonScrollView)
         
         let padding = 8.0
         
@@ -113,24 +113,24 @@ class TextEditorCapsuleView: UIView {
             textEditor.topAnchor.constraint(equalTo: self.topAnchor),
             textEditor.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             textEditor.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            textEditor.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
+            textEditor.heightAnchor.constraint(equalToConstant: 250),
             
-            buttonScrollview.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            buttonScrollview.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            buttonScrollview.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
-            buttonScrollview.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2),
+            buttonScrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            buttonScrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            buttonScrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
+            buttonScrollView.heightAnchor.constraint(equalToConstant: 70),
 
-            buttonStack.topAnchor.constraint(equalTo: buttonScrollview.topAnchor),
-            buttonStack.leadingAnchor.constraint(equalTo: buttonScrollview.leadingAnchor),
-            buttonStack.trailingAnchor.constraint(equalTo: buttonScrollview.trailingAnchor),
-            buttonStack.bottomAnchor.constraint(equalTo: buttonScrollview.bottomAnchor),
+            buttonStack.topAnchor.constraint(equalTo: buttonScrollView.topAnchor),
+            buttonStack.leadingAnchor.constraint(equalTo: buttonScrollView.leadingAnchor),
+            buttonStack.trailingAnchor.constraint(equalTo: buttonScrollView.trailingAnchor),
+            buttonStack.bottomAnchor.constraint(equalTo: buttonScrollView.bottomAnchor),
 
-            characterLabel.heightAnchor.constraint(equalTo: buttonScrollview.heightAnchor, multiplier: 0.9),
-            wordLabel.heightAnchor.constraint(equalTo: buttonScrollview.heightAnchor, multiplier: 0.9),
-            sentenceLabel.heightAnchor.constraint(equalTo: buttonScrollview.heightAnchor, multiplier: 0.9),
-            paragraphLabel.heightAnchor.constraint(equalTo: buttonScrollview.heightAnchor, multiplier: 0.9),
+            characterLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
+            wordLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
+            sentenceLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
+            paragraphLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
             
-            pasteButton.heightAnchor.constraint(equalTo: buttonScrollview.heightAnchor, multiplier: 0.9),
+            pasteButton.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
             pasteButton.widthAnchor.constraint(equalToConstant: 130)
         ])
     }

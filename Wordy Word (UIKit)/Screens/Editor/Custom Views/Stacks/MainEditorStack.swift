@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NavBarWithRemoveAndReplaceStack: UIStackView {
+class MainEditorStack: UIStackView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,8 +19,10 @@ class NavBarWithRemoveAndReplaceStack: UIStackView {
     
     private func configure() {
         axis = .vertical
+        spacing = 10
+        distribution = .fill
         alignment = .center
-        distribution = .fillProportionally
-        spacing = 20
+        layoutMargins = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        isLayoutMarginsRelativeArrangement = true
     }
 }
