@@ -30,8 +30,6 @@ class PillLabelsWithStroke: UILabel {
         font = UIFont(name: "Poppins-Medium", size: 16)
         layer.cornerRadius = self.frame.height / 2
         layer.borderWidth = 1.0
-        textColor = .text.black
-        layer.borderColor = UIColor.text.black?.cgColor
         clipsToBounds = true
         backgroundColor = .clear
     }

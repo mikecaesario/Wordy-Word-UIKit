@@ -26,6 +26,7 @@
 		4CABA5092A0015A200442908 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA5082A0015A200442908 /* UIColor+Ext.swift */; };
 		4CC56B502A056799006BE7C2 /* TextResultCapsuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B4F2A056799006BE7C2 /* TextResultCapsuleView.swift */; };
 		4CC56B522A057224006BE7C2 /* ResultTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B512A057224006BE7C2 /* ResultTextView.swift */; };
+		4CC56B552A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B542A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		4CABA5082A0015A200442908 /* UIColor+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		4CC56B4F2A056799006BE7C2 /* TextResultCapsuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextResultCapsuleView.swift; sourceTree = "<group>"; };
 		4CC56B512A057224006BE7C2 /* ResultTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTextView.swift; sourceTree = "<group>"; };
+		4CC56B542A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAndSettingsTabBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 		4CABA4F32A00142A00442908 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4CC56B532A081ABA006BE7C2 /* Tab Bar */,
 				4C176EC92A0020C10024A791 /* Navigation Bar */,
 				4CABA4F52A00155E00442908 /* Text Editor */,
 			);
@@ -224,6 +227,14 @@
 				4CABA5082A0015A200442908 /* UIColor+Ext.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4CC56B532A081ABA006BE7C2 /* Tab Bar */ = {
+			isa = PBXGroup;
+			children = (
+				4CC56B542A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift */,
+			);
+			path = "Tab Bar";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,6 +322,7 @@
 				4CABA5042A00157200442908 /* EditorTextView.swift in Sources */,
 				4C17B92D2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift in Sources */,
 				4C8474732A026FD7006F0930 /* EditorNavigationBar.swift in Sources */,
+				4CC56B552A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift in Sources */,
 				4CC56B522A057224006BE7C2 /* ResultTextView.swift in Sources */,
 				4C397F4E2A000CF8006F8D3C /* SceneDelegate.swift in Sources */,
 			);

@@ -52,27 +52,38 @@ extension TextResultCapsuleView {
         copyButton.setTitleColor(.text.white, for: .normal)
         copyButton.setImage(UIImage(systemName: "doc.on.doc"), for: .normal)
         copyButton.setTitle("Copy", for: .normal)
+        copyButton.tintColor = .text.white
+        copyButton.backgroundColor = .button.copy
+        copyButton.setTitleColor(.text.white, for: .normal)
         
         buttonScrollView.alwaysBounceHorizontal = true
         buttonScrollView.showsHorizontalScrollIndicator = false
         
         characterLabel.insets = labelInsets
         characterLabel.text = "0 Character"
+        characterLabel.textColor = .text.white
+        characterLabel.layer.borderColor = UIColor.text.grey?.cgColor
         
         wordLabel.insets = labelInsets
         wordLabel.text = "0 Word"
+        wordLabel.textColor = .text.white
+        wordLabel.layer.borderColor = UIColor.text.grey?.cgColor
         
         sentenceLabel.insets = labelInsets
         sentenceLabel.text = "0 Sentence"
+        sentenceLabel.textColor = .text.white
+        sentenceLabel.layer.borderColor = UIColor.text.grey?.cgColor
         
         paragraphLabel.insets = labelInsets
         paragraphLabel.text = "0 Paragraph"
+        paragraphLabel.textColor = .text.white
+        paragraphLabel.layer.borderColor = UIColor.text.grey?.cgColor
     }
     
     private func configureView() {
         
         self.backgroundColor = .background.secondary
-        self.layer.cornerRadius = 50
+        self.layer.cornerRadius = 45
         self.layer.masksToBounds = true
     }
     
@@ -100,9 +111,11 @@ extension TextResultCapsuleView {
         self.addSubview(buttonScrollView)
         self.addSubview(textResult)
         
+        let padding = 18.0
+
         NSLayoutConstraint.activate([
         
-            buttonScrollView.topAnchor.constraint(equalTo: self.topAnchor),
+            buttonScrollView.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             buttonScrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             buttonScrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             buttonScrollView.heightAnchor.constraint(equalToConstant: 70),

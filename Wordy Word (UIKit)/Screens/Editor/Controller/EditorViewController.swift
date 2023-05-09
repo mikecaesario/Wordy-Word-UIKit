@@ -16,6 +16,8 @@ class EditorViewController: UIViewController {
     private let textEditorStack = TextEditorCapsuleView()
     private let textResultStack = TextResultCapsuleView()
     
+    private let tabBar = HistoryAndSettingsTabBar()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,10 +37,13 @@ extension EditorViewController {
     private func layoutUI() {
         
         editorNavBar.translatesAutoresizingMaskIntoConstraints = false
+        
         editorScrollView.translatesAutoresizingMaskIntoConstraints = false
         mainEditorStack.translatesAutoresizingMaskIntoConstraints = false
         textEditorStack.translatesAutoresizingMaskIntoConstraints = false
         textResultStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        tabBar.translatesAutoresizingMaskIntoConstraints = false
 
         mainEditorStack.insertArrangedSubview(textEditorStack, at: 0)
         mainEditorStack.insertArrangedSubview(textResultStack, at: 1)
@@ -47,12 +52,15 @@ extension EditorViewController {
         
         view.addSubview(editorNavBar)
         view.addSubview(editorScrollView)
+        view.addSubview(tabBar)
+        
+        tabBar.layer.zPosition = 1
+        editorScrollView.layer.zPosition = 0
         
         let navHorizontalPadding = 18.0
-        let navVerticalPadding = 25.0
+        let navVerticalPadding = 18.0
 
-        let horizontalPadding = 15.0
-        let verticalPadding = 10.0
+        let horizontalPadding = 26.0
         
         NSLayoutConstraint.activate([
             
@@ -61,7 +69,7 @@ extension EditorViewController {
             editorNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -navHorizontalPadding),
             editorNavBar.heightAnchor.constraint(equalToConstant: 60),
             
-            editorScrollView.topAnchor.constraint(equalTo: editorNavBar.topAnchor),
+            editorScrollView.topAnchor.constraint(equalTo: editorNavBar.bottomAnchor, constant: navVerticalPadding),
             editorScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             editorScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             editorScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -70,17 +78,18 @@ extension EditorViewController {
             mainEditorStack.leadingAnchor.constraint(equalTo: editorScrollView.leadingAnchor),
             mainEditorStack.trailingAnchor.constraint(equalTo: editorScrollView.trailingAnchor),
             mainEditorStack.bottomAnchor.constraint(equalTo: editorScrollView.bottomAnchor),
+            mainEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor),
             
             textEditorStack.heightAnchor.constraint(equalToConstant: 320),
-            textEditorStack.widthAnchor.constraint(equalTo: mainEditorStack.widthAnchor),
-            
-            textResultStack.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
-            textResultStack.widthAnchor.constraint(equalTo: mainEditorStack.widthAnchor)
+            textEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
 
-//            textEditorStack.topAnchor.constraint(equalTo: editorNavBar.bottomAnchor, constant: navVerticalPadding),
-//            textEditorStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalPadding),
-//            textEditorStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -horizontalPadding),
-//            textEditorStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.43)
+            textResultStack.heightAnchor.constraint(greaterThanOrEqualToConstant: 400),
+            textResultStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
+            
+            tabBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tabBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tabBar.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            tabBar.heightAnchor.constraint(equalToConstant: 90)
         ])
     }
 }

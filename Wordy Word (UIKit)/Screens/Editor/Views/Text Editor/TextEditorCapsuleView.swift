@@ -56,27 +56,38 @@ class TextEditorCapsuleView: UIView {
         pasteButton.setTitleColor(.text.white, for: .normal)
         pasteButton.setImage(UIImage(systemName: "doc.on.clipboard"), for: .normal)
         pasteButton.setTitle("Paste", for: .normal)
+        pasteButton.tintColor = .text.white
+        pasteButton.backgroundColor = .button.paste
+        pasteButton.setTitleColor(.text.white, for: .normal)
         
         buttonScrollView.alwaysBounceHorizontal = true
         buttonScrollView.showsHorizontalScrollIndicator = false
         
         characterLabel.insets = labelInsets
         characterLabel.text = "0 Character"
+        characterLabel.textColor = .text.black
+        characterLabel.layer.borderColor = UIColor.text.black?.cgColor
         
         wordLabel.insets = labelInsets
         wordLabel.text = "0 Word"
+        wordLabel.textColor = .text.black
+        wordLabel.layer.borderColor = UIColor.text.black?.cgColor
         
         sentenceLabel.insets = labelInsets
         sentenceLabel.text = "0 Sentence"
+        sentenceLabel.textColor = .text.black
+        sentenceLabel.layer.borderColor = UIColor.text.black?.cgColor
         
         paragraphLabel.insets = labelInsets
         paragraphLabel.text = "0 Paragraph"
+        paragraphLabel.textColor = .text.black
+        paragraphLabel.layer.borderColor = UIColor.text.black?.cgColor
     }
     
     private func configureView() {
         
         self.backgroundColor = .background.quarternary
-        self.layer.cornerRadius = 50
+        self.layer.cornerRadius = 45
         self.layer.masksToBounds = true
         
         textEditor.delegate = self
