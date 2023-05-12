@@ -27,6 +27,7 @@
 		4CC56B502A056799006BE7C2 /* TextResultCapsuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B4F2A056799006BE7C2 /* TextResultCapsuleView.swift */; };
 		4CC56B522A057224006BE7C2 /* ResultTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B512A057224006BE7C2 /* ResultTextView.swift */; };
 		4CC56B552A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B542A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift */; };
+		4CC56B572A0C1A99006BE7C2 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B562A0C1A99006BE7C2 /* TabBarButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		4CC56B4F2A056799006BE7C2 /* TextResultCapsuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextResultCapsuleView.swift; sourceTree = "<group>"; };
 		4CC56B512A057224006BE7C2 /* ResultTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTextView.swift; sourceTree = "<group>"; };
 		4CC56B542A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAndSettingsTabBar.swift; sourceTree = "<group>"; };
+		4CC56B562A0C1A99006BE7C2 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +211,7 @@
 			children = (
 				4CABA5002A00157200442908 /* PillButtonImageWithText.swift */,
 				4C17B92C2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift */,
+				4CC56B562A0C1A99006BE7C2 /* TabBarButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */,
 				4C397F502A000CF8006F8D3C /* EditorViewController.swift in Sources */,
 				4CABA5012A00157200442908 /* PillLabelsWithStroke.swift in Sources */,
+				4CC56B572A0C1A99006BE7C2 /* TabBarButton.swift in Sources */,
 				4CC56B502A056799006BE7C2 /* TextResultCapsuleView.swift in Sources */,
 				4C397F4C2A000CF8006F8D3C /* AppDelegate.swift in Sources */,
 				4CABA5022A00157200442908 /* ButtonAndLabelStack.swift in Sources */,

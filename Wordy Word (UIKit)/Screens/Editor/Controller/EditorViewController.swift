@@ -31,6 +31,9 @@ extension EditorViewController {
     private func configureView() {
         
         view.backgroundColor = .background.primary
+        editorScrollView.alwaysBounceVertical = true
+        editorScrollView.showsVerticalScrollIndicator = false
+        
         editorNavBar.delegate = self
     }
     
@@ -58,7 +61,7 @@ extension EditorViewController {
         editorScrollView.layer.zPosition = 0
         
         let navHorizontalPadding = 18.0
-        let navVerticalPadding = 18.0
+        let navVerticalPadding = 15.0
 
         let horizontalPadding = 26.0
         
@@ -80,7 +83,7 @@ extension EditorViewController {
             mainEditorStack.bottomAnchor.constraint(equalTo: editorScrollView.bottomAnchor),
             mainEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor),
             
-            textEditorStack.heightAnchor.constraint(equalToConstant: 320),
+            textEditorStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
             textEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
 
             textResultStack.heightAnchor.constraint(greaterThanOrEqualToConstant: 400),
@@ -88,8 +91,8 @@ extension EditorViewController {
             
             tabBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             tabBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tabBar.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
-            tabBar.heightAnchor.constraint(equalToConstant: 90)
+            tabBar.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.45),
+            tabBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1)
         ])
     }
 }

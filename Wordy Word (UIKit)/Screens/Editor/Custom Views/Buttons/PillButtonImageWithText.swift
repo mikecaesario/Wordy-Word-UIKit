@@ -29,9 +29,6 @@ class PillButtonImageWithText: UIButton {
         self.clipsToBounds = true
         self.titleLabel?.adjustsFontSizeToFitWidth = true
         self.titleLabel?.minimumScaleFactor = 1.0
-//        self.tintColor = .text.white
-//        self.backgroundColor = .button.paste
-//        self.setTitleColor(.text.white, for: .normal)
         self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
         self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
     }

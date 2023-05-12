@@ -8,37 +8,14 @@
 import UIKit
 
 protocol HistoryAndSettingsTabBarDelegate: AnyObject {
-    
+    func didTappedHistoryButton()
+    func didTappedSettingsButton()
 }
 
 class HistoryAndSettingsTabBar: UIView {
 
-    private let buttonStack: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.spacing = 10
-        stack.distribution = .fill
-        stack.alignment = .center
-        return stack
-    }()
-    
-    private let historyButton: UIButton = {
-        let button = UIButton()
-        let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .light, scale: .medium)
-        button.setImage(UIImage(systemName: "book", withConfiguration: config), for: .normal)
-        button.tintColor = .text.black
-        button.backgroundColor = .button.primary
-        return button
-    }()
-    
-    private let settingsButton: UIButton = {
-        let button = UIButton()
-        let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .light, scale: .medium)
-        button.setImage(UIImage(systemName: "gearshape", withConfiguration: config), for: .normal)
-        button.tintColor = .text.black
-        button.backgroundColor = .button.primary
-        return button
-    }()
+    private let historyButton = TabBarButton()
+    private let settingsButton = TabBarButton()
     
     weak var delegate: HistoryAndSettingsTabBarDelegate?
     
@@ -53,51 +30,57 @@ class HistoryAndSettingsTabBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.layer.cornerRadius = self.layer.frame.height / 2.0
+        self.layer.masksToBounds = true
+    }
+    
     private func configureView() {
         
         self.backgroundColor = .gray
-        self.layer.cornerRadius = 45
-        self.layer.masksToBounds = true
+  
+        let config = UIImage.SymbolConfiguration(pointSize: 26, weight: .light, scale: .medium)
         
-        historyButton.layer.cornerRadius = self.frame.height / 2
-        settingsButton.layer.cornerRadius = self.frame.height / 2
+        historyButton.setImage(UIImage(systemName: "book", withConfiguration: config), for: .normal)
+        historyButton.addTarget(self, action: #selector(callForHistorySegue), for: .touchUpInside)
+        historyButton.backgroundColor = .background.thirtiary
         
-        historyButton.addTarget(self, action: #selector(didTappedHistoryButton), for: .touchUpInside)
-        settingsButton.addTarget(self, action: #selector(didTappedSettingsButton), for: .touchUpInside)
+        settingsButton.setImage(UIImage(systemName: "gearshape", withConfiguration: config), for: .normal)
+        settingsButton.addTarget(self, action: #selector(callForSettingsSegue), for: .touchUpInside)
+        settingsButton.backgroundColor = .button.secondary
     }
     
     private func layoutUI() {
         
-        buttonStack.translatesAutoresizingMaskIntoConstraints = false
         historyButton.translatesAutoresizingMaskIntoConstraints = false
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
         
-        buttonStack.insertArrangedSubview(historyButton, at: 0)
-        buttonStack.insertArrangedSubview(settingsButton, at: 1)
-        
-        self.addSubview(buttonStack)
-        
-        let buttonHeightAndWidth = self.frame.width / 2.2
+        self.addSubview(historyButton)
+        self.addSubview(settingsButton)
+                
+        let padding = 5.0
+        let multiplier = 0.9
         
         NSLayoutConstraint.activate([
         
-            buttonStack.topAnchor.constraint(equalTo: self.topAnchor),
-            buttonStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            buttonStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            buttonStack.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            
-            historyButton.heightAnchor.constraint(equalToConstant: buttonHeightAndWidth),
-            historyButton.widthAnchor.constraint(equalToConstant: buttonHeightAndWidth),
-            
-            settingsButton.heightAnchor.constraint(equalToConstant: buttonHeightAndWidth),
-            settingsButton.widthAnchor.constraint(equalToConstant: buttonHeightAndWidth)
+            historyButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            historyButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            historyButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier),
+            historyButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier),
+
+            settingsButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            settingsButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            settingsButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier),
+            settingsButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier),
         ])
     }
 }
 
 extension HistoryAndSettingsTabBar {
     
-    @objc private func didTappedHistoryButton() { }
+    @objc private func callForHistorySegue() { delegate?.didTappedHistoryButton() }
     
-    @objc private func didTappedSettingsButton() { }
+    @objc private func callForSettingsSegue() { delegate?.didTappedSettingsButton() }
 }
