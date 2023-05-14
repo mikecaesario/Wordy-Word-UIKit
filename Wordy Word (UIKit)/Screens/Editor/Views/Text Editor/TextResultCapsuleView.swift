@@ -136,7 +136,6 @@ extension TextResultCapsuleView {
             textResult.topAnchor.constraint(equalTo: buttonScrollView.bottomAnchor),
             textResult.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             textResult.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            textResult.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
 }

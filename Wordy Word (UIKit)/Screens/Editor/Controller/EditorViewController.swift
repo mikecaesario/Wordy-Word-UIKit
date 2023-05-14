@@ -35,6 +35,8 @@ extension EditorViewController {
         editorScrollView.showsVerticalScrollIndicator = false
         
         editorNavBar.delegate = self
+        textEditorStack.delegate = self
+        tabBar.delegate = self
     }
     
     private func layoutUI() {
@@ -86,7 +88,7 @@ extension EditorViewController {
             textEditorStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
             textEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
 
-            textResultStack.heightAnchor.constraint(greaterThanOrEqualToConstant: 400),
+            textResultStack.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
             textResultStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
             
             tabBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -103,4 +105,28 @@ extension EditorViewController: EditorNavigationBarDelegate {
         print("MENU BUTTON TAPPED")
     }
     
+}
+
+extension EditorViewController: TextEditorCapsuleViewDelegate {
+    
+    func didFinishInputingText(text: String) {
+        
+    }
+    
+    func didFinishPastingText(text: String) {
+        
+    }
+   
+}
+
+extension EditorViewController: HistoryAndSettingsTabBarDelegate {
+    
+    func didTappedHistoryButton() {
+        print("DID TAP HISTORY BUTTON")
+    }
+    
+    func didTappedSettingsButton() {
+        print("DID TAP SETTINGS BUTTON")
+    }
+   
 }
