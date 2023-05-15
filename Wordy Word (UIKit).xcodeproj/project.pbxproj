@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B92A2A02B59B00FA7FB3 /* MainEditorStack.swift */; };
 		4C17B92D2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B92C2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift */; };
+		4C389CAA2A128C34003C015F /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C389CA92A128C34003C015F /* String+Ext.swift */; };
 		4C397F4C2A000CF8006F8D3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C397F4B2A000CF8006F8D3C /* AppDelegate.swift */; };
 		4C397F4E2A000CF8006F8D3C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C397F4D2A000CF8006F8D3C /* SceneDelegate.swift */; };
 		4C397F502A000CF8006F8D3C /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C397F4F2A000CF8006F8D3C /* EditorViewController.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		4C17B92A2A02B59B00FA7FB3 /* MainEditorStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEditorStack.swift; sourceTree = "<group>"; };
 		4C17B92C2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarCircleButton.swift; sourceTree = "<group>"; };
+		4C389CA92A128C34003C015F /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		4C397F482A000CF8006F8D3C /* Wordy Word (UIKit).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wordy Word (UIKit).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C397F4B2A000CF8006F8D3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C397F4D2A000CF8006F8D3C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				4CABA5082A0015A200442908 /* UIColor+Ext.swift */,
+				4C389CA92A128C34003C015F /* String+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				4CABA5052A00157200442908 /* PillButtonImageWithText.swift in Sources */,
 				4CABA5092A0015A200442908 /* UIColor+Ext.swift in Sources */,
 				4CABA5042A00157200442908 /* EditorTextView.swift in Sources */,
+				4C389CAA2A128C34003C015F /* String+Ext.swift in Sources */,
 				4C17B92D2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift in Sources */,
 				4C8474732A026FD7006F0930 /* EditorNavigationBar.swift in Sources */,
 				4CC56B552A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift in Sources */,

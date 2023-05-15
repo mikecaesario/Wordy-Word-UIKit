@@ -87,7 +87,7 @@ class TextEditorCapsuleView: UIView {
     private func configureView() {
         
         self.backgroundColor = .background.quarternary
-        self.layer.cornerRadius = 45
+        self.layer.cornerRadius = 50
         self.layer.masksToBounds = true
         
         textEditor.delegate = self

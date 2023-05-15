@@ -50,17 +50,18 @@ class EditorNavigationBar: UIView {
         
         self.addSubview(navigationTitle)
         self.addSubview(editorMenuButton)
-        
+                
         NSLayoutConstraint.activate([
             
             navigationTitle.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             navigationTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            navigationTitle.trailingAnchor.constraint(equalTo: editorMenuButton.trailingAnchor, constant: -10),
+            navigationTitle.trailingAnchor.constraint(equalTo: editorMenuButton.leadingAnchor, constant: -10),
             
             editorMenuButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             editorMenuButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            editorMenuButton.heightAnchor.constraint(equalToConstant: 58),
-            editorMenuButton.widthAnchor.constraint(equalToConstant: 58)
+            editorMenuButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.85),
+            editorMenuButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.85),
+
         ])
     }
 }
