@@ -29,6 +29,10 @@
 		4CC56B522A057224006BE7C2 /* ResultTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B512A057224006BE7C2 /* ResultTextView.swift */; };
 		4CC56B552A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B542A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift */; };
 		4CC56B572A0C1A99006BE7C2 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B562A0C1A99006BE7C2 /* TabBarButton.swift */; };
+		4CF53A702A13ED6D0038E043 /* EditingStyleEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A6F2A13ED6D0038E043 /* EditingStyleEnum.swift */; };
+		4CF53A732A13EDAE0038E043 /* HistoryDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A722A13EDAE0038E043 /* HistoryDataService.swift */; };
+		4CF53A762A13EDD40038E043 /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A752A13EDD40038E043 /* HistoryItem.swift */; };
+		4CF53A782A13EE030038E043 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A772A13EE030038E043 /* Date+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +60,10 @@
 		4CC56B512A057224006BE7C2 /* ResultTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTextView.swift; sourceTree = "<group>"; };
 		4CC56B542A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAndSettingsTabBar.swift; sourceTree = "<group>"; };
 		4CC56B562A0C1A99006BE7C2 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
+		4CF53A6F2A13ED6D0038E043 /* EditingStyleEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingStyleEnum.swift; sourceTree = "<group>"; };
+		4CF53A722A13EDAE0038E043 /* HistoryDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataService.swift; sourceTree = "<group>"; };
+		4CF53A752A13EDD40038E043 /* HistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItem.swift; sourceTree = "<group>"; };
+		4CF53A772A13EE030038E043 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +104,8 @@
 		4C397F4A2A000CF8006F8D3C /* Wordy Word (UIKit) */ = {
 			isa = PBXGroup;
 			children = (
+				4CF53A742A13EDB80038E043 /* Models */,
+				4CF53A712A13EDA00038E043 /* Services */,
 				4CABA5062A00158F00442908 /* Utilities */,
 				4CABA4F02A00138D00442908 /* Screens */,
 				4C397F5F2A000D6D006F8D3C /* Resources */,
@@ -137,7 +147,7 @@
 			children = (
 				4CABA4F22A00141F00442908 /* Controller */,
 				4CABA4F32A00142A00442908 /* Views */,
-				4CABA4F42A00143100442908 /* Custom Views */,
+				4CABA4F42A00143100442908 /* Components */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -160,7 +170,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		4CABA4F42A00143100442908 /* Custom Views */ = {
+		4CABA4F42A00143100442908 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				4CABA4FF2A00157200442908 /* Buttons */,
@@ -168,7 +178,7 @@
 				4CABA4FA2A00157200442908 /* Stacks */,
 				4CABA4FD2A00157200442908 /* TextViews */,
 			);
-			path = "Custom Views";
+			path = Components;
 			sourceTree = "<group>";
 		};
 		4CABA4F52A00155E00442908 /* Text Editor */ = {
@@ -221,6 +231,7 @@
 		4CABA5062A00158F00442908 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4CF53A6E2A13ED4C0038E043 /* Enums */,
 				4CABA5072A0015A200442908 /* Extensions */,
 			);
 			path = Utilities;
@@ -231,6 +242,7 @@
 			children = (
 				4CABA5082A0015A200442908 /* UIColor+Ext.swift */,
 				4C389CA92A128C34003C015F /* String+Ext.swift */,
+				4CF53A772A13EE030038E043 /* Date+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -241,6 +253,30 @@
 				4CC56B542A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift */,
 			);
 			path = "Tab Bar";
+			sourceTree = "<group>";
+		};
+		4CF53A6E2A13ED4C0038E043 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				4CF53A6F2A13ED6D0038E043 /* EditingStyleEnum.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		4CF53A712A13EDA00038E043 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4CF53A722A13EDAE0038E043 /* HistoryDataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4CF53A742A13EDB80038E043 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4CF53A752A13EDD40038E043 /* HistoryItem.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,6 +353,8 @@
 				4C8474752A027016006F0930 /* NavigationBarLabel.swift in Sources */,
 				4CABA5032A00157200442908 /* EditorStackView.swift in Sources */,
 				4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */,
+				4CF53A702A13ED6D0038E043 /* EditingStyleEnum.swift in Sources */,
+				4CF53A782A13EE030038E043 /* Date+Ext.swift in Sources */,
 				4C397F502A000CF8006F8D3C /* EditorViewController.swift in Sources */,
 				4CABA5012A00157200442908 /* PillLabelsWithStroke.swift in Sources */,
 				4CC56B572A0C1A99006BE7C2 /* TabBarButton.swift in Sources */,
@@ -326,7 +364,9 @@
 				4CABA4F72A00155E00442908 /* TextEditorCapsuleView.swift in Sources */,
 				4CABA5052A00157200442908 /* PillButtonImageWithText.swift in Sources */,
 				4CABA5092A0015A200442908 /* UIColor+Ext.swift in Sources */,
+				4CF53A732A13EDAE0038E043 /* HistoryDataService.swift in Sources */,
 				4CABA5042A00157200442908 /* EditorTextView.swift in Sources */,
+				4CF53A762A13EDD40038E043 /* HistoryItem.swift in Sources */,
 				4C389CAA2A128C34003C015F /* String+Ext.swift in Sources */,
 				4C17B92D2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift in Sources */,
 				4C8474732A026FD7006F0930 /* EditorNavigationBar.swift in Sources */,

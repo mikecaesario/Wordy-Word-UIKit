@@ -99,6 +99,44 @@ extension EditorViewController {
     }
 }
 
+extension EditorTextView {
+    
+    private func startEditText(text: String?, editingStyle: EditingStyleEnum?, remove: [String]?, find: String?, replace: String?) {
+            
+        guard let text = text, text != "", let style = editingStyle else { return }
+        
+        var result = ""
+        
+        switch style {
+        case .capitalize:
+            result = text.capitalized
+        case .title:
+            result = text.capitalizeSentences()
+        case .upper:
+            result = text.uppercased()
+        case .lower:
+            result = text.lowercased()
+        case .replace:
+            
+            guard let find = find, let replace = replace else { return }
+            
+            result = text.replaceCharacter(find: find, replaceWith: replace)
+            
+        case .remove:
+            
+            guard let remove = remove else { return }
+
+            result = text.removeCharacter(remove: remove)
+        case .reverse:
+            result = String(text.reversed())
+        }
+        
+        resultText = result
+        
+        dataService.didFinishEditingNowAppendingHistoryItem(editingText: text, editingResult: result, editingStyle: style)
+    }
+}
+
 extension EditorViewController: EditorNavigationBarDelegate {
     
     func didTapMenuButton() {
