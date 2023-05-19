@@ -9,13 +9,7 @@ import Foundation
 
 class HistoryDataService {
     
-    var history: [HistoryItems] = []
     private let fileName = "historyItems.json"
-    
-    init() {
-        history = fetchHistoryItemsFromJSON()
-        print("INITIALIZING DATA SERVICE")
-    }
     
     func fetchHistoryItemsFromJSON() -> [HistoryItems] {
         

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C10676B2A168A9700797AC9 /* RemoveButtonStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C10676A2A168A9700797AC9 /* RemoveButtonStack.swift */; };
 		4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B92A2A02B59B00FA7FB3 /* MainEditorStack.swift */; };
 		4C17B92D2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B92C2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift */; };
 		4C389CAA2A128C34003C015F /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C389CA92A128C34003C015F /* String+Ext.swift */; };
@@ -14,6 +15,7 @@
 		4C397F4E2A000CF8006F8D3C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C397F4D2A000CF8006F8D3C /* SceneDelegate.swift */; };
 		4C397F502A000CF8006F8D3C /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C397F4F2A000CF8006F8D3C /* EditorViewController.swift */; };
 		4C397F552A000CFA006F8D3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C397F542A000CFA006F8D3C /* Assets.xcassets */; };
+		4C6551E52A1695530059F92A /* PillButtonWithStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6551E42A1695530059F92A /* PillButtonWithStroke.swift */; };
 		4C8474732A026FD7006F0930 /* EditorNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8474722A026FD7006F0930 /* EditorNavigationBar.swift */; };
 		4C8474752A027016006F0930 /* NavigationBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8474742A027016006F0930 /* NavigationBarLabel.swift */; };
 		4CABA4EE2A00111700442908 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CABA4EC2A00111700442908 /* Poppins-Medium.ttf */; };
@@ -36,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C10676A2A168A9700797AC9 /* RemoveButtonStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveButtonStack.swift; sourceTree = "<group>"; };
 		4C17B92A2A02B59B00FA7FB3 /* MainEditorStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEditorStack.swift; sourceTree = "<group>"; };
 		4C17B92C2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarCircleButton.swift; sourceTree = "<group>"; };
 		4C389CA92A128C34003C015F /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
@@ -45,6 +48,7 @@
 		4C397F4F2A000CF8006F8D3C /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		4C397F542A000CFA006F8D3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C397F592A000CFA006F8D3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C6551E42A1695530059F92A /* PillButtonWithStroke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButtonWithStroke.swift; sourceTree = "<group>"; };
 		4C8474722A026FD7006F0930 /* EditorNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBar.swift; sourceTree = "<group>"; };
 		4C8474742A027016006F0930 /* NavigationBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarLabel.swift; sourceTree = "<group>"; };
 		4CABA4EC2A00111700442908 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
@@ -77,6 +81,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C1067692A168A6F00797AC9 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				4C10676A2A168A9700797AC9 /* RemoveButtonStack.swift */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
 		4C176EC92A0020C10024A791 /* Navigation Bar */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +175,7 @@
 		4CABA4F32A00142A00442908 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C1067692A168A6F00797AC9 /* Button */,
 				4CC56B532A081ABA006BE7C2 /* Tab Bar */,
 				4C176EC92A0020C10024A791 /* Navigation Bar */,
 				4CABA4F52A00155E00442908 /* Text Editor */,
@@ -224,6 +237,7 @@
 				4CABA5002A00157200442908 /* PillButtonImageWithText.swift */,
 				4C17B92C2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift */,
 				4CC56B562A0C1A99006BE7C2 /* TabBarButton.swift */,
+				4C6551E42A1695530059F92A /* PillButtonWithStroke.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -352,9 +366,11 @@
 			files = (
 				4C8474752A027016006F0930 /* NavigationBarLabel.swift in Sources */,
 				4CABA5032A00157200442908 /* EditorStackView.swift in Sources */,
+				4C10676B2A168A9700797AC9 /* RemoveButtonStack.swift in Sources */,
 				4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */,
 				4CF53A702A13ED6D0038E043 /* EditingStyleEnum.swift in Sources */,
 				4CF53A782A13EE030038E043 /* Date+Ext.swift in Sources */,
+				4C6551E52A1695530059F92A /* PillButtonWithStroke.swift in Sources */,
 				4C397F502A000CF8006F8D3C /* EditorViewController.swift in Sources */,
 				4CABA5012A00157200442908 /* PillLabelsWithStroke.swift in Sources */,
 				4CC56B572A0C1A99006BE7C2 /* TabBarButton.swift in Sources */,

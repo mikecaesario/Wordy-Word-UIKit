@@ -13,10 +13,33 @@ class EditorViewController: UIViewController {
     
     private let editorScrollView = UIScrollView()
     private let mainEditorStack = MainEditorStack()
+    private let removeButtonStack = RemoveButtonStack()
     private let textEditorStack = TextEditorCapsuleView()
     private let textResultStack = TextResultCapsuleView()
     
     private let tabBar = HistoryAndSettingsTabBar()
+    
+    private let historyDataService: HistoryDataService
+    
+    private var editingText: String? {
+        didSet {
+            
+        }
+    }
+    
+    private var editingStyle: EditingStyleEnum? {
+        didSet {
+            
+        }
+    }
+    
+    init(historyDataService: HistoryDataService) {
+        self.historyDataService = historyDataService
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,13 +68,15 @@ extension EditorViewController {
         
         editorScrollView.translatesAutoresizingMaskIntoConstraints = false
         mainEditorStack.translatesAutoresizingMaskIntoConstraints = false
+        removeButtonStack.translatesAutoresizingMaskIntoConstraints = false
         textEditorStack.translatesAutoresizingMaskIntoConstraints = false
         textResultStack.translatesAutoresizingMaskIntoConstraints = false
         
         tabBar.translatesAutoresizingMaskIntoConstraints = false
 
-        mainEditorStack.insertArrangedSubview(textEditorStack, at: 0)
-        mainEditorStack.insertArrangedSubview(textResultStack, at: 1)
+        mainEditorStack.insertArrangedSubview(removeButtonStack, at: 0)
+        mainEditorStack.insertArrangedSubview(textEditorStack, at: 1)
+        mainEditorStack.insertArrangedSubview(textResultStack, at: 2)
         
         editorScrollView.addSubview(mainEditorStack)
         
@@ -85,6 +110,9 @@ extension EditorViewController {
             mainEditorStack.bottomAnchor.constraint(equalTo: editorScrollView.bottomAnchor),
             mainEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor),
             
+            removeButtonStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
+            removeButtonStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor),
+            
             textEditorStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
             textEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
 
@@ -96,6 +124,18 @@ extension EditorViewController {
             tabBar.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.45),
             tabBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1)
         ])
+    }
+    
+    // hide or unhide view inside a stackview
+    private func hideView(hide: Bool, view: UIView, stack: UIStackView) {
+        
+        UIView.animate(withDuration: 0.3, delay: 0) {
+            view.alpha = hide ? 0 : 1
+            view.isHidden = hide
+            stack.layoutIfNeeded()
+        } completion: { _ in
+            view.isHidden = hide
+        }
     }
 }
 
@@ -143,6 +183,13 @@ extension EditorViewController: EditorNavigationBarDelegate {
         print("MENU BUTTON TAPPED")
     }
     
+}
+
+extension EditorTextView: RemoveButtonStackDelegate {
+    
+    func didFinishAddingRemovingItem(itemToRemove: [String]) {
+        <#code#>
+    }
 }
 
 extension EditorViewController: TextEditorCapsuleViewDelegate {
