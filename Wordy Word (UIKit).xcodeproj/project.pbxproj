@@ -27,6 +27,8 @@
 		4CABA5042A00157200442908 /* EditorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA4FE2A00157200442908 /* EditorTextView.swift */; };
 		4CABA5052A00157200442908 /* PillButtonImageWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA5002A00157200442908 /* PillButtonImageWithText.swift */; };
 		4CABA5092A0015A200442908 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA5082A0015A200442908 /* UIColor+Ext.swift */; };
+		4CBAB0772A1D187E00342EAC /* ReplaceTextfieldStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBAB0762A1D187E00342EAC /* ReplaceTextfieldStack.swift */; };
+		4CBAB07A2A1D1B9500342EAC /* PillTextfields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBAB0792A1D1B9500342EAC /* PillTextfields.swift */; };
 		4CC56B502A056799006BE7C2 /* TextResultCapsuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B4F2A056799006BE7C2 /* TextResultCapsuleView.swift */; };
 		4CC56B522A057224006BE7C2 /* ResultTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B512A057224006BE7C2 /* ResultTextView.swift */; };
 		4CC56B552A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B542A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift */; };
@@ -60,6 +62,8 @@
 		4CABA4FE2A00157200442908 /* EditorTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTextView.swift; sourceTree = "<group>"; };
 		4CABA5002A00157200442908 /* PillButtonImageWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PillButtonImageWithText.swift; sourceTree = "<group>"; };
 		4CABA5082A0015A200442908 /* UIColor+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		4CBAB0762A1D187E00342EAC /* ReplaceTextfieldStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceTextfieldStack.swift; sourceTree = "<group>"; };
+		4CBAB0792A1D1B9500342EAC /* PillTextfields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillTextfields.swift; sourceTree = "<group>"; };
 		4CC56B4F2A056799006BE7C2 /* TextResultCapsuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextResultCapsuleView.swift; sourceTree = "<group>"; };
 		4CC56B512A057224006BE7C2 /* ResultTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTextView.swift; sourceTree = "<group>"; };
 		4CC56B542A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAndSettingsTabBar.swift; sourceTree = "<group>"; };
@@ -175,6 +179,7 @@
 		4CABA4F32A00142A00442908 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4CBAB0752A1D186000342EAC /* Textfield */,
 				4C1067692A168A6F00797AC9 /* Button */,
 				4CC56B532A081ABA006BE7C2 /* Tab Bar */,
 				4C176EC92A0020C10024A791 /* Navigation Bar */,
@@ -186,6 +191,7 @@
 		4CABA4F42A00143100442908 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4CBAB0782A1D1B6900342EAC /* Textfields */,
 				4CABA4FF2A00157200442908 /* Buttons */,
 				4CABA4F82A00157200442908 /* Labels */,
 				4CABA4FA2A00157200442908 /* Stacks */,
@@ -259,6 +265,22 @@
 				4CF53A772A13EE030038E043 /* Date+Ext.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4CBAB0752A1D186000342EAC /* Textfield */ = {
+			isa = PBXGroup;
+			children = (
+				4CBAB0762A1D187E00342EAC /* ReplaceTextfieldStack.swift */,
+			);
+			path = Textfield;
+			sourceTree = "<group>";
+		};
+		4CBAB0782A1D1B6900342EAC /* Textfields */ = {
+			isa = PBXGroup;
+			children = (
+				4CBAB0792A1D1B9500342EAC /* PillTextfields.swift */,
+			);
+			path = Textfields;
 			sourceTree = "<group>";
 		};
 		4CC56B532A081ABA006BE7C2 /* Tab Bar */ = {
@@ -371,6 +393,7 @@
 				4CF53A702A13ED6D0038E043 /* EditingStyleEnum.swift in Sources */,
 				4CF53A782A13EE030038E043 /* Date+Ext.swift in Sources */,
 				4C6551E52A1695530059F92A /* PillButtonWithStroke.swift in Sources */,
+				4CBAB0772A1D187E00342EAC /* ReplaceTextfieldStack.swift in Sources */,
 				4C397F502A000CF8006F8D3C /* EditorViewController.swift in Sources */,
 				4CABA5012A00157200442908 /* PillLabelsWithStroke.swift in Sources */,
 				4CC56B572A0C1A99006BE7C2 /* TabBarButton.swift in Sources */,
@@ -383,6 +406,7 @@
 				4CF53A732A13EDAE0038E043 /* HistoryDataService.swift in Sources */,
 				4CABA5042A00157200442908 /* EditorTextView.swift in Sources */,
 				4CF53A762A13EDD40038E043 /* HistoryItem.swift in Sources */,
+				4CBAB07A2A1D1B9500342EAC /* PillTextfields.swift in Sources */,
 				4C389CAA2A128C34003C015F /* String+Ext.swift in Sources */,
 				4C17B92D2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift in Sources */,
 				4C8474732A026FD7006F0930 /* EditorNavigationBar.swift in Sources */,

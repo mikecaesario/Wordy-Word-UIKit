@@ -16,6 +16,10 @@ extension UIColor {
         static let quarternary = UIColor(named: "QuarternaryBackgroundColor")
     }
     
+    struct accent {
+        static let secondary = UIColor(named: "SecondaryAccentColor")
+    }
+    
     struct button {
         static let primary = UIColor(named: "ButtonPrimaryColor")
         static let secondary = UIColor(named: "ButtonSecondaryColor")

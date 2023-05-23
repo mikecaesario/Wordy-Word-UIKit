@@ -30,9 +30,9 @@ class HistoryDataService {
         }
     }
     
-    func saveHistoryItemsToJSON() {
+    func saveHistoryItemsToJSON(history: [HistoryItems]?) {
         
-        guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first, let history = history else { return }
         let fileUrl = url.appendingPathComponent(fileName)
         
         let items = Array(history.suffix(25))
@@ -47,8 +47,9 @@ class HistoryDataService {
         }
     }
     
-    func didFinishEditingNowAppendingHistoryItem(editingText: String, editingResult: String, editingStyle: EditingStyleEnum) {
-        
+    func didFinishEditingNowAppendingHistoryItem(history: [HistoryItems], editingText: String, editingResult: String, editingStyle: EditingStyleEnum) -> [HistoryItems] {
+                
+        var history = history
         let currentDate = Date()
         
         if let matchingDate = history.firstIndex(where: { currentDate.isSameDayAs(otherDate: $0.date) }) {
@@ -58,12 +59,14 @@ class HistoryDataService {
                 let newHistoryResult = HistoryItemResults(timeStamp: currentDate, style: editingStyle.rawValue, result: editingResult)
                 history[matchingDate].items[undeditedItemsAlreadyExistsInTheArrayIndex].result.append(newHistoryResult)
                 print("ADDED RESULT \(history[matchingDate].items[undeditedItemsAlreadyExistsInTheArrayIndex].result.count)")
+                return history
             } else {
                 
                 let newHistoryResult = HistoryItemResults(timeStamp: currentDate, style: editingStyle.rawValue, result: editingResult)
                 let newEditHistoryItem = EditHistoryItem(uneditedItem: editingText, result: [newHistoryResult])
                 history[matchingDate].items.append(newEditHistoryItem)
                 print("ADDED ITEMS \(history[matchingDate].items.count)")
+                return history
             }
             
         } else {
@@ -72,8 +75,8 @@ class HistoryDataService {
             let newEditHistoryItem = EditHistoryItem(uneditedItem: editingText, result: [newHistoryResult])
             let newHistoryItems = HistoryItems(date: currentDate, items: [newEditHistoryItem])
             history.append(newHistoryItems)
-            
             print("ADDED HISTORY ITEMS \(history.count)")
+            return history
         }
     }
 }

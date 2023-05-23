@@ -14,6 +14,7 @@ class EditorViewController: UIViewController {
     private let editorScrollView = UIScrollView()
     private let mainEditorStack = MainEditorStack()
     private let removeButtonStack = RemoveButtonStack()
+    private let replaceTexfieldStack = ReplaceTextfieldStack()
     private let textEditorStack = TextEditorCapsuleView()
     private let textResultStack = TextResultCapsuleView()
     
@@ -22,6 +23,12 @@ class EditorViewController: UIViewController {
     private let historyDataService: HistoryDataService
     
     private var editingText: String? {
+        didSet {
+            
+        }
+    }
+    
+    private var resultText: String? {
         didSet {
             
         }
@@ -188,7 +195,7 @@ extension EditorViewController: EditorNavigationBarDelegate {
 extension EditorTextView: RemoveButtonStackDelegate {
     
     func didFinishAddingRemovingItem(itemToRemove: [String]) {
-        <#code#>
+        
     }
 }
 
