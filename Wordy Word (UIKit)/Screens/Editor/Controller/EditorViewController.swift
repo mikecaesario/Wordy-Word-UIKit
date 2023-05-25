@@ -40,6 +40,8 @@ class EditorViewController: UIViewController {
         }
     }
     
+    private var historyDataArray: [HistoryItems] = []
+    
     init(historyDataService: HistoryDataService) {
         self.historyDataService = historyDataService
     }
@@ -76,14 +78,16 @@ extension EditorViewController {
         editorScrollView.translatesAutoresizingMaskIntoConstraints = false
         mainEditorStack.translatesAutoresizingMaskIntoConstraints = false
         removeButtonStack.translatesAutoresizingMaskIntoConstraints = false
+        replaceTexfieldStack.translatesAutoresizingMaskIntoConstraints = false
         textEditorStack.translatesAutoresizingMaskIntoConstraints = false
         textResultStack.translatesAutoresizingMaskIntoConstraints = false
         
         tabBar.translatesAutoresizingMaskIntoConstraints = false
 
         mainEditorStack.insertArrangedSubview(removeButtonStack, at: 0)
-        mainEditorStack.insertArrangedSubview(textEditorStack, at: 1)
-        mainEditorStack.insertArrangedSubview(textResultStack, at: 2)
+        mainEditorStack.insertArrangedSubview(replaceTexfieldStack, at: 1)
+        mainEditorStack.insertArrangedSubview(textEditorStack, at: 2)
+        mainEditorStack.insertArrangedSubview(textResultStack, at: 3)
         
         editorScrollView.addSubview(mainEditorStack)
         
@@ -96,7 +100,6 @@ extension EditorViewController {
         
         let navHorizontalPadding = 18.0
         let navVerticalPadding = 15.0
-
         let horizontalPadding = 26.0
         
         NSLayoutConstraint.activate([
@@ -117,8 +120,11 @@ extension EditorViewController {
             mainEditorStack.bottomAnchor.constraint(equalTo: editorScrollView.bottomAnchor),
             mainEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor),
             
-            removeButtonStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
+            removeButtonStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
             removeButtonStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor),
+            
+            replaceTexfieldStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
+            replaceTexfieldStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant:  -horizontalPadding),
             
             textEditorStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
             textEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
@@ -146,7 +152,7 @@ extension EditorViewController {
     }
 }
 
-extension EditorTextView {
+extension EditorViewController {
     
     private func startEditText(text: String?, editingStyle: EditingStyleEnum?, remove: [String]?, find: String?, replace: String?) {
             
@@ -180,7 +186,7 @@ extension EditorTextView {
         
         resultText = result
         
-        dataService.didFinishEditingNowAppendingHistoryItem(editingText: text, editingResult: result, editingStyle: style)
+        historyDataArray = historyDataService.didFinishEditingNowAppendingHistoryItem(history: historyDataArray, editingText: text, editingResult: result, editingStyle: style)
     }
 }
 
