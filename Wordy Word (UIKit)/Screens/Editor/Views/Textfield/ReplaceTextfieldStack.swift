@@ -35,6 +35,7 @@ class ReplaceTextfieldStack: UIView {
         super.init(frame: frame)
         
         configureView()
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
@@ -43,7 +44,6 @@ class ReplaceTextfieldStack: UIView {
     
     private func configureView() {
         
-        self.backgroundColor = .clear
         findTextfield.delegate = self
         replaceTextfield.delegate = self
         
@@ -53,7 +53,6 @@ class ReplaceTextfieldStack: UIView {
         textfieldStack.axis = .horizontal
         textfieldStack.distribution = .fillEqually
         textfieldStack.spacing = 10
-        textfieldStack.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         textfieldStack.isLayoutMarginsRelativeArrangement = true
     }
     
@@ -100,10 +99,25 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
             if let text = textField.text {
                 findText = text
             }
+            textField.backgroundColor = .background.secondary
         case replaceTextfield:
             if let text = textField.text {
                 replaceTextWith = text
             }
+            textField.backgroundColor = .background.secondary
+        default:
+            break
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        switch textField {
+            
+        case findTextfield:
+            textField.backgroundColor = .background.thirtiary
+        case replaceTextfield:
+            textField.backgroundColor = .background.thirtiary
         default:
             break
         }

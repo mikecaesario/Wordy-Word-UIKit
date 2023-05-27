@@ -44,6 +44,7 @@ class EditorViewController: UIViewController {
     
     init(historyDataService: HistoryDataService) {
         self.historyDataService = historyDataService
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -120,10 +121,10 @@ extension EditorViewController {
             mainEditorStack.bottomAnchor.constraint(equalTo: editorScrollView.bottomAnchor),
             mainEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor),
             
-            removeButtonStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
+            removeButtonStack.heightAnchor.constraint(equalToConstant: 50),
             removeButtonStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor),
             
-            replaceTexfieldStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
+            replaceTexfieldStack.heightAnchor.constraint(equalToConstant: 50),
             replaceTexfieldStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant:  -horizontalPadding),
             
             textEditorStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
@@ -139,7 +140,7 @@ extension EditorViewController {
         ])
     }
     
-    // hide or unhide view inside a stackview
+    // hide or unhide view inside of a stackview
     private func hideView(hide: Bool, view: UIView, stack: UIStackView) {
         
         UIView.animate(withDuration: 0.3, delay: 0) {

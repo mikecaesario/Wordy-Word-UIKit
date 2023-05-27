@@ -88,8 +88,8 @@ class RemoveButtonStack: UIView {
                 button.addTarget(self, action: #selector(removeButtonAction), for: .touchUpInside)
                 
                 button.translatesAutoresizingMaskIntoConstraints = false
-                button.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.9).isActive = true
-                button.widthAnchor.constraint(equalToConstant: 60).isActive = true
+                button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+                button.widthAnchor.constraint(equalToConstant: 80).isActive = true
                 
                 stackView.insertArrangedSubview(button, at: tag)
             }
@@ -106,8 +106,9 @@ class RemoveButtonStack: UIView {
             
             if let index = pickedRemovedCharacterArray.firstIndex(where: { $0 == choosenCharacterFromButton }) {
                 
-                sender.setTitleColor(.text.black, for: .normal)
-                sender.layer.borderColor = UIColor.text.white?.cgColor
+                sender.setTitleColor(.text.grey, for: .normal)
+                sender.layer.borderColor = UIColor.button.strokeLight?.cgColor
+                sender.backgroundColor = .clear
                 pickedRemovedCharacterArray.remove(at: index)
                 delegate?.didFinishAddingRemovingItem(itemToRemove: pickedRemovedCharacterArray)
                 print(pickedRemovedCharacterArray)
@@ -115,8 +116,9 @@ class RemoveButtonStack: UIView {
             
         } else {
             
-            sender.setTitleColor(.text.grey, for: .normal)
-            sender.layer.borderColor = UIColor.background.thirtiary?.cgColor
+            sender.setTitleColor(.text.black, for: .normal)
+            sender.layer.borderColor = UIColor.text.white?.cgColor
+            sender.backgroundColor = .text.white
             pickedRemovedCharacterArray.append(choosenCharacterFromButton)
             delegate?.didFinishAddingRemovingItem(itemToRemove: pickedRemovedCharacterArray)
             print(pickedRemovedCharacterArray)

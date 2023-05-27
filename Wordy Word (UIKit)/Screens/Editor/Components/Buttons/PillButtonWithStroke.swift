@@ -27,7 +27,7 @@ class PillButtonWithStroke: UIButton {
     private func configure() {
         setTitleColor(.text.grey, for: .normal)
         titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        layer.borderColor = UIColor.background.thirtiary?.cgColor
+        layer.borderColor = UIColor.button.strokeLight?.cgColor
         layer.borderWidth = 1.8
     }
 
