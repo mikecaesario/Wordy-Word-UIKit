@@ -18,6 +18,8 @@
 		4C6551E52A1695530059F92A /* PillButtonWithStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6551E42A1695530059F92A /* PillButtonWithStroke.swift */; };
 		4C8474732A026FD7006F0930 /* EditorNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8474722A026FD7006F0930 /* EditorNavigationBar.swift */; };
 		4C8474752A027016006F0930 /* NavigationBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8474742A027016006F0930 /* NavigationBarLabel.swift */; };
+		4CA67A142A23C00200EACC02 /* EditorStyleMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA67A132A23C00200EACC02 /* EditorStyleMenu.swift */; };
+		4CA67A162A25054300EACC02 /* EditorMenuItemCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA67A152A25054300EACC02 /* EditorMenuItemCellCollectionViewCell.swift */; };
 		4CABA4EE2A00111700442908 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CABA4EC2A00111700442908 /* Poppins-Medium.ttf */; };
 		4CABA4EF2A00111700442908 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CABA4ED2A00111700442908 /* Poppins-SemiBold.ttf */; };
 		4CABA4F72A00155E00442908 /* TextEditorCapsuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA4F62A00155E00442908 /* TextEditorCapsuleView.swift */; };
@@ -53,6 +55,8 @@
 		4C6551E42A1695530059F92A /* PillButtonWithStroke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButtonWithStroke.swift; sourceTree = "<group>"; };
 		4C8474722A026FD7006F0930 /* EditorNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBar.swift; sourceTree = "<group>"; };
 		4C8474742A027016006F0930 /* NavigationBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarLabel.swift; sourceTree = "<group>"; };
+		4CA67A132A23C00200EACC02 /* EditorStyleMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorStyleMenu.swift; sourceTree = "<group>"; };
+		4CA67A152A25054300EACC02 /* EditorMenuItemCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorMenuItemCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		4CABA4EC2A00111700442908 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		4CABA4ED2A00111700442908 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		4CABA4F62A00155E00442908 /* TextEditorCapsuleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorCapsuleView.swift; sourceTree = "<group>"; };
@@ -141,6 +145,22 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		4CA67A122A23BFDF00EACC02 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				4CA67A132A23C00200EACC02 /* EditorStyleMenu.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		4CA67A172A25054C00EACC02 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4CA67A152A25054300EACC02 /* EditorMenuItemCellCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		4CABA4EB2A00111700442908 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +199,8 @@
 		4CABA4F32A00142A00442908 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4CA67A172A25054C00EACC02 /* Cell */,
+				4CA67A122A23BFDF00EACC02 /* Menu */,
 				4CBAB0752A1D186000342EAC /* Textfield */,
 				4C1067692A168A6F00797AC9 /* Button */,
 				4CC56B532A081ABA006BE7C2 /* Tab Bar */,
@@ -387,7 +409,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C8474752A027016006F0930 /* NavigationBarLabel.swift in Sources */,
+				4CA67A142A23C00200EACC02 /* EditorStyleMenu.swift in Sources */,
 				4CABA5032A00157200442908 /* EditorStackView.swift in Sources */,
+				4CA67A162A25054300EACC02 /* EditorMenuItemCellCollectionViewCell.swift in Sources */,
 				4C10676B2A168A9700797AC9 /* RemoveButtonStack.swift in Sources */,
 				4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */,
 				4CF53A702A13ED6D0038E043 /* EditingStyleEnum.swift in Sources */,

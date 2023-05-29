@@ -129,7 +129,7 @@ class TextEditorCapsuleView: UIView {
             buttonScrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             buttonScrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             buttonScrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
-            buttonScrollView.heightAnchor.constraint(equalToConstant: 70),
+            buttonScrollView.heightAnchor.constraint(equalToConstant: 60),
 
             buttonStack.topAnchor.constraint(equalTo: buttonScrollView.topAnchor),
             buttonStack.leadingAnchor.constraint(equalTo: buttonScrollView.leadingAnchor),

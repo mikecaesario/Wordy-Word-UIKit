@@ -88,8 +88,8 @@ class RemoveButtonStack: UIView {
                 button.addTarget(self, action: #selector(removeButtonAction), for: .touchUpInside)
                 
                 button.translatesAutoresizingMaskIntoConstraints = false
-                button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-                button.widthAnchor.constraint(equalToConstant: 80).isActive = true
+                button.heightAnchor.constraint(equalToConstant: 55).isActive = true
+                button.widthAnchor.constraint(equalToConstant: 90).isActive = true
                 
                 stackView.insertArrangedSubview(button, at: tag)
             }

@@ -121,10 +121,10 @@ extension EditorViewController {
             mainEditorStack.bottomAnchor.constraint(equalTo: editorScrollView.bottomAnchor),
             mainEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor),
             
-            removeButtonStack.heightAnchor.constraint(equalToConstant: 50),
+            removeButtonStack.heightAnchor.constraint(equalToConstant: 60),
             removeButtonStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor),
             
-            replaceTexfieldStack.heightAnchor.constraint(equalToConstant: 50),
+            replaceTexfieldStack.heightAnchor.constraint(equalToConstant: 60),
             replaceTexfieldStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant:  -horizontalPadding),
             
             textEditorStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),

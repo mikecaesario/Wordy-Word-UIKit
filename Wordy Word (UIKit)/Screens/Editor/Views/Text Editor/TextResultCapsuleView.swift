@@ -118,7 +118,7 @@ extension TextResultCapsuleView {
             buttonScrollView.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             buttonScrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             buttonScrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            buttonScrollView.heightAnchor.constraint(equalToConstant: 70),
+            buttonScrollView.heightAnchor.constraint(equalToConstant: 60),
             
             buttonStack.topAnchor.constraint(equalTo: buttonScrollView.topAnchor),
             buttonStack.leadingAnchor.constraint(equalTo: buttonScrollView.leadingAnchor),
