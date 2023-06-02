@@ -15,4 +15,15 @@ enum EditingStyleEnum: String, CaseIterable {
     case replace = "Replace"
     case remove = "Remove"
     case reverse = "Reverse"
+    
+    enum EditingStyleEnumImage: String, CaseIterable {
+        case capitalize = "Capitalize"
+        case title = "Title"
+        case upper = "Uppercase"
+        case lower = "Lowercase"
+        case replace = "Replace"
+        case remove = "Remove"
+        case reverse = "Reverse"
+    }
+    
 }
