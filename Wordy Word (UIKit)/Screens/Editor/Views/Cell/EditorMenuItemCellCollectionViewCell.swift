@@ -19,6 +19,11 @@ class EditorMenuItemCellCollectionViewCell: UICollectionViewCell {
         layoutUI()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+                
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -29,7 +34,13 @@ class EditorMenuItemCellCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureView() {
+        editingStyleImage.backgroundColor = .button.secondary
+        editingStyleImage.layer.cornerRadius = (self.frame.size.height / 2.0)
+        editingStyleImage.layer.masksToBounds = true
         
+        editingStyleLabel.font = UIFont(name: "Poppins-Medium", size: 11)
+        editingStyleLabel.textColor = .text.white
+        editingStyleLabel.textAlignment = .center
     }
     
     private func layoutUI() {

@@ -19,6 +19,7 @@ class EditorViewController: UIViewController {
     private let textResultStack = TextResultCapsuleView()
     
     private let tabBar = HistoryAndSettingsTabBar()
+    private lazy var menu = EditorStyleMenu()
     
     private let historyDataService: HistoryDataService
     
@@ -151,6 +152,15 @@ extension EditorViewController {
             view.isHidden = hide
         }
     }
+    
+    private func presentMenu(view: UIView) {
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.bounds = self.view.bounds
+        view.layer.zPosition = 2
+        self.view.addSubview(view)
+    }
 }
 
 extension EditorViewController {
@@ -195,6 +205,8 @@ extension EditorViewController: EditorNavigationBarDelegate {
     
     func didTapMenuButton() {
         print("MENU BUTTON TAPPED")
+        
+        presentMenu(view: menu)
     }
     
 }
