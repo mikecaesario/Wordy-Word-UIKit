@@ -153,13 +153,27 @@ extension EditorViewController {
         }
     }
     
-    private func presentMenu(view: UIView) {
+    private func presentMenu(view: EditorStyleMenu) {
         
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.bounds = self.view.bounds
-        view.layer.zPosition = 2
         self.view.addSubview(view)
+        view.layer.zPosition = 2
+        view.layoutIfNeeded()
+        view.delegate = self
+
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: self.view.topAnchor),
+            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        ])
+    }
+    
+    private func dismissMenu(view: EditorStyleMenu) {
+        
+        view.delegate = nil
+        view.removeFromSuperview()
     }
 }
 
@@ -198,6 +212,19 @@ extension EditorViewController {
         resultText = result
         
         historyDataArray = historyDataService.didFinishEditingNowAppendingHistoryItem(history: historyDataArray, editingText: text, editingResult: result, editingStyle: style)
+    }
+}
+
+extension EditorViewController: EditorStyleMenuDelegate {
+    
+    func didFinishPickingEditingStyle(style: EditingStyleEnum?) {
+        print("FINISHED PICKING EDITOR STYLE: \(style?.rawValue ?? "NONE")")
+    }
+    
+    func didTappedCancelButton() {
+        print("CANCEL MENU FROM EDITOR STYLE PICKER TAPPED")
+        
+        dismissMenu(view: menu)
     }
 }
 
