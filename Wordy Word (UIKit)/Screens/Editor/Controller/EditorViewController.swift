@@ -19,7 +19,7 @@ class EditorViewController: UIViewController {
     private let textResultStack = TextResultCapsuleView()
     
     private let tabBar = HistoryAndSettingsTabBar()
-    private lazy var menu = EditorStyleMenu()
+    private var editorMenu: EditorStylePickerViewController?
     
     private let historyDataService: HistoryDataService
     
@@ -60,6 +60,8 @@ class EditorViewController: UIViewController {
     }
 }
 
+// MARK: - View Setup
+
 extension EditorViewController {
     
     private func configureView() {
@@ -97,8 +99,8 @@ extension EditorViewController {
         view.addSubview(editorScrollView)
         view.addSubview(tabBar)
         
-        tabBar.layer.zPosition = 1
-        editorScrollView.layer.zPosition = 0
+        tabBar.layer.zPosition = 0
+        editorScrollView.layer.zPosition = -1
         
         let navHorizontalPadding = 18.0
         let navVerticalPadding = 15.0
@@ -153,27 +155,32 @@ extension EditorViewController {
         }
     }
     
-    private func presentMenu(view: EditorStyleMenu) {
+    private func presentEditorStylePickerViewController() {
         
-        view.translatesAutoresizingMaskIntoConstraints = false
+        guard editorMenu == nil else { return }
         
-        self.view.addSubview(view)
-        view.layer.zPosition = 2
-        view.layoutIfNeeded()
-        view.delegate = self
-
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: self.view.topAnchor),
-            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        ])
+        editorMenu = EditorStylePickerViewController()
+        
+        if let menu = editorMenu {
+            menu.delegate = self
+            menu.view.frame = view.bounds
+//            menu.view.alpha = 0
+            
+            view.addSubview(menu.view)
+            addChild(menu)
+            menu.didMove(toParent: self)
+        }
     }
     
-    private func dismissMenu(view: EditorStyleMenu) {
+    private func dismissEditorStylePickerViewController() {
         
-        view.delegate = nil
-        view.removeFromSuperview()
+        if let menu = editorMenu {
+            menu.willMove(toParent: nil)
+            menu.view.removeFromSuperview()
+            menu.removeFromParent()
+            menu.delegate = nil
+            editorMenu = nil
+        }
     }
 }
 
@@ -215,16 +222,18 @@ extension EditorViewController {
     }
 }
 
-extension EditorViewController: EditorStyleMenuDelegate {
+extension EditorViewController: EditorStylePickerViewControllerDelegate {
     
     func didFinishPickingEditingStyle(style: EditingStyleEnum?) {
-        print("FINISHED PICKING EDITOR STYLE: \(style?.rawValue ?? "NONE")")
+        
+        guard let style = style else { return }
+        
+        print(style.rawValue)
+        editingStyle = style
     }
     
     func didTappedCancelButton() {
-        print("CANCEL MENU FROM EDITOR STYLE PICKER TAPPED")
-        
-        dismissMenu(view: menu)
+        dismissEditorStylePickerViewController()
     }
 }
 
@@ -233,9 +242,8 @@ extension EditorViewController: EditorNavigationBarDelegate {
     func didTapMenuButton() {
         print("MENU BUTTON TAPPED")
         
-        presentMenu(view: menu)
+        presentEditorStylePickerViewController()
     }
-    
 }
 
 extension EditorTextView: RemoveButtonStackDelegate {

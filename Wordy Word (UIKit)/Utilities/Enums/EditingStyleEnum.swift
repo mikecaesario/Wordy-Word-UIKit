@@ -8,6 +8,7 @@
 import Foundation
 
 enum EditingStyleEnum: String, CaseIterable {
+    
     case capitalize = "Capitalize"
     case title = "Title"
     case upper = "Uppercase"
@@ -25,5 +26,4 @@ enum EditingStyleEnum: String, CaseIterable {
         case remove = "Remove"
         case reverse = "Reverse"
     }
-    
 }
