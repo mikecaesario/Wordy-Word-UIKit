@@ -161,26 +161,30 @@ extension EditorViewController {
         
         editorMenu = EditorStylePickerViewController()
         
-        if let menu = editorMenu {
-            menu.delegate = self
-            menu.view.frame = view.bounds
-//            menu.view.alpha = 0
+        if let editorMenu = editorMenu {
             
-            view.addSubview(menu.view)
-            addChild(menu)
-            menu.didMove(toParent: self)
+            editorMenu.delegate = self
+            editorMenu.modalPresentationStyle = .overFullScreen
+            editorMenu.modalTransitionStyle = .crossDissolve
+            self.present(editorMenu, animated: true)
         }
     }
     
     private func dismissEditorStylePickerViewController() {
         
         if let menu = editorMenu {
-            menu.willMove(toParent: nil)
-            menu.view.removeFromSuperview()
-            menu.removeFromParent()
+            
             menu.delegate = nil
+            menu.dismiss(animated: true)
             editorMenu = nil
         }
+//        if let menu = editorMenu {
+//            menu.willMove(toParent: nil)
+//            menu.view.removeFromSuperview()
+//            menu.removeFromParent()
+//            menu.delegate = nil
+//            editorMenu = nil
+//        }
     }
 }
 
@@ -230,6 +234,7 @@ extension EditorViewController: EditorStylePickerViewControllerDelegate {
         
         print(style.rawValue)
         editingStyle = style
+        dismissEditorStylePickerViewController()
     }
     
     func didTappedCancelButton() {

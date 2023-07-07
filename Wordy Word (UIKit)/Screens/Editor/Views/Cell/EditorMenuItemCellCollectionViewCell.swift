@@ -9,7 +9,8 @@ import UIKit
 
 class EditorMenuItemCellCollectionViewCell: UICollectionViewCell {
     
-    private let editingStyleImage = UIImageView()
+    private let editingStyleImage = ImageButtonForEditorMenuItemCell()
+    private let backgroundCircleForImage = UIView()
     private let editingStyleLabel = UILabel()
     
     override init(frame: CGRect) {
@@ -19,24 +20,17 @@ class EditorMenuItemCellCollectionViewCell: UICollectionViewCell {
         layoutUI()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-                
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func configureCell(image: String, label: String) {
-        editingStyleImage.image = UIImage(systemName: image)
+        
+        editingStyleImage.setImage(imageName: image)
         editingStyleLabel.text = label
     }
     
     private func configureView() {
-        editingStyleImage.backgroundColor = .button.secondary
-        editingStyleImage.layer.cornerRadius = (self.frame.size.width / 2.0)
-        editingStyleImage.layer.masksToBounds = true
         
         editingStyleLabel.font = UIFont(name: "Poppins-Medium", size: 14)
         editingStyleLabel.minimumScaleFactor = 0.7
@@ -66,3 +60,56 @@ class EditorMenuItemCellCollectionViewCell: UICollectionViewCell {
         ])
     }
 }
+
+class ImageButtonForEditorMenuItemCell: UIView {
+
+    let image = UIImageView()
+
+    override init(frame: CGRect) {
+
+        super.init(frame: frame)
+        prepareView()
+        layoutUI()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+
+        self.layer.cornerRadius = self.frame.height / 2.0
+        self.layer.masksToBounds = true
+    }
+
+    private func prepareView() {
+
+        self.backgroundColor = .button.secondary
+        image.tintColor = .text.white
+        image.contentMode = .center
+    }
+
+    private func layoutUI() {
+
+        image.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(image)
+
+        let padding = 22.0
+        
+        NSLayoutConstraint.activate([
+            
+            image.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            image.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            image.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
+            image.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+        ])
+    }
+    
+    func setImage(imageName: String) {
+        
+        let config = UIImage.SymbolConfiguration(pointSize: 33, weight: .medium)
+        image.image = UIImage(systemName: imageName, withConfiguration: config)?.withRenderingMode(.alwaysTemplate)
+    }
+}
+

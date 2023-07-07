@@ -8,7 +8,7 @@
 import UIKit
 
 protocol EditorStylePickerViewControllerDelegate: AnyObject {
-    func didFinishPickingEditingStyle(style: EditingStyleEnum?) 
+    func didFinishPickingEditingStyle(style: EditingStyleEnum?)
     func didTappedCancelButton()
 }
 
@@ -25,17 +25,11 @@ class EditorStylePickerViewController: UIViewController {
         return label
     }()
     
-    private let editorPickerUICollectionViewButton = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout())
+    private let editorPickerUICollectionViewButton = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     private let collectionViewLayout = UICollectionViewFlowLayout()
+    private let cancelButton = CancelButton()
     
-    private let cancelButton: UIButton = {
-        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .medium, scale: .medium)
-        let button = UIButton()
-        button.backgroundColor = .button.secondary
-        button.setImage(UIImage(systemName: "xmark", withConfiguration: config), for: .normal)
-        button.tintColor = .text.white
-        return button
-    }()
+    private let reusableCellIdentifier = "EditorMenuCell"
     
     weak var delegate: EditorStylePickerViewControllerDelegate?
     
@@ -54,12 +48,11 @@ class EditorStylePickerViewController: UIViewController {
     
     private func configureCollectionView() {
         
-//        collectionViewLayout.minimumLineSpacing = 10
         collectionViewLayout.scrollDirection = .vertical
         
         editorPickerUICollectionViewButton.backgroundColor = .clear
         editorPickerUICollectionViewButton.setCollectionViewLayout(collectionViewLayout, animated: true)
-        editorPickerUICollectionViewButton.register(EditorMenuItemCellCollectionViewCell.self, forCellWithReuseIdentifier: "EditorMenuCell")
+        editorPickerUICollectionViewButton.register(EditorMenuItemCellCollectionViewCell.self, forCellWithReuseIdentifier: reusableCellIdentifier)
         
         editorPickerUICollectionViewButton.delegate = self
         editorPickerUICollectionViewButton.dataSource = self
@@ -69,42 +62,78 @@ class EditorStylePickerViewController: UIViewController {
         
     }
     
-    private func didTappedEditorStyleCell(indexPath: Int) {
+    private func didTappedEditorStyleCell(indexPath: IndexPath) {
                 
         let style = findEditingStyleEnum(indexPath: indexPath)
         
         delegate?.didFinishPickingEditingStyle(style: style)
     }
     
-    @objc private func tappedCancelButton() {
+    @objc private func didTappedCancelButton() {
         
         delegate?.didTappedCancelButton()
     }
     
-    private func findEditingStyleEnum(indexPath: Int) -> EditingStyleEnum? {
+    private func findEditingStyleEnum(indexPath: IndexPath) -> EditingStyleEnum? {
         
-        switch indexPath {
-        case 0: return .capitalize
-        case 1: return .title
-        case 2: return .upper
-        case 3: return .lower
-        case 4: return .replace
-        case 5: return .remove
-        case 6: return .reverse
+        switch indexPath.section {
+        case 0:
+            
+            switch indexPath.row {
+            case 0: return .capitalize
+            case 1: return .title
+            case 2: return .upper
+            default: return nil
+            }
+            
+        case 1:
+            
+            switch indexPath.row {
+            case 0: return .lower
+            case 1: return .replace
+            case 2: return .remove
+            default: return nil
+            }
+            
+        case 2:
+            
+            switch indexPath.row {
+            case 0: return .reverse
+            default: return nil
+            }
+            
         default: return nil
         }
     }
     
-    private func findEditingStyleEnumImage(indexPath: Int) -> EditingStyleEnum.EditingStyleEnumImage? {
+    private func findEditingStyleEnumImage(indexPath: IndexPath) -> EditingStyleEnum.EditingStyleEnumImage? {
         
-        switch indexPath {
-        case 0: return .capitalize
-        case 1: return .title
-        case 2: return .upper
-        case 3: return .lower
-        case 4: return .replace
-        case 5: return .remove
-        case 6: return .reverse
+        switch indexPath.section {
+        case 0:
+            
+            switch indexPath.row {
+            case 0: return .capitalize
+            case 1: return .title
+            case 2: return .upper
+            default: return nil
+            }
+            
+        case 1:
+            
+            switch indexPath.row {
+            case 0: return .lower
+            case 1: return .replace
+            case 2: return .remove
+            default: return nil
+            }
+            
+        case 2:
+            
+            switch indexPath.row {
+            case 0: return .reverse
+            default: return nil
+            }
+            
         default: return nil
         }
     }
@@ -118,7 +147,7 @@ extension EditorStylePickerViewController {
         
         view.backgroundColor = .clear
         
-        cancelButton.addTarget(self, action: #selector(tappedCancelButton), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(didTappedCancelButton), for: .touchUpInside)
     }
     
     private func addBlurBackground() {
@@ -142,15 +171,16 @@ extension EditorStylePickerViewController {
 
         let screenWidthDivided = (view.bounds.width / 4.2)
         let padding = 16.0
+        let collectionViewPadding = 35.0
        
         NSLayoutConstraint.activate([
             
             currentEditingStyleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
             currentEditingStyleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            editorPickerUICollectionViewButton.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
+            editorPickerUICollectionViewButton.topAnchor.constraint(equalTo: currentEditingStyleLabel.bottomAnchor, constant: collectionViewPadding),
             editorPickerUICollectionViewButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            editorPickerUICollectionViewButton.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: padding),
+            editorPickerUICollectionViewButton.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -collectionViewPadding),
             editorPickerUICollectionViewButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             
             cancelButton.heightAnchor.constraint(equalToConstant: screenWidthDivided),
@@ -165,15 +195,25 @@ extension EditorStylePickerViewController {
 
 extension EditorStylePickerViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 3
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return EditingStyleEnum.allCases.count
+        
+        switch section {
+        case 0: return 3
+        case 1: return 3
+        case 2: return 1
+        default: return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = editorPickerUICollectionViewButton.dequeueReusableCell(withReuseIdentifier: "EditorMenuCell", for: indexPath) as! EditorMenuItemCellCollectionViewCell
+        let cell = editorPickerUICollectionViewButton.dequeueReusableCell(withReuseIdentifier: reusableCellIdentifier, for: indexPath) as! EditorMenuItemCellCollectionViewCell
         
-        if let label = findEditingStyleEnum(indexPath: indexPath.row), let image = findEditingStyleEnumImage(indexPath: indexPath.row) {
+        if let label = findEditingStyleEnum(indexPath: indexPath), let image = findEditingStyleEnumImage(indexPath: indexPath) {
             cell.configureCell(image: image.rawValue, label: label.rawValue)
         }
         
@@ -184,16 +224,62 @@ extension EditorStylePickerViewController: UICollectionViewDelegate, UICollectio
         
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        didTappedEditorStyleCell(indexPath: indexPath.row)
+        didTappedEditorStyleCell(indexPath: indexPath)
     }
 }
 
 extension EditorStylePickerViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let screenSizeWidthForCell = view.bounds.width / 4
+
+        return CGSize(width: screenSizeWidthForCell, height: screenSizeWidthForCell + 30)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+                
+        let numberOfItemsInSection = collectionView.numberOfItems(inSection: section)
+
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
         
-        let screenSizeWidthForCell = view.bounds.width / 4.2
+        let totalCollectionViewWidth = collectionView.frame.width
+        let cellWidth = layout.itemSize.width
+        let centerLoneCellInsets = (totalCollectionViewWidth / 2) - cellWidth
         
-        return CGSize(width: screenSizeWidthForCell, height: screenSizeWidthForCell + 20)
+        let verticalPaddingForCells = 15.0
+                
+        switch numberOfItemsInSection {
+        case 1:
+            return UIEdgeInsets(top: verticalPaddingForCells, left: centerLoneCellInsets, bottom: verticalPaddingForCells, right: 0)
+        default:
+            return UIEdgeInsets(top: verticalPaddingForCells, left: 0, bottom: verticalPaddingForCells, right: 0)
+        }
+
+    }
+}
+
+class CancelButton: UIButton {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        prepareButton()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = self.frame.height / 2
+        layer.masksToBounds = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func prepareButton() {
+        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .medium, scale: .medium)
+        backgroundColor = .button.primary
+        setImage(UIImage(systemName: "xmark", withConfiguration: config), for: .normal)
+        tintColor = .text.black
     }
 }
