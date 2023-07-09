@@ -30,8 +30,19 @@ class EditorStylePickerViewController: UIViewController {
     private let cancelButton = CancelButton()
     
     private let reusableCellIdentifier = "EditorMenuCell"
+    private let currentSelectedStyle: EditingStyleEnum?
     
     weak var delegate: EditorStylePickerViewControllerDelegate?
+    
+    init(currentSelectedStyle: EditingStyleEnum?, delegate: EditorStylePickerViewControllerDelegate? = nil) {
+        self.currentSelectedStyle = currentSelectedStyle
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -213,6 +224,8 @@ extension EditorStylePickerViewController: UICollectionViewDelegate, UICollectio
         
         let cell = editorPickerUICollectionViewButton.dequeueReusableCell(withReuseIdentifier: reusableCellIdentifier, for: indexPath) as! EditorMenuItemCellCollectionViewCell
         
+        cell.isCurrentlySelected(style: currentSelectedStyle == findEditingStyleEnum(indexPath: indexPath))
+        
         if let label = findEditingStyleEnum(indexPath: indexPath), let image = findEditingStyleEnumImage(indexPath: indexPath) {
             cell.configureCell(image: image.rawValue, label: label.rawValue)
         }
@@ -234,7 +247,7 @@ extension EditorStylePickerViewController: UICollectionViewDelegateFlowLayout {
 
         let screenSizeWidthForCell = view.bounds.width / 4
 
-        return CGSize(width: screenSizeWidthForCell, height: screenSizeWidthForCell + 30)
+        return CGSize(width: screenSizeWidthForCell, height: screenSizeWidthForCell + 20)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

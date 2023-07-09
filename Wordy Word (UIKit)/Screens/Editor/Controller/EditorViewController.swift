@@ -38,6 +38,24 @@ class EditorViewController: UIViewController {
     private var editingStyle: EditingStyleEnum? {
         didSet {
             
+            if let style = editingStyle {
+                editorNavBar.setNavBarTitle(title: style)
+            }
+            
+            if editingStyle == .replace {
+                hideView(hide: false, view: replaceTexfieldStack, stack: mainEditorStack)
+                hideView(hide: true, view: removeButtonStack, stack: mainEditorStack)
+                removeButtonStack.resetRemoveItemsButton()
+            } else if editingStyle == .remove {
+                hideView(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
+                hideView(hide: false, view: removeButtonStack, stack: mainEditorStack)
+                replaceTexfieldStack.resetTextfields()
+            } else {
+                hideView(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
+                hideView(hide: true, view: removeButtonStack, stack: mainEditorStack)
+                removeButtonStack.resetRemoveItemsButton()
+                replaceTexfieldStack.resetTextfields()
+            }
         }
     }
     
@@ -73,6 +91,9 @@ extension EditorViewController {
         editorNavBar.delegate = self
         textEditorStack.delegate = self
         tabBar.delegate = self
+        
+        replaceTexfieldStack.isHidden = true
+        removeButtonStack.isHidden = true
     }
     
     private func layoutUI() {
@@ -159,7 +180,7 @@ extension EditorViewController {
         
         guard editorMenu == nil else { return }
         
-        editorMenu = EditorStylePickerViewController()
+        editorMenu = EditorStylePickerViewController(currentSelectedStyle: editingStyle)
         
         if let editorMenu = editorMenu {
             
@@ -178,13 +199,6 @@ extension EditorViewController {
             menu.dismiss(animated: true)
             editorMenu = nil
         }
-//        if let menu = editorMenu {
-//            menu.willMove(toParent: nil)
-//            menu.view.removeFromSuperview()
-//            menu.removeFromParent()
-//            menu.delegate = nil
-//            editorMenu = nil
-//        }
     }
 }
 
@@ -274,6 +288,19 @@ extension EditorViewController: HistoryAndSettingsTabBarDelegate {
     
     func didTappedHistoryButton() {
         print("DID TAP HISTORY BUTTON")
+        
+        let historyVC = HistoryViewController(historyItems: historyDataArray)
+        
+        if let historyVCSheet = historyVC.sheetPresentationController {
+            
+            historyVCSheet.detents = [.medium(), .large()]
+            historyVCSheet.largestUndimmedDetentIdentifier = .medium
+            historyVCSheet.preferredCornerRadius = 20
+            historyVCSheet.prefersScrollingExpandsWhenScrolledToEdge = true
+            historyVCSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+        }
+        
+        present(historyVC, animated: true)
     }
     
     func didTappedSettingsButton() {

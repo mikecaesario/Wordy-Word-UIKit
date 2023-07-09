@@ -23,7 +23,7 @@ class RemoveButtonStack: UIView {
     private lazy var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = 8
+        stack.spacing = 3
         stack.distribution = .fill
         stack.alignment = .leading
         stack.layoutMargins = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)
@@ -127,10 +127,12 @@ class RemoveButtonStack: UIView {
     
     func resetRemoveItemsButton() {
         pickedRemovedCharacterArray = []
+        print(pickedRemovedCharacterArray)
         
         for view in self.stackView.subviews as [UIView] {
             if let button = view as? UIButton {
                 button.setTitleColor(.text.grey, for: .normal)
+                button.backgroundColor = .clear
                 button.layer.borderColor = UIColor.button.strokeLight?.cgColor
             }
         }

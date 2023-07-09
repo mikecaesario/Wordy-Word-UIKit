@@ -10,7 +10,6 @@ import UIKit
 class EditorMenuItemCellCollectionViewCell: UICollectionViewCell {
     
     private let editingStyleImage = ImageButtonForEditorMenuItemCell()
-    private let backgroundCircleForImage = UIView()
     private let editingStyleLabel = UILabel()
     
     override init(frame: CGRect) {
@@ -28,6 +27,15 @@ class EditorMenuItemCellCollectionViewCell: UICollectionViewCell {
         
         editingStyleImage.setImage(imageName: image)
         editingStyleLabel.text = label
+    }
+    
+    func isCurrentlySelected(style: Bool) {
+        
+        if style {
+            editingStyleImage.setColor(backgroundColor: .button.primary, imageColor: .text.black)
+        } else {
+            editingStyleImage.setColor(backgroundColor: .button.secondary, imageColor: .text.white)
+        }
     }
     
     private func configureView() {
@@ -84,8 +92,7 @@ class ImageButtonForEditorMenuItemCell: UIView {
 
     private func prepareView() {
 
-        self.backgroundColor = .button.secondary
-        image.tintColor = .text.white
+//        self.backgroundColor = .button.secondary
         image.contentMode = .center
     }
 
@@ -110,6 +117,14 @@ class ImageButtonForEditorMenuItemCell: UIView {
         
         let config = UIImage.SymbolConfiguration(pointSize: 33, weight: .medium)
         image.image = UIImage(systemName: imageName, withConfiguration: config)?.withRenderingMode(.alwaysTemplate)
+    }
+    
+    func setColor(backgroundColor: UIColor?, imageColor: UIColor?) {
+        
+        guard let backgroundColor = backgroundColor, let imageColor = imageColor else { return }
+        
+        self.backgroundColor = backgroundColor
+        image.tintColor = imageColor
     }
 }
 

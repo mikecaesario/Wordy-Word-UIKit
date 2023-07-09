@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1628BB522A5AFC33004BDB93 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1628BB512A5AFC33004BDB93 /* HistoryViewController.swift */; };
 		4C10676B2A168A9700797AC9 /* RemoveButtonStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C10676A2A168A9700797AC9 /* RemoveButtonStack.swift */; };
 		4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B92A2A02B59B00FA7FB3 /* MainEditorStack.swift */; };
 		4C17B92D2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B92C2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1628BB512A5AFC33004BDB93 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		4C10676A2A168A9700797AC9 /* RemoveButtonStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveButtonStack.swift; sourceTree = "<group>"; };
 		4C17B92A2A02B59B00FA7FB3 /* MainEditorStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEditorStack.swift; sourceTree = "<group>"; };
 		4C17B92C2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarCircleButton.swift; sourceTree = "<group>"; };
@@ -89,6 +91,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1628BB4F2A5AFBFC004BDB93 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				1628BB502A5AFC07004BDB93 /* Controller */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		1628BB502A5AFC07004BDB93 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1628BB512A5AFC33004BDB93 /* HistoryViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		4C1067692A168A6F00797AC9 /* Button */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +183,7 @@
 		4CABA4F02A00138D00442908 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				1628BB4F2A5AFBFC004BDB93 /* History */,
 				4CABA4F12A0013A900442908 /* Editor */,
 			);
 			path = Screens;
@@ -403,6 +422,7 @@
 				4C8474752A027016006F0930 /* NavigationBarLabel.swift in Sources */,
 				4CABA5032A00157200442908 /* EditorStackView.swift in Sources */,
 				4CA67A162A25054300EACC02 /* EditorMenuItemCellCollectionViewCell.swift in Sources */,
+				1628BB522A5AFC33004BDB93 /* HistoryViewController.swift in Sources */,
 				4C10676B2A168A9700797AC9 /* RemoveButtonStack.swift in Sources */,
 				4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */,
 				4CF53A702A13ED6D0038E043 /* EditingStyleEnum.swift in Sources */,
@@ -563,7 +583,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -594,7 +614,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
