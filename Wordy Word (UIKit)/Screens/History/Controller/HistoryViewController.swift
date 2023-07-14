@@ -11,6 +11,7 @@ class HistoryViewController: UIViewController {
     
     private let tableView = UITableView()
     private let historyLabel = UILabel()
+    private let noHistoryLabel = UILabel()
     
     private var historyItems: [HistoryItems] = []
     private let tableViewCellReuseIdentifier = "HistoryCell"
@@ -32,18 +33,30 @@ class HistoryViewController: UIViewController {
         prepareView()
     }
     
+}
+
+extension HistoryViewController {
+    
     private func prepareView() {
         
         view.backgroundColor = .background.primary
+        
+        historyLabel.text = "History"
+        historyLabel.textColor = .text.white
+        historyLabel.font = UIFont(name: "Poppins-Medium", size: 28)
+    }
+    
+    private func prepareTableView() {
+        
+        tableView.backgroundColor = .clear
+        tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: tableViewCellReuseIdentifier)
     }
     
     private func layoutUI() {
         
         historyLabel.translatesAutoresizingMaskIntoConstraints = true
-        tableView.translatesAutoresizingMaskIntoConstraints = true
         
         view.addSubview(historyLabel)
-        view.addSubview(tableView)
         
         let padding = 16.0
         
@@ -59,27 +72,74 @@ class HistoryViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
         ])
+        
+        if historyItems.isEmpty {
+            
+            layoutNoHistoryLabel()
+        } else {
+            
+            layoutTableView()
+        }
     }
-}
+    
+    private func layoutTableView() {
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = true
 
-extension HistoryViewController {
+        view.addSubview(tableView)
+
+        let padding = 18.0
+        
+        NSLayoutConstraint.activate([
+            
+            tableView.topAnchor.constraint(equalTo: historyLabel.bottomAnchor, constant: padding),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+        ])
+    }
     
-    
+    private func layoutNoHistoryLabel() {
+        
+        noHistoryLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(noHistoryLabel)
+        
+        NSLayoutConstraint.activate([
+        
+            noHistoryLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noHistoryLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
 }
 
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         
         return historyItems.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return historyItems[section].items.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellReuseIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellReuseIdentifier, for: indexPath) as! HistoryTableViewCell
+        
+        let item = historyItems[indexPath.section].items[indexPath.row]
+        
+        cell.setupCell(histroyItem: item)
         return cell
     }
     
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
     
 }

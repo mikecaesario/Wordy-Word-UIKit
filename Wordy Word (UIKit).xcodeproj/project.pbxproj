@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1628BB522A5AFC33004BDB93 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1628BB512A5AFC33004BDB93 /* HistoryViewController.swift */; };
+		1628BB552A5BEC12004BDB93 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1628BB542A5BEC12004BDB93 /* HistoryTableViewCell.swift */; };
 		4C10676B2A168A9700797AC9 /* RemoveButtonStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C10676A2A168A9700797AC9 /* RemoveButtonStack.swift */; };
 		4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B92A2A02B59B00FA7FB3 /* MainEditorStack.swift */; };
 		4C17B92D2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B92C2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		1628BB512A5AFC33004BDB93 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		1628BB542A5BEC12004BDB93 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		4C10676A2A168A9700797AC9 /* RemoveButtonStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveButtonStack.swift; sourceTree = "<group>"; };
 		4C17B92A2A02B59B00FA7FB3 /* MainEditorStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEditorStack.swift; sourceTree = "<group>"; };
 		4C17B92C2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarCircleButton.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		1628BB4F2A5AFBFC004BDB93 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				1628BB532A5BEBF0004BDB93 /* Views */,
 				1628BB502A5AFC07004BDB93 /* Controller */,
 			);
 			path = History;
@@ -105,6 +108,14 @@
 				1628BB512A5AFC33004BDB93 /* HistoryViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		1628BB532A5BEBF0004BDB93 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1628BB542A5BEC12004BDB93 /* HistoryTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		4C1067692A168A6F00797AC9 /* Button */ = {
@@ -427,6 +438,7 @@
 				4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */,
 				4CF53A702A13ED6D0038E043 /* EditingStyleEnum.swift in Sources */,
 				4CF53A782A13EE030038E043 /* Date+Ext.swift in Sources */,
+				1628BB552A5BEC12004BDB93 /* HistoryTableViewCell.swift in Sources */,
 				4C6551E52A1695530059F92A /* PillButtonWithStroke.swift in Sources */,
 				4CBAB0772A1D187E00342EAC /* ReplaceTextfieldStack.swift in Sources */,
 				4C397F502A000CF8006F8D3C /* EditorViewController.swift in Sources */,

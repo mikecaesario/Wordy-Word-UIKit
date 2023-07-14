@@ -290,6 +290,7 @@ extension EditorViewController: HistoryAndSettingsTabBarDelegate {
         print("DID TAP HISTORY BUTTON")
         
         let historyVC = HistoryViewController(historyItems: historyDataArray)
+        let navigation = UINavigationController(rootViewController: historyVC)
         
         if let historyVCSheet = historyVC.sheetPresentationController {
             
@@ -300,7 +301,7 @@ extension EditorViewController: HistoryAndSettingsTabBarDelegate {
             historyVCSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
         }
         
-        present(historyVC, animated: true)
+        present(navigation, animated: true)
     }
     
     func didTappedSettingsButton() {
