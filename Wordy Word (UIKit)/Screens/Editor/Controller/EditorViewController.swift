@@ -73,6 +73,8 @@ class EditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        historyDataArray = historyDataService.fetchHistoryItemsFromJSON()
+        
         configureView()
         layoutUI()
     }
@@ -281,7 +283,6 @@ extension EditorViewController: TextEditorCapsuleViewDelegate {
     func didFinishPastingText(text: String) {
         
     }
-   
 }
 
 extension EditorViewController: HistoryAndSettingsTabBarDelegate {
@@ -292,7 +293,7 @@ extension EditorViewController: HistoryAndSettingsTabBarDelegate {
         let historyVC = HistoryViewController(historyItems: historyDataArray)
         let navigation = UINavigationController(rootViewController: historyVC)
         
-        if let historyVCSheet = historyVC.sheetPresentationController {
+        if let historyVCSheet = navigation.sheetPresentationController {
             
             historyVCSheet.detents = [.medium(), .large()]
             historyVCSheet.largestUndimmedDetentIdentifier = .medium
