@@ -34,9 +34,8 @@ class EditorStylePickerViewController: UIViewController {
     
     weak var delegate: EditorStylePickerViewControllerDelegate?
     
-    init(currentSelectedStyle: EditingStyleEnum?, delegate: EditorStylePickerViewControllerDelegate? = nil) {
+    init(currentSelectedStyle: EditingStyleEnum?) {
         self.currentSelectedStyle = currentSelectedStyle
-        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     

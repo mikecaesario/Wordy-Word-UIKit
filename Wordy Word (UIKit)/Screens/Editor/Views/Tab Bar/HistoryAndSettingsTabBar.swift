@@ -23,6 +23,7 @@ class HistoryAndSettingsTabBar: UIView {
         super.init(frame: frame)
         
         configureView()
+//        addBlurBackground()
         layoutUI()
     }
     
@@ -30,16 +31,18 @@ class HistoryAndSettingsTabBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         self.layer.cornerRadius = self.layer.frame.height / 2.0
         self.layer.masksToBounds = true
+        addBlurBackground()
     }
     
     private func configureView() {
         
-        self.backgroundColor = .gray
+        self.backgroundColor = .clear
   
         let config = UIImage.SymbolConfiguration(pointSize: 26, weight: .light, scale: .medium)
         
@@ -50,6 +53,16 @@ class HistoryAndSettingsTabBar: UIView {
         settingsButton.setImage(UIImage(systemName: "gearshape", withConfiguration: config), for: .normal)
         settingsButton.addTarget(self, action: #selector(callForSettingsSegue), for: .touchUpInside)
         settingsButton.backgroundColor = .button.secondary
+    }
+    
+    private func addBlurBackground() {
+        
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialLight)
+        let blurBackground = UIVisualEffectView(effect: blurEffect)
+        blurBackground.translatesAutoresizingMaskIntoConstraints = false
+        blurBackground.frame = self.bounds
+        self.insertSubview(blurBackground, at: 0)
+        print("ADDED BLUR")
     }
     
     private func layoutUI() {

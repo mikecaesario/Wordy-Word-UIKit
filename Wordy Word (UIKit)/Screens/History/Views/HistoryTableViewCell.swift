@@ -28,8 +28,8 @@ class HistoryTableViewCell: UITableViewCell {
         self.backgroundColor = .background.secondary
         self.layer.cornerRadius = 20
         self.layer.masksToBounds = true
-        
-        historyPreviewText.font = UIFont(name: <#T##String#>, size: <#T##CGFloat#>)
+                
+        historyPreviewText.font = UIFont(name: "Poppins-Medium", size: 13)
         historyPreviewText.textColor = .text.white
     }
     

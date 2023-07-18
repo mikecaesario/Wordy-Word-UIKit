@@ -19,7 +19,9 @@ class EditorViewController: UIViewController {
     private let textResultStack = TextResultCapsuleView()
     
     private let tabBar = HistoryAndSettingsTabBar()
+    
     private var editorMenu: EditorStylePickerViewController?
+    private var historyVC: HistoryViewController?
     
     private let historyDataService: HistoryDataService
     
@@ -182,6 +184,10 @@ extension EditorViewController {
         
         guard editorMenu == nil else { return }
         
+        if let historyVC = historyVC {
+            historyVC.dismiss(animated: true)
+        }
+        
         editorMenu = EditorStylePickerViewController(currentSelectedStyle: editingStyle)
         
         if let editorMenu = editorMenu {
@@ -288,21 +294,30 @@ extension EditorViewController: TextEditorCapsuleViewDelegate {
 extension EditorViewController: HistoryAndSettingsTabBarDelegate {
     
     func didTappedHistoryButton() {
+        
         print("DID TAP HISTORY BUTTON")
         
-        let historyVC = HistoryViewController(historyItems: historyDataArray)
-        let navigation = UINavigationController(rootViewController: historyVC)
+        guard historyVC == nil else { return }
         
-        if let historyVCSheet = navigation.sheetPresentationController {
+        if let editorMenu = editorMenu {
+            editorMenu.dismiss(animated: true)
+        }
+        
+        historyVC = HistoryViewController(historyItems: historyDataArray)
+        
+        if let historyVCSheet = historyVC?.sheetPresentationController {
             
             historyVCSheet.detents = [.medium(), .large()]
-            historyVCSheet.largestUndimmedDetentIdentifier = .medium
-            historyVCSheet.preferredCornerRadius = 20
+            historyVCSheet.largestUndimmedDetentIdentifier = .large
+            historyVCSheet.preferredCornerRadius = 40
             historyVCSheet.prefersScrollingExpandsWhenScrolledToEdge = true
             historyVCSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
         }
         
-        present(navigation, animated: true)
+        if let historyVC = historyVC {
+            let nav = UINavigationController(rootViewController: historyVC)
+            present(nav, animated: true)
+        }
     }
     
     func didTappedSettingsButton() {

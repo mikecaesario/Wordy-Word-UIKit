@@ -92,7 +92,6 @@ class ImageButtonForEditorMenuItemCell: UIView {
 
     private func prepareView() {
 
-//        self.backgroundColor = .button.secondary
         image.contentMode = .center
     }
 
