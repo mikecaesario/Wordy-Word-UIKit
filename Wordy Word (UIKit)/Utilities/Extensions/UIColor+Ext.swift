@@ -27,6 +27,7 @@ extension UIColor {
         static let strokeDark = UIColor(named: "ButtonStrokeDarkColor")
         static let copy = UIColor(named: "CopyButtonColor")
         static let paste = UIColor(named: "PasteButtonColor")
+        static let cancel = UIColor(named: "CancelButtonColor")
     }
     
     struct text {

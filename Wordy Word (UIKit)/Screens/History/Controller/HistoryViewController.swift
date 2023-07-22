@@ -49,7 +49,7 @@ extension HistoryViewController {
         
         historyLabel.text = "History"
         historyLabel.textColor = .text.white
-        historyLabel.font = UIFont(name: "Poppins-Medium", size: 26)
+        historyLabel.font = UIFont(name: "Poppins-Medium", size: 30)
         
         noHistoryLabel.text = "No History"
         noHistoryLabel.textColor = .text.grey

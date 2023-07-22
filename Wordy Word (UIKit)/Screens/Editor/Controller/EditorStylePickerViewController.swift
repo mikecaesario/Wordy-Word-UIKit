@@ -46,10 +46,23 @@ class EditorStylePickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
         configureView()
         addBlurBackground()
         configureCollectionView()
         layoutUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+
+        editorPickerUICollectionViewButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+
+        editorPickerUICollectionViewButton.alpha = 0
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+
+        animateCollectionView()
     }
     
     deinit {
@@ -58,24 +71,41 @@ class EditorStylePickerViewController: UIViewController {
     
     private func configureCollectionView() {
         
+        let verticalBounds = view.frame.height / 12
+        let horizontalPadding = 10.0
+        
         collectionViewLayout.scrollDirection = .vertical
         
         editorPickerUICollectionViewButton.backgroundColor = .clear
         editorPickerUICollectionViewButton.setCollectionViewLayout(collectionViewLayout, animated: true)
         editorPickerUICollectionViewButton.register(EditorMenuItemCellCollectionViewCell.self, forCellWithReuseIdentifier: reusableCellIdentifier)
+        editorPickerUICollectionViewButton.contentInset = UIEdgeInsets(top: verticalBounds, left: horizontalPadding, bottom: verticalBounds, right: horizontalPadding)
         
         editorPickerUICollectionViewButton.delegate = self
         editorPickerUICollectionViewButton.dataSource = self
     }
     
-    private func animateView() {
+    private func animateCollectionView() {
         
+        let animator = UIViewPropertyAnimator(duration: 0.1, curve: .easeIn)
+        
+        animator.addAnimations {
+            self.editorPickerUICollectionViewButton.alpha = 1.0
+        }
+        
+        animator.addAnimations {
+            self.editorPickerUICollectionViewButton.transform = .identity
+        }
+        
+        animator.startAnimation()
     }
     
     private func didTappedEditorStyleCell(indexPath: IndexPath) {
                 
         let style = findEditingStyleEnum(indexPath: indexPath)
+        let haptic = UIImpactFeedbackGenerator(style: .medium)
         
+        haptic.impactOccurred()
         delegate?.didFinishPickingEditingStyle(style: style)
     }
     
@@ -181,7 +211,7 @@ extension EditorStylePickerViewController {
 
         let screenWidthDivided = (view.bounds.width / 4.2)
         let padding = 16.0
-        let collectionViewPadding = 35.0
+        let collectionViewPadding = 0.0
        
         NSLayoutConstraint.activate([
             
@@ -255,7 +285,7 @@ extension EditorStylePickerViewController: UICollectionViewDelegateFlowLayout {
 
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         
-        let totalCollectionViewWidth = collectionView.frame.width
+        let totalCollectionViewWidth = collectionView.frame.width + 20
         let cellWidth = layout.itemSize.width
         let centerLoneCellInsets = (totalCollectionViewWidth / 2) - cellWidth
         
@@ -289,8 +319,8 @@ class CancelButton: UIButton {
     }
     
     private func prepareButton() {
-        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .medium, scale: .medium)
-        backgroundColor = .button.primary
+        let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .medium, scale: .medium)
+        backgroundColor = .button.cancel
         setImage(UIImage(systemName: "xmark", withConfiguration: config), for: .normal)
         tintColor = .text.black
     }

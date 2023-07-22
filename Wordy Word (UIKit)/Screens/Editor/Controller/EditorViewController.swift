@@ -184,8 +184,11 @@ extension EditorViewController {
         
         guard editorMenu == nil else { return }
         
+        view.endEditing(true)
+
         if let historyVC = historyVC {
             historyVC.dismiss(animated: true)
+            self.historyVC = nil
         }
         
         editorMenu = EditorStylePickerViewController(currentSelectedStyle: editingStyle)
@@ -297,31 +300,24 @@ extension EditorViewController: HistoryAndSettingsTabBarDelegate {
         
         print("DID TAP HISTORY BUTTON")
         
-        guard historyVC == nil else { return }
+        let historyVC = HistoryViewController(historyItems: historyDataArray)
+        let navigation = UINavigationController(rootViewController: historyVC)
         
-        if let editorMenu = editorMenu {
-            editorMenu.dismiss(animated: true)
-        }
-        
-        historyVC = HistoryViewController(historyItems: historyDataArray)
-        
-        if let historyVCSheet = historyVC?.sheetPresentationController {
+        if let historyVCSheet = navigation.sheetPresentationController {
             
             historyVCSheet.detents = [.medium(), .large()]
-            historyVCSheet.largestUndimmedDetentIdentifier = .large
             historyVCSheet.preferredCornerRadius = 40
             historyVCSheet.prefersScrollingExpandsWhenScrolledToEdge = true
             historyVCSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
         }
         
-        if let historyVC = historyVC {
-            let nav = UINavigationController(rootViewController: historyVC)
-            present(nav, animated: true)
-        }
+        present(navigation, animated: true)
     }
     
     func didTappedSettingsButton() {
         print("DID TAP SETTINGS BUTTON")
+        
+        
     }
    
 }

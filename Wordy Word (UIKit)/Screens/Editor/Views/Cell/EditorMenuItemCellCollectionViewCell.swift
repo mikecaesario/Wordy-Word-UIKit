@@ -114,7 +114,7 @@ class ImageButtonForEditorMenuItemCell: UIView {
     
     func setImage(imageName: String) {
         
-        let config = UIImage.SymbolConfiguration(pointSize: 33, weight: .medium)
+        let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .medium)
         image.image = UIImage(systemName: imageName, withConfiguration: config)?.withRenderingMode(.alwaysTemplate)
     }
     
