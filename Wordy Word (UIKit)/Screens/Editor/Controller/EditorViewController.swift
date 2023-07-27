@@ -257,7 +257,6 @@ extension EditorViewController: EditorStylePickerViewControllerDelegate {
         
         guard let style = style else { return }
         
-        print(style.rawValue)
         editingStyle = style
         dismissEditorStylePickerViewController()
     }

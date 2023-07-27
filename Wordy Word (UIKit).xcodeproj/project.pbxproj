@@ -41,6 +41,7 @@
 		4CF53A732A13EDAE0038E043 /* HistoryDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A722A13EDAE0038E043 /* HistoryDataService.swift */; };
 		4CF53A762A13EDD40038E043 /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A752A13EDD40038E043 /* HistoryItem.swift */; };
 		4CF53A782A13EE030038E043 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A772A13EE030038E043 /* Date+Ext.swift */; };
+		9356B6892A6EC7E200FB3CD1 /* HistoryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9356B6882A6EC7E200FB3CD1 /* HistoryDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		4CF53A722A13EDAE0038E043 /* HistoryDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataService.swift; sourceTree = "<group>"; };
 		4CF53A752A13EDD40038E043 /* HistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItem.swift; sourceTree = "<group>"; };
 		4CF53A772A13EE030038E043 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		9356B6882A6EC7E200FB3CD1 /* HistoryDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				1628BB512A5AFC33004BDB93 /* HistoryViewController.swift */,
+				9356B6882A6EC7E200FB3CD1 /* HistoryDetailsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -113,7 +116,7 @@
 		1628BB532A5BEBF0004BDB93 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1628BB542A5BEC12004BDB93 /* HistoryTableViewCell.swift */,
+				9356B68A2A7024C000FB3CD1 /* Cell */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -359,6 +362,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		9356B68A2A7024C000FB3CD1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1628BB542A5BEC12004BDB93 /* HistoryTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -434,6 +445,7 @@
 				4CABA5032A00157200442908 /* EditorStackView.swift in Sources */,
 				4CA67A162A25054300EACC02 /* EditorMenuItemCellCollectionViewCell.swift in Sources */,
 				1628BB522A5AFC33004BDB93 /* HistoryViewController.swift in Sources */,
+				9356B6892A6EC7E200FB3CD1 /* HistoryDetailsViewController.swift in Sources */,
 				4C10676B2A168A9700797AC9 /* RemoveButtonStack.swift in Sources */,
 				4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */,
 				4CF53A702A13ED6D0038E043 /* EditingStyleEnum.swift in Sources */,

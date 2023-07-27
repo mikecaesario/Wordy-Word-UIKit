@@ -28,7 +28,11 @@ class TextEditorCapsuleView: UIView {
     private var sentenceCount = 0 { didSet { } }
     private var paragraphCount = 0 { didSet { } }
     
-    private var editingText = "" { didSet { } }
+    private var editingText = "" {
+        didSet {
+            delegate?.didFinishInputingText(text: editingText)
+        }
+    }
     
     private let editorPlaceholderText = "Enter or paste your text here"
     
@@ -198,7 +202,7 @@ extension TextEditorCapsuleView: UITextViewDelegate {
          run editing text method
          */
         if textView.textColor != .text.placeholder {
-
+            editingText = textView.text
         }
     }
 }
