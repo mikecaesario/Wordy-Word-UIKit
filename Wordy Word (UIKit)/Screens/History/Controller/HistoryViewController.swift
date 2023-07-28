@@ -14,7 +14,7 @@ class HistoryViewController: UIViewController {
     private let noHistoryLabel = UILabel()
     private let closeButton = UIButton()
     
-    private var historyItems: [HistoryItems] = []
+    private var historyItems: [HistoryItems]
     private let tableViewCellReuseIdentifier = "HistoryCell"
     
     init(historyItems: [HistoryItems]) {
@@ -34,7 +34,7 @@ class HistoryViewController: UIViewController {
         layoutUI()
     }
     
-    private func pushDetailHistoryView(historyItem: EditHistoryItem) {
+    private func pushEditHistoryDetailView(historyItem: EditHistoryItem) {
         
         
     }
@@ -55,7 +55,6 @@ extension HistoryViewController {
         noHistoryLabel.font = UIFont(name: "Poppins-Medium", size: 15)
         
         navigationController?.isNavigationBarHidden = true
-        self.navigationController?.hidesBarsOnTap = true
     }
     
     private func prepareTableView() {
@@ -149,6 +148,6 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         
         let historyItem = historyItems[indexPath.section].items[indexPath.row]
         
-        pushDetailHistoryView(historyItem: historyItem)
+        pushEditHistoryDetailView(historyItem: historyItem)
     }
 }

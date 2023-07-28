@@ -15,6 +15,7 @@ class HistoryTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         prepareCell()
+        layoutUI()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -26,11 +27,14 @@ class HistoryTableViewCell: UITableViewCell {
     private func prepareCell() {
         
         self.backgroundColor = .background.secondary
-        self.layer.cornerRadius = 20
-        self.layer.masksToBounds = true
                 
         historyPreviewText.font = UIFont(name: "Poppins-Medium", size: 13)
         historyPreviewText.textColor = .text.white
+        historyPreviewText.isEditable = false
+        historyPreviewText.isSelectable = false
+        historyPreviewText.isScrollEnabled = false
+        historyPreviewText.textContainer.maximumNumberOfLines = 5
+        historyPreviewText.textContainer.lineBreakMode = .byTruncatingTail
     }
     
     private func layoutUI() {
@@ -52,6 +56,13 @@ class HistoryTableViewCell: UITableViewCell {
     
     func setupCell(histroyItem: EditHistoryItem) {
         
+        roundCellCorner()
         historyPreviewText.text = histroyItem.uneditedItem
+    }
+    
+    private func roundCellCorner() {
+        
+        self.layer.cornerRadius = 20
+        self.layer.masksToBounds = true
     }
 }

@@ -7,18 +7,18 @@
 
 import UIKit
 
-class HistoryDetailsViewController: UIViewController {
+class EditHistoryViewController: UIViewController {
 
     private let originalEditLabel = UILabel()
     private let originalEditText = UITextView()
     private let allEditLabel = UILabel()
     private let allEditResultTableView = UITableView()
     
-    private let historyData: HistoryItems
+    private let historyData: EditHistoryItem
     
     private let allEditResultCellIdentifier = "allEditResultHistoryCell"
     
-    init(historyData: HistoryItems) {
+    init(historyData: EditHistoryItem) {
         
         self.historyData = historyData
         super.init(nibName: nil, bundle: nil)
@@ -31,11 +31,18 @@ class HistoryDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        prepareView()
+        prepareUITableView()
+        layoutUI()
     }
 
+    private func didTappedHistoryEditsItemsCell(item: HistoryItemResults) {
+        
+        
+    }
 }
 
-extension HistoryDetailsViewController {
+extension EditHistoryViewController {
     
     private func prepareView() {
         
@@ -44,9 +51,9 @@ extension HistoryDetailsViewController {
         originalEditLabel.text = "Original"
         originalEditLabel.textColor = .text.white
         originalEditLabel.textAlignment = .left
-        originalEditLabel.font = UIFont(name: "Poppins-Medium", size: 18)
+        originalEditLabel.font = UIFont(name: "Poppins-Medium", size: 20)
         
-        originalEditText.font = UIFont(name: <#T##String#>, size: <#T##CGFloat#>)
+        originalEditText.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         originalEditText.textColor = .text.white
         originalEditText.backgroundColor = .background.secondary
         originalEditText.isScrollEnabled = false
@@ -58,7 +65,7 @@ extension HistoryDetailsViewController {
         allEditLabel.text = "All Edits"
         allEditLabel.textColor = .text.white
         allEditLabel.textAlignment = .left
-        allEditLabel.font = UIFont(name: "Poppins-Medium", size: 18)
+        allEditLabel.font = UIFont(name: "Poppins-Medium", size: 20)
     }
     
     private func prepareUITableView() {
@@ -67,7 +74,7 @@ extension HistoryDetailsViewController {
         
         allEditResultTableView.dataSource = self
         allEditResultTableView.delegate = self
-        allEditResultTableView.register(<#T##nib: UINib?##UINib?#>, forCellReuseIdentifier: allEditResultCellIdentifier)
+        allEditResultTableView.register(DetailedHistoryTableViewCell.self, forCellReuseIdentifier: allEditResultCellIdentifier)
         
         allEditResultTableView.contentInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         
@@ -106,15 +113,19 @@ extension HistoryDetailsViewController {
     }
 }
 
-extension HistoryDetailsViewController: UITableViewDelegate, UITableViewDataSource {
+extension EditHistoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return historyData.items.count
+        return historyData.result.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = allEditResultTableView.dequeueReusableCell(withIdentifier: allEditResultCellIdentifier, for: indexPath)
+        let cell = allEditResultTableView.dequeueReusableCell(withIdentifier: allEditResultCellIdentifier, for: indexPath) as! DetailedHistoryTableViewCell
+        
+        let item = historyData.result[indexPath.row]
+        cell.setupCell(historyItem: item)
+        
         return cell
     }
     
@@ -122,6 +133,8 @@ extension HistoryDetailsViewController: UITableViewDelegate, UITableViewDataSour
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        
+        let item = historyData.result[indexPath.row]
+
+        didTappedHistoryEditsItemsCell(item: item)
     }
 }
