@@ -36,9 +36,11 @@ class EditHistoryViewController: UIViewController {
         layoutUI()
     }
 
-    private func didTappedHistoryEditsItemsCell(item: HistoryItemResults) {
+    private func didTappedHistoryEditsItemsCell(historyItem: EditHistoryItemResults) {
         
+        let detailedHistoryVC = DetailedHistoryViewController(detailedHistoryItem: historyItem)
         
+        self.navigationController?.pushViewController(detailedHistoryVC, animated: true)
     }
 }
 
@@ -51,7 +53,7 @@ extension EditHistoryViewController {
         originalEditLabel.text = "Original"
         originalEditLabel.textColor = .text.white
         originalEditLabel.textAlignment = .left
-        originalEditLabel.font = UIFont(name: "Poppins-Medium", size: 20)
+        originalEditLabel.font = UIFont(name: .fonts.poppinsMedium, size: 20)
         
         originalEditText.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         originalEditText.textColor = .text.white
@@ -65,7 +67,7 @@ extension EditHistoryViewController {
         allEditLabel.text = "All Edits"
         allEditLabel.textColor = .text.white
         allEditLabel.textAlignment = .left
-        allEditLabel.font = UIFont(name: "Poppins-Medium", size: 20)
+        allEditLabel.font = UIFont(name: .fonts.poppinsMedium, size: 20)
     }
     
     private func prepareUITableView() {
@@ -135,6 +137,6 @@ extension EditHistoryViewController: UITableViewDelegate, UITableViewDataSource 
         
         let item = historyData.result[indexPath.row]
 
-        didTappedHistoryEditsItemsCell(item: item)
+        didTappedHistoryEditsItemsCell(historyItem: item)
     }
 }

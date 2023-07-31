@@ -19,7 +19,7 @@ class ResultTextView: UITextView {
     }
     
     private func configure() {
-        font = UIFont(name: "Poppins-SemiBold", size: 28)
+        font = UIFont(name: .fonts.poppinsSemiBold, size: 28)
         textColor = .text.white
         textAlignment = .left
         backgroundColor = .clear

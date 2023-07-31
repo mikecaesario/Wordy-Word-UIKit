@@ -23,7 +23,6 @@ class HistoryAndSettingsTabBar: UIView {
         super.init(frame: frame)
         
         configureView()
-//        addBlurBackground()
         layoutUI()
     }
     

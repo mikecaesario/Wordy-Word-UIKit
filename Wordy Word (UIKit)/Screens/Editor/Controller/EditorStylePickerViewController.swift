@@ -17,7 +17,7 @@ class EditorStylePickerViewController: UIViewController {
     private let currentEditingStyleLabel: UILabel = {
         let label = UILabel()
         label.text = "Select Style"
-        label.font = UIFont(name: "Poppins-Medium", size: 28)
+        label.font = UIFont(name: .fonts.poppinsMedium, size: 28)
         label.textColor = .text.white
         label.minimumScaleFactor = 0.7
         label.textAlignment = .center

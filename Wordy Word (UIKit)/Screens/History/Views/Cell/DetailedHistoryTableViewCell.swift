@@ -23,7 +23,6 @@ class DetailedHistoryTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
     private func prepareCell() {
@@ -73,7 +72,7 @@ class DetailedHistoryTableViewCell: UITableViewCell {
         ])
     }
     
-    func setupCell(historyItem: HistoryItemResults) {
+    func setupCell(historyItem: EditHistoryItemResults) {
         
         roundCellCorner()
         detailedHistoryItemText.text = historyItem.result

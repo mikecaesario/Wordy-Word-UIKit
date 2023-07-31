@@ -56,13 +56,13 @@ class HistoryDataService {
             
             if let undeditedItemsAlreadyExistsInTheArrayIndex = history[matchingDate].items.firstIndex(where: { $0.uneditedItem == editingText }) {
                 
-                let newHistoryResult = HistoryItemResults(timeStamp: currentDate, style: editingStyle.rawValue, result: editingResult)
+                let newHistoryResult = EditHistoryItemResults(timeStamp: currentDate, style: editingStyle.rawValue, result: editingResult)
                 history[matchingDate].items[undeditedItemsAlreadyExistsInTheArrayIndex].result.append(newHistoryResult)
                 print("ADDED RESULT \(history[matchingDate].items[undeditedItemsAlreadyExistsInTheArrayIndex].result.count)")
                 return history
             } else {
                 
-                let newHistoryResult = HistoryItemResults(timeStamp: currentDate, style: editingStyle.rawValue, result: editingResult)
+                let newHistoryResult = EditHistoryItemResults(timeStamp: currentDate, style: editingStyle.rawValue, result: editingResult)
                 let newEditHistoryItem = EditHistoryItem(uneditedItem: editingText, result: [newHistoryResult])
                 history[matchingDate].items.append(newEditHistoryItem)
                 print("ADDED ITEMS \(history[matchingDate].items.count)")
@@ -71,7 +71,7 @@ class HistoryDataService {
             
         } else {
             
-            let newHistoryResult = HistoryItemResults(timeStamp: currentDate, style: editingStyle.rawValue, result: editingResult)
+            let newHistoryResult = EditHistoryItemResults(timeStamp: currentDate, style: editingStyle.rawValue, result: editingResult)
             let newEditHistoryItem = EditHistoryItem(uneditedItem: editingText, result: [newHistoryResult])
             let newHistoryItems = HistoryItems(date: currentDate, items: [newEditHistoryItem])
             history.append(newHistoryItems)

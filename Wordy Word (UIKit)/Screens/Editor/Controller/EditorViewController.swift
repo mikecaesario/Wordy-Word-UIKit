@@ -33,7 +33,7 @@ class EditorViewController: UIViewController {
     
     private var resultText: String? {
         didSet {
-            
+         
         }
     }
     
@@ -89,6 +89,7 @@ extension EditorViewController {
     private func configureView() {
         
         view.backgroundColor = .background.primary
+        overrideUserInterfaceStyle = .dark
         editorScrollView.alwaysBounceVertical = true
         editorScrollView.showsVerticalScrollIndicator = false
         
@@ -219,6 +220,8 @@ extension EditorViewController {
             
         guard let text = text, text != "", let style = editingStyle else { return }
         
+        let haptics = UIImpactFeedbackGenerator(style: .rigid)
+        
         var result = ""
         
         switch style {
@@ -248,6 +251,8 @@ extension EditorViewController {
         resultText = result
         
         historyDataArray = historyDataService.didFinishEditingNowAppendingHistoryItem(history: historyDataArray, editingText: text, editingResult: result, editingStyle: style)
+        
+        haptics.impactOccurred()
     }
 }
 

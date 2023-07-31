@@ -39,7 +39,7 @@
 		4CC56B572A0C1A99006BE7C2 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B562A0C1A99006BE7C2 /* TabBarButton.swift */; };
 		4CF53A702A13ED6D0038E043 /* EditingStyleEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A6F2A13ED6D0038E043 /* EditingStyleEnum.swift */; };
 		4CF53A732A13EDAE0038E043 /* HistoryDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A722A13EDAE0038E043 /* HistoryDataService.swift */; };
-		4CF53A762A13EDD40038E043 /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A752A13EDD40038E043 /* HistoryItem.swift */; };
+		4CF53A762A13EDD40038E043 /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A752A13EDD40038E043 /* HistoryModel.swift */; };
 		4CF53A782A13EE030038E043 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A772A13EE030038E043 /* Date+Ext.swift */; };
 		932C42582A72C52C00CEE1E4 /* DetailedHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C42572A72C52C00CEE1E4 /* DetailedHistoryTableViewCell.swift */; };
 		934A7AF12A74287100EC5BC4 /* DetailedHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */; };
@@ -81,7 +81,7 @@
 		4CC56B562A0C1A99006BE7C2 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		4CF53A6F2A13ED6D0038E043 /* EditingStyleEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingStyleEnum.swift; sourceTree = "<group>"; };
 		4CF53A722A13EDAE0038E043 /* HistoryDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataService.swift; sourceTree = "<group>"; };
-		4CF53A752A13EDD40038E043 /* HistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItem.swift; sourceTree = "<group>"; };
+		4CF53A752A13EDD40038E043 /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
 		4CF53A772A13EE030038E043 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		932C42572A72C52C00CEE1E4 /* DetailedHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHistoryViewController.swift; sourceTree = "<group>"; };
@@ -362,7 +362,7 @@
 		4CF53A742A13EDB80038E043 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4CF53A752A13EDD40038E043 /* HistoryItem.swift */,
+				4CF53A752A13EDD40038E043 /* HistoryModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -471,7 +471,7 @@
 				4CABA5092A0015A200442908 /* UIColor+Ext.swift in Sources */,
 				4CF53A732A13EDAE0038E043 /* HistoryDataService.swift in Sources */,
 				4CABA5042A00157200442908 /* EditorTextView.swift in Sources */,
-				4CF53A762A13EDD40038E043 /* HistoryItem.swift in Sources */,
+				4CF53A762A13EDD40038E043 /* HistoryModel.swift in Sources */,
 				934A7AF32A742A9900EC5BC4 /* EditHistoryViewController.swift in Sources */,
 				4CBAB07A2A1D1B9500342EAC /* PillTextfields.swift in Sources */,
 				4C389CAA2A128C34003C015F /* String+Ext.swift in Sources */,

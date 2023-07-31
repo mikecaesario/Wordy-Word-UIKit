@@ -20,7 +20,7 @@ class NavigationBarLabel: UILabel {
     
     private func configure() {
         textColor = .text.white
-        font = UIFont(name: "Poppins-Medium", size: 38)
+        font = UIFont(name: .fonts.poppinsMedium, size: 38)
         textAlignment = .left
         minimumScaleFactor = 0.5
     }

@@ -68,3 +68,12 @@ extension String {
         return capitalizedSentences.joined(separator: ". ")
     }
 }
+
+extension String {
+    
+    struct fonts {
+        
+        static let poppinsMedium = "Poppins-Medium"
+        static let poppinsSemiBold = "Poppins-SemiBold"
+    }
+}

@@ -25,7 +25,7 @@ class PillButtonImageWithText: UIButton {
     }
     
     private func configure() {
-        self.titleLabel?.font = UIFont(name: "Poppins-Medium", size: 16)
+        self.titleLabel?.font = UIFont(name: .fonts.poppinsMedium, size: 16)
         self.clipsToBounds = true
         self.titleLabel?.adjustsFontSizeToFitWidth = true
         self.titleLabel?.minimumScaleFactor = 1.0

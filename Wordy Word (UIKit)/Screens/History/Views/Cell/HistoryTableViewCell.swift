@@ -28,7 +28,7 @@ class HistoryTableViewCell: UITableViewCell {
         
         self.backgroundColor = .background.secondary
                 
-        historyPreviewText.font = UIFont(name: "Poppins-Medium", size: 13)
+        historyPreviewText.font = UIFont(name: .fonts.poppinsMedium, size: 13)
         historyPreviewText.textColor = .text.white
         historyPreviewText.isEditable = false
         historyPreviewText.isSelectable = false

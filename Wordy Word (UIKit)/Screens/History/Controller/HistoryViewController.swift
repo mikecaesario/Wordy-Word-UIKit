@@ -36,7 +36,9 @@ class HistoryViewController: UIViewController {
     
     private func pushEditHistoryDetailView(historyItem: EditHistoryItem) {
         
+        let EditHistoryVC = EditHistoryViewController(historyData: historyItem)
         
+        self.navigationController?.pushViewController(EditHistoryVC, animated: true)
     }
 }
 
@@ -48,21 +50,13 @@ extension HistoryViewController {
         
         historyLabel.text = "History"
         historyLabel.textColor = .text.white
-        historyLabel.font = UIFont(name: "Poppins-Medium", size: 30)
+        historyLabel.font = UIFont(name: .fonts.poppinsSemiBold, size: 30)
         
         noHistoryLabel.text = "No History"
         noHistoryLabel.textColor = .text.grey
-        noHistoryLabel.font = UIFont(name: "Poppins-Medium", size: 15)
+        noHistoryLabel.font = UIFont(name: .fonts.poppinsMedium, size: 15)
         
         navigationController?.isNavigationBarHidden = true
-    }
-    
-    private func prepareTableView() {
-        
-        tableView.backgroundColor = .clear
-        tableView.showsVerticalScrollIndicator = false
-        tableView.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: tableViewCellReuseIdentifier)
     }
     
     private func layoutUI() {
@@ -86,8 +80,17 @@ extension HistoryViewController {
             layoutNoHistoryLabel()
         } else {
             
+            prepareTableView()
             layoutTableView()
         }
+    }
+    
+    private func prepareTableView() {
+        
+        tableView.backgroundColor = .clear
+        tableView.showsVerticalScrollIndicator = false
+        tableView.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: tableViewCellReuseIdentifier)
     }
     
     private func layoutTableView() {

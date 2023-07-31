@@ -40,7 +40,7 @@ class EditorMenuItemCellCollectionViewCell: UICollectionViewCell {
     
     private func configureView() {
         
-        editingStyleLabel.font = UIFont(name: "Poppins-Medium", size: 14)
+        editingStyleLabel.font = UIFont(name: .fonts.poppinsMedium, size: 14)
         editingStyleLabel.minimumScaleFactor = 0.7
         editingStyleLabel.textColor = .text.white
         editingStyleLabel.textAlignment = .center

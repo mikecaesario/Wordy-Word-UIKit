@@ -27,7 +27,7 @@ class PillLabelsWithStroke: UILabel {
     private func configure() {
         textAlignment = .center
         minimumScaleFactor = 0.7
-        font = UIFont(name: "Poppins-Medium", size: 16)
+        font = UIFont(name: .fonts.poppinsMedium, size: 16)
         layer.cornerRadius = self.frame.height / 2
         layer.borderWidth = 1.0
         clipsToBounds = true

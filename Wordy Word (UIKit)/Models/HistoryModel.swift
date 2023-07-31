@@ -1,5 +1,5 @@
 //
-//  EditHistoryItem.swift
+//  HistoryModel.swift
 //  Wordy Word (UIKit)
 //
 //  Created by Michael Caesario on 16/05/23.
@@ -14,10 +14,10 @@ struct HistoryItems: Codable {
 
 struct EditHistoryItem: Codable {
     let uneditedItem: String
-    var result: [HistoryItemResults]
+    var result: [EditHistoryItemResults]
 }
 
-struct HistoryItemResults: Codable {
+struct EditHistoryItemResults: Codable {
     let timeStamp: Date
     let style: String
     let result: String
