@@ -43,14 +43,31 @@ extension DetailedHistoryViewController {
     private func prepareView() {
         
         view.backgroundColor = .background.primary
+        
+        let screenWidth = CGFloat(view.frame.width / 4)
                 
         detailedHistoryItemText.font = UIFont(name: .fonts.poppinsMedium, size: 22)
         detailedHistoryItemText.text = detailedHistoryItem.result
-        detailedHistoryItemText.contentInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        detailedHistoryItemText.contentInset = UIEdgeInsets(top: screenWidth, left: padding, bottom: padding, right: padding)
+        
+        configureCopyButton()
+    }
+    
+    private func configureCopyButton() {
+        
+        var buttonConfig = UIButton.Configuration.tinted()
+        buttonConfig.title = "Copy"
+        buttonConfig.cornerStyle = .capsule
+        buttonConfig.titleAlignment = .leading
+        buttonConfig.image = UIImage(systemName: "doc.on.doc")
+        buttonConfig.imagePlacement = .trailing
+        buttonConfig.imagePadding = 10.0
+        buttonConfig.titlePadding = 10.0
+        buttonConfig.baseBackgroundColor = .button.copy
+        buttonConfig.baseForegroundColor = .text.white
         
         copyItemButton.addTarget(self, action: #selector(didTappedCopyButton), for: .touchUpInside)
-        copyItemButton.backgroundColor = .button.copy
-        copyItemButton.tintColor = .text.white
+        copyItemButton.configuration = buttonConfig
     }
     
     private func layoutUI() {
