@@ -37,10 +37,10 @@ class DetailedHistoryTableViewCell: UITableViewCell {
         detailedHistoryItemText.textContainer.maximumNumberOfLines = 5
         detailedHistoryItemText.textContainer.lineBreakMode = .byTruncatingTail
         
-        historyItemTimeStampLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        historyItemTimeStampLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
         historyItemTimeStampLabel.textColor = .text.grey
         
-        historyEditingStyleLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        historyEditingStyleLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
         historyEditingStyleLabel.textColor = .text.grey
     }
     

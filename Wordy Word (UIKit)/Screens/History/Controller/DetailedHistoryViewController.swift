@@ -45,12 +45,20 @@ extension DetailedHistoryViewController {
         view.backgroundColor = .background.primary
         
         let screenWidth = CGFloat(view.frame.width / 4)
-                
+        
+        configureDetailedTextView(padding: screenWidth)
+        configureCopyButton()
+    }
+    
+    private func configureDetailedTextView(padding: CGFloat) {
+        
         detailedHistoryItemText.font = UIFont(name: .fonts.poppinsMedium, size: 22)
         detailedHistoryItemText.text = detailedHistoryItem.result
-        detailedHistoryItemText.contentInset = UIEdgeInsets(top: screenWidth, left: padding, bottom: padding, right: padding)
-        
-        configureCopyButton()
+        detailedHistoryItemText.contentInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        detailedHistoryItemText.isEditable = false
+        detailedHistoryItemText.isSelectable = true
+        detailedHistoryItemText.textColor = .text.white
+        detailedHistoryItemText.textAlignment = .left
     }
     
     private func configureCopyButton() {

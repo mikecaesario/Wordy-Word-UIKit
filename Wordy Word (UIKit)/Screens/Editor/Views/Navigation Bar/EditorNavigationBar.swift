@@ -32,7 +32,10 @@ class EditorNavigationBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setNavBarTitle(title: EditingStyleEnum) {
+    func setNavBarTitle(title: EditingStyleEnum?) {
+        
+        guard let title = title else { return }
+        
         navigationTitle.text = title.rawValue
     }
     

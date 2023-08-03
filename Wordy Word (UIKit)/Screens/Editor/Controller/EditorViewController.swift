@@ -27,37 +27,42 @@ class EditorViewController: UIViewController {
     
     private var editingText: String? {
         didSet {
-            
+            startEditText(text: editingText, editingStyle: editingStyle, remove: removeCharacterArray, find: findText, replace: replaceWithText)
         }
     }
     
-    private var resultText: String? {
-        didSet {
-         
-        }
-    }
+    private var resultText: String?
+    private var findText: String?
+    private var replaceWithText: String?
+    private var removeCharacterArray: [String]?
     
     private var editingStyle: EditingStyleEnum? {
         didSet {
             
-            if let style = editingStyle {
-                editorNavBar.setNavBarTitle(title: style)
-            }
+            editorNavBar.setNavBarTitle(title: editingStyle)
             
-            if editingStyle == .replace {
+            switch editingStyle {
+            case .replace:
+                
                 hideView(hide: false, view: replaceTexfieldStack, stack: mainEditorStack)
                 hideView(hide: true, view: removeButtonStack, stack: mainEditorStack)
                 removeButtonStack.resetRemoveItemsButton()
-            } else if editingStyle == .remove {
+            case .remove:
+                
                 hideView(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
                 hideView(hide: false, view: removeButtonStack, stack: mainEditorStack)
                 replaceTexfieldStack.resetTextfields()
-            } else {
+                removeCharacterArray = nil
+            default:
+                
                 hideView(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
                 hideView(hide: true, view: removeButtonStack, stack: mainEditorStack)
                 removeButtonStack.resetRemoveItemsButton()
                 replaceTexfieldStack.resetTextfields()
+                removeCharacterArray = nil
             }
+
+            startEditText(text: editingText, editingStyle: editingStyle, remove: removeCharacterArray, find: findText, replace: replaceWithText)
         }
     }
     
@@ -99,6 +104,7 @@ extension EditorViewController {
         
         replaceTexfieldStack.isHidden = true
         removeButtonStack.isHidden = true
+        textResultStack.isHidden = true
     }
     
     private func layoutUI() {
@@ -187,10 +193,10 @@ extension EditorViewController {
         
         view.endEditing(true)
 
-        if let historyVC = historyVC {
-            historyVC.dismiss(animated: true)
-            self.historyVC = nil
-        }
+//        if let historyVC = historyVC {
+//            historyVC.dismiss(animated: true)
+//            self.historyVC = nil
+//        }
         
         editorMenu = EditorStylePickerViewController(currentSelectedStyle: editingStyle)
         
@@ -280,10 +286,11 @@ extension EditorViewController: EditorNavigationBarDelegate {
     }
 }
 
-extension EditorTextView: RemoveButtonStackDelegate {
+extension EditorViewController: RemoveButtonStackDelegate {
     
     func didFinishAddingRemovingItem(itemToRemove: [String]) {
         
+        removeCharacterArray = itemToRemove
     }
 }
 
@@ -291,10 +298,12 @@ extension EditorViewController: TextEditorCapsuleViewDelegate {
     
     func didFinishInputingText(text: String) {
         
+        editingText = text
     }
     
     func didFinishPastingText(text: String) {
         
+        editingText = text
     }
 }
 
@@ -304,7 +313,19 @@ extension EditorViewController: HistoryAndSettingsTabBarDelegate {
         
         print("DID TAP HISTORY BUTTON")
         
-        let historyVC = HistoryViewController(historyItems: historyDataArray)
+        openHistoryViewController(historyItems: historyDataArray)
+    }
+    
+    func didTappedSettingsButton() {
+        
+        print("DID TAP SETTINGS BUTTON")
+        
+        openSettingsViewController()
+    }
+   
+    private func openHistoryViewController(historyItems: [HistoryItems]) {
+        
+        let historyVC = HistoryViewController(historyItems: historyItems)
         let navigation = UINavigationController(rootViewController: historyVC)
         
         if let historyVCSheet = navigation.sheetPresentationController {
@@ -318,10 +339,7 @@ extension EditorViewController: HistoryAndSettingsTabBarDelegate {
         present(navigation, animated: true)
     }
     
-    func didTappedSettingsButton() {
-        print("DID TAP SETTINGS BUTTON")
-        
+    private func openSettingsViewController() {
         
     }
-   
 }

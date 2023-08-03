@@ -23,10 +23,29 @@ class TextEditorCapsuleView: UIView {
     private let sentenceLabel = PillLabelsWithStroke()
     private let paragraphLabel = PillLabelsWithStroke()
     
-    private var characterCount = 0 { didSet { } }
-    private var wordCount = 0 { didSet { } }
-    private var sentenceCount = 0 { didSet { } }
-    private var paragraphCount = 0 { didSet { } }
+    private var characterCount = 0 {
+        didSet {
+            characterLabel.updateTextLabel(label: characterCount > 1 ? "\(characterCount) Characters" : "\(characterCount) Character" )
+        }
+    }
+    
+    private var wordCount = 0 {
+        didSet {
+            wordLabel.updateTextLabel(label: wordCount > 1 ? "\(wordCount) Words" : "\(wordCount) Word" )
+        }
+    }
+    
+    private var sentenceCount = 0 {
+        didSet {
+            sentenceLabel.updateTextLabel(label: sentenceCount > 1 ? "\(sentenceCount) Sentences" : "\(sentenceCount) Sentence" )
+        }
+    }
+    
+    private var paragraphCount = 0 {
+        didSet {
+            paragraphLabel.updateTextLabel(label: paragraphCount > 1 ? "\(paragraphCount) Paragraphs" : "\(paragraphCount) Paragraph" )
+        }
+    }
     
     private var editingText = "" {
         didSet {
@@ -51,12 +70,11 @@ class TextEditorCapsuleView: UIView {
     }
     
     private func prepareViews() {
-        
-        let labelInsets = UIEdgeInsets(top: 15, left: 30, bottom: 15, right: 30)
-        
+                
         textEditor.text = editorPlaceholderText
         textEditor.textColor = .text.placeholder
                 
+        pasteButton.addTarget(self, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
         pasteButton.setTitleColor(.text.white, for: .normal)
         pasteButton.setImage(UIImage(systemName: "doc.on.clipboard"), for: .normal)
         pasteButton.setTitle("Paste", for: .normal)
@@ -67,25 +85,12 @@ class TextEditorCapsuleView: UIView {
         buttonScrollView.alwaysBounceHorizontal = true
         buttonScrollView.showsHorizontalScrollIndicator = false
         
-        characterLabel.insets = labelInsets
-        characterLabel.text = "0 Character"
-        characterLabel.textColor = .text.black
-        characterLabel.layer.borderColor = UIColor.text.black?.cgColor
+        let labelInsets = UIEdgeInsets(top: 15, left: 30, bottom: 15, right: 30)
         
-        wordLabel.insets = labelInsets
-        wordLabel.text = "0 Word"
-        wordLabel.textColor = .text.black
-        wordLabel.layer.borderColor = UIColor.text.black?.cgColor
-        
-        sentenceLabel.insets = labelInsets
-        sentenceLabel.text = "0 Sentence"
-        sentenceLabel.textColor = .text.black
-        sentenceLabel.layer.borderColor = UIColor.text.black?.cgColor
-        
-        paragraphLabel.insets = labelInsets
-        paragraphLabel.text = "0 Paragraph"
-        paragraphLabel.textColor = .text.black
-        paragraphLabel.layer.borderColor = UIColor.text.black?.cgColor
+        characterLabel.prepareLabel(labelText: "0 Character", color: .text.black, labelInsets: labelInsets)
+        wordLabel.prepareLabel(labelText: "0 Word", color: .text.black, labelInsets: labelInsets)
+        sentenceLabel.prepareLabel(labelText: "0 Sentence", color: .text.black, labelInsets: labelInsets)
+        paragraphLabel.prepareLabel(labelText: "0 Paragraph", color: .text.black, labelInsets: labelInsets)
     }
     
     private func configureView() {
@@ -149,6 +154,21 @@ class TextEditorCapsuleView: UIView {
             pasteButton.widthAnchor.constraint(equalToConstant: 130)
         ])
     }
+    
+    private func didTappedPasteButton() {
+        
+        guard let pasteboardData = UIPasteboard.general.string else { return }
+        
+        textEditor.text = pasteboardData
+        delegate?.didFinishPastingText(text: pasteboardData)
+    }
+    
+    private func calculateText(text: String) {
+        
+        characterCount = text.count
+        wordCount = text.wordCount
+        sentenceCount = text.sentenceCount
+    }
 }
 
 extension TextEditorCapsuleView: UITextViewDelegate {
@@ -180,9 +200,11 @@ extension TextEditorCapsuleView: UITextViewDelegate {
             if the texview value changed and textview color is not in placeholder color,
             set the textview value to editing text variable
         */
-        if textView.textColor != .text.placeholder {
-            editingText = textView.text
-        }
+//        if textView.textColor != .text.placeholder {
+//            editingText = textView.text
+//        }
+        
+        calculateText(text: textView.text)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {

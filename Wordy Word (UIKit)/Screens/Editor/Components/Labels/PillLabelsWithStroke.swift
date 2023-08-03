@@ -33,4 +33,20 @@ class PillLabelsWithStroke: UILabel {
         clipsToBounds = true
         backgroundColor = .clear
     }
+    
+    func prepareLabel(labelText: String, color: UIColor?, labelInsets: UIEdgeInsets) {
+        
+        text = labelText
+        insets = labelInsets
+        
+        if let borderColor = color {
+            layer.borderColor = color?.cgColor
+            textColor = color
+        }
+    }
+    
+    func updateTextLabel(label: String) {
+        
+        text = label
+    }
 }
