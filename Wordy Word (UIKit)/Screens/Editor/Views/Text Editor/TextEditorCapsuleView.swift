@@ -74,7 +74,7 @@ class TextEditorCapsuleView: UIView {
         textEditor.text = editorPlaceholderText
         textEditor.textColor = .text.placeholder
                 
-        pasteButton.addTarget(self, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
+        pasteButton.addTarget(self, action: #selector(didTappedPasteButton), for: .touchUpInside)
         pasteButton.setTitleColor(.text.white, for: .normal)
         pasteButton.setImage(UIImage(systemName: "doc.on.clipboard"), for: .normal)
         pasteButton.setTitle("Paste", for: .normal)
@@ -155,7 +155,7 @@ class TextEditorCapsuleView: UIView {
         ])
     }
     
-    private func didTappedPasteButton() {
+    @objc private func didTappedPasteButton() {
         
         guard let pasteboardData = UIPasteboard.general.string else { return }
         

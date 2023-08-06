@@ -25,16 +25,21 @@ class EditorViewController: UIViewController {
     
     private let historyDataService: HistoryDataService
     
+    private var findText: String?
+    private var replaceWithText: String?
+    private var removeCharacterArray: [String]?
+    
     private var editingText: String? {
         didSet {
             startEditText(text: editingText, editingStyle: editingStyle, remove: removeCharacterArray, find: findText, replace: replaceWithText)
         }
     }
     
-    private var resultText: String?
-    private var findText: String?
-    private var replaceWithText: String?
-    private var removeCharacterArray: [String]?
+    private var resultText: String? {
+        didSet {
+            textResultStack.setResultText(result: resultText)
+        }
+    }
     
     private var editingStyle: EditingStyleEnum? {
         didSet {
@@ -44,19 +49,19 @@ class EditorViewController: UIViewController {
             switch editingStyle {
             case .replace:
                 
-                hideView(hide: false, view: replaceTexfieldStack, stack: mainEditorStack)
-                hideView(hide: true, view: removeButtonStack, stack: mainEditorStack)
+                hideOrUnhideViewFromMainStack(hide: false, view: replaceTexfieldStack, stack: mainEditorStack)
+                hideOrUnhideViewFromMainStack(hide: true, view: removeButtonStack, stack: mainEditorStack)
                 removeButtonStack.resetRemoveItemsButton()
             case .remove:
                 
-                hideView(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
-                hideView(hide: false, view: removeButtonStack, stack: mainEditorStack)
+                hideOrUnhideViewFromMainStack(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
+                hideOrUnhideViewFromMainStack(hide: false, view: removeButtonStack, stack: mainEditorStack)
                 replaceTexfieldStack.resetTextfields()
                 removeCharacterArray = nil
             default:
                 
-                hideView(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
-                hideView(hide: true, view: removeButtonStack, stack: mainEditorStack)
+                hideOrUnhideViewFromMainStack(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
+                hideOrUnhideViewFromMainStack(hide: true, view: removeButtonStack, stack: mainEditorStack)
                 removeButtonStack.resetRemoveItemsButton()
                 replaceTexfieldStack.resetTextfields()
                 removeCharacterArray = nil
@@ -176,7 +181,7 @@ extension EditorViewController {
     }
     
     // hide or unhide view inside of a stackview
-    private func hideView(hide: Bool, view: UIView, stack: UIStackView) {
+    private func hideOrUnhideViewFromMainStack(hide: Bool, view: UIView, stack: UIStackView) {
         
         UIView.animate(withDuration: 0.3, delay: 0) {
             view.alpha = hide ? 0 : 1
@@ -226,6 +231,8 @@ extension EditorViewController {
             
         guard let text = text, text != "", let style = editingStyle else { return }
         
+        hideOrUnhideViewFromMainStack(hide: true, view: textResultStack, stack: mainEditorStack)
+        
         let haptics = UIImpactFeedbackGenerator(style: .rigid)
         
         var result = ""
@@ -257,6 +264,8 @@ extension EditorViewController {
         resultText = result
         
         historyDataArray = historyDataService.didFinishEditingNowAppendingHistoryItem(history: historyDataArray, editingText: text, editingResult: result, editingStyle: style)
+        
+        hideOrUnhideViewFromMainStack(hide: false, view: textResultStack, stack: mainEditorStack)
         
         haptics.impactOccurred()
     }

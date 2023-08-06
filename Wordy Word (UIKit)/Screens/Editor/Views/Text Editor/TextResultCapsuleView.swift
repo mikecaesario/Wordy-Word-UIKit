@@ -23,7 +23,7 @@ class TextResultCapsuleView: UIView {
     private var sentenceCount = 0 { didSet { } }
     private var paragraphCount = 0 { didSet { } }
     
-    private var resultText = "" { didSet { textResult.text = resultText } }
+    private var resultText: String? { didSet { textResult.text = resultText } }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -142,11 +142,17 @@ extension TextResultCapsuleView {
 
 extension TextResultCapsuleView {
     
-    func setResultText(result: String) {
+    func setResultText(result: String?) {
+        
+        guard let result = result else { return }
+        
         resultText = result
     }
     
     @objc private func didTappedCopyButton() {
         
+        guard let textItemReadyToBeCopiedToClipboard = resultText else { return }
+        
+        UIPasteboard.general.string = textItemReadyToBeCopiedToClipboard
     }
 }
