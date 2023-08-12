@@ -160,6 +160,7 @@ class TextEditorCapsuleView: UIView {
         guard let pasteboardData = UIPasteboard.general.string else { return }
         
         textEditor.text = pasteboardData
+        calculateText(text: pasteboardData)
         delegate?.didFinishPastingText(text: pasteboardData)
     }
     

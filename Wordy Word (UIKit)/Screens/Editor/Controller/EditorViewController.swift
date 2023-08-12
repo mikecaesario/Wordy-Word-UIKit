@@ -98,10 +98,13 @@ extension EditorViewController {
     
     private func configureView() {
         
+        let screenHeight = CGFloat(view.bounds.height / 5)
+        
         view.backgroundColor = .background.primary
         overrideUserInterfaceStyle = .dark
         editorScrollView.alwaysBounceVertical = true
         editorScrollView.showsVerticalScrollIndicator = false
+        editorScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: screenHeight, right: 0)
         
         editorNavBar.delegate = self
         textEditorStack.delegate = self
@@ -170,7 +173,7 @@ extension EditorViewController {
             textEditorStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
             textEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
 
-            textResultStack.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
+            textResultStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
             textResultStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
             
             tabBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),

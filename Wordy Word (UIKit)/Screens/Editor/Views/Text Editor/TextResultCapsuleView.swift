@@ -136,6 +136,7 @@ extension TextResultCapsuleView {
             textResult.topAnchor.constraint(equalTo: buttonScrollView.bottomAnchor),
             textResult.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             textResult.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            textResult.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
 }
@@ -146,7 +147,12 @@ extension TextResultCapsuleView {
         
         guard let result = result else { return }
         
+        calculateText(text: result)
         resultText = result
+    }
+    
+    private func calculateText(text: String) {
+        
     }
     
     @objc private func didTappedCopyButton() {

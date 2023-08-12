@@ -23,8 +23,9 @@ class ResultTextView: UITextView {
         textColor = .text.white
         textAlignment = .left
         backgroundColor = .clear
-        isScrollEnabled = false
+        isEditable = false
+        isSelectable = false
+        showsVerticalScrollIndicator = false
         contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        text = "lorem ipsum lad ahsduadh dsahudhad hduashduas dadiajsbd adhduajda didhiasbd daibdjahd ahdasd h uhuh"
     }
 }

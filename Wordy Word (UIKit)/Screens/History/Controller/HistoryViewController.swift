@@ -16,6 +16,7 @@ class HistoryViewController: UIViewController {
     
     private var historyItems: [HistoryItems]
     private let tableViewCellReuseIdentifier = "HistoryCell"
+    private let tableViewHeaderReuseIdentifier = "HistoryHeader"
     
     init(historyItems: [HistoryItems]) {
         
@@ -87,10 +88,11 @@ extension HistoryViewController {
     
     private func prepareTableView() {
         
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = .blue
         tableView.showsVerticalScrollIndicator = false
         tableView.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: tableViewCellReuseIdentifier)
+        tableView.register(HistoryHeader.self, forHeaderFooterViewReuseIdentifier: tableViewHeaderReuseIdentifier)
     }
     
     private func layoutTableView() {
@@ -132,6 +134,15 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return historyItems[section].items.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderReuseIdentifier) as! HistoryHeader
+        
+        header.setHeaderLabel(text: "\(historyItems[section].date)")
+        
+        return header
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

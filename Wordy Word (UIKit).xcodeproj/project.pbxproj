@@ -42,6 +42,7 @@
 		4CF53A762A13EDD40038E043 /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A752A13EDD40038E043 /* HistoryModel.swift */; };
 		4CF53A782A13EE030038E043 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A772A13EE030038E043 /* Date+Ext.swift */; };
 		932C42582A72C52C00CEE1E4 /* DetailedHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C42572A72C52C00CEE1E4 /* DetailedHistoryTableViewCell.swift */; };
+		933F6C502A87E82900F93814 /* HistoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F6C4F2A87E82900F93814 /* HistoryHeader.swift */; };
 		934A7AF12A74287100EC5BC4 /* DetailedHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */; };
 		934A7AF32A742A9900EC5BC4 /* EditHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A7AF22A742A9900EC5BC4 /* EditHistoryViewController.swift */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,7 @@
 		4CF53A752A13EDD40038E043 /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
 		4CF53A772A13EE030038E043 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		932C42572A72C52C00CEE1E4 /* DetailedHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		933F6C4F2A87E82900F93814 /* HistoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHeader.swift; sourceTree = "<group>"; };
 		934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHistoryViewController.swift; sourceTree = "<group>"; };
 		934A7AF22A742A9900EC5BC4 /* EditHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditHistoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,6 +123,7 @@
 		1628BB532A5BEBF0004BDB93 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				933F6C4E2A87E7BD00F93814 /* Section */,
 				9356B68A2A7024C000FB3CD1 /* Cell */,
 			);
 			path = Views;
@@ -367,6 +370,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		933F6C4E2A87E7BD00F93814 /* Section */ = {
+			isa = PBXGroup;
+			children = (
+				933F6C4F2A87E82900F93814 /* HistoryHeader.swift */,
+			);
+			path = Section;
+			sourceTree = "<group>";
+		};
 		9356B68A2A7024C000FB3CD1 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -475,6 +486,7 @@
 				934A7AF32A742A9900EC5BC4 /* EditHistoryViewController.swift in Sources */,
 				4CBAB07A2A1D1B9500342EAC /* PillTextfields.swift in Sources */,
 				4C389CAA2A128C34003C015F /* String+Ext.swift in Sources */,
+				933F6C502A87E82900F93814 /* HistoryHeader.swift in Sources */,
 				4C17B92D2A02B64C00FA7FB3 /* NavigationBarCircleButton.swift in Sources */,
 				4C8474732A026FD7006F0930 /* EditorNavigationBar.swift in Sources */,
 				4CC56B552A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift in Sources */,
