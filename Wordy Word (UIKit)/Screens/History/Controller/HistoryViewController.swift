@@ -48,7 +48,7 @@ extension HistoryViewController {
     
     private func prepareView() {
         
-        view.backgroundColor = .background.thirtiary
+        view.backgroundColor = .background.primary
         
         historyLabel.text = "History"
         historyLabel.textColor = .text.white
@@ -104,15 +104,13 @@ extension HistoryViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(tableView)
-        
-        let padding = 16.0
-        
+                
         NSLayoutConstraint.activate([
             
             tableView.topAnchor.constraint(equalTo: historyLabel.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
     
@@ -163,6 +161,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         let historyItem = historyItems[indexPath.section].items[indexPath.row]
         
         cell.setupCell(histroyItem: historyItem)
+        cell.selectionStyle = .none
         print("CELL ADDED")
         
         return cell
