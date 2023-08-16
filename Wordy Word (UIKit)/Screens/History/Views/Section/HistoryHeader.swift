@@ -14,6 +14,7 @@ class HistoryHeader: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
+        prepareHeader()
         layoutUI()
     }
     
@@ -25,7 +26,7 @@ class HistoryHeader: UITableViewHeaderFooterView {
         
         self.backgroundColor = .clear
         
-        dateLabelHeader.font = UIFont(name: .fonts.poppinsSemiBold, size: 17)
+        dateLabelHeader.font = UIFont(name: .fonts.poppinsSemiBold, size: 20)
         dateLabelHeader.textColor = .text.white
         dateLabelHeader.numberOfLines = 1
         dateLabelHeader.minimumScaleFactor = 0.7

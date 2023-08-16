@@ -11,11 +11,16 @@ class HistoryTableViewCell: UITableViewCell {
 
     private let historyPreviewText = UITextView()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         prepareCell()
         layoutUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -26,8 +31,9 @@ class HistoryTableViewCell: UITableViewCell {
 
     private func prepareCell() {
         
-        self.backgroundColor = .background.secondary
+        self.backgroundColor = .background.primary
                 
+        historyPreviewText.backgroundColor = .clear
         historyPreviewText.font = UIFont(name: .fonts.poppinsMedium, size: 13)
         historyPreviewText.textColor = .text.white
         historyPreviewText.isEditable = false

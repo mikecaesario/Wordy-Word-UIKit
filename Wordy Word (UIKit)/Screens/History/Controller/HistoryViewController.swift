@@ -30,6 +30,7 @@ class HistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("\(historyItems.count) HISTORY ITEM FOUND")
         
         prepareView()
         layoutUI()
@@ -88,9 +89,12 @@ extension HistoryViewController {
     
     private func prepareTableView() {
         
-        tableView.backgroundColor = .blue
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
-        tableView.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 400
         tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: tableViewCellReuseIdentifier)
         tableView.register(HistoryHeader.self, forHeaderFooterViewReuseIdentifier: tableViewHeaderReuseIdentifier)
     }
@@ -101,12 +105,14 @@ extension HistoryViewController {
 
         view.addSubview(tableView)
         
+        let padding = 16.0
+        
         NSLayoutConstraint.activate([
             
             tableView.topAnchor.constraint(equalTo: historyLabel.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
         ])
     }
     
@@ -141,8 +147,13 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderReuseIdentifier) as! HistoryHeader
         
         header.setHeaderLabel(text: "\(historyItems[section].date)")
+        print("HEADER ADDED")
         
         return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -152,6 +163,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         let historyItem = historyItems[indexPath.section].items[indexPath.row]
         
         cell.setupCell(histroyItem: historyItem)
+        print("CELL ADDED")
         
         return cell
     }
