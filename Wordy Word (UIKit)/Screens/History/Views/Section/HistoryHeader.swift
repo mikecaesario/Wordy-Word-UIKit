@@ -23,10 +23,8 @@ class HistoryHeader: UITableViewHeaderFooterView {
     }
     
     private func prepareHeader() {
-        
-        self.backgroundColor = .clear
-        
-        dateLabelHeader.font = UIFont(name: .fonts.poppinsSemiBold, size: 20)
+                
+        dateLabelHeader.font = UIFont(name: .fonts.poppinsMedium, size: 20)
         dateLabelHeader.textColor = .text.white
         dateLabelHeader.numberOfLines = 1
         dateLabelHeader.minimumScaleFactor = 0.7
@@ -45,7 +43,8 @@ class HistoryHeader: UITableViewHeaderFooterView {
             
             dateLabelHeader.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             dateLabelHeader.heightAnchor.constraint(equalToConstant: 20),
-            dateLabelHeader.widthAnchor.constraint(equalTo: self.widthAnchor)
+            dateLabelHeader.widthAnchor.constraint(equalTo: self.widthAnchor),
+            dateLabelHeader.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
     

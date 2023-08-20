@@ -9,10 +9,12 @@ import UIKit
 
 class HistoryViewController: UIViewController {
     
-    private let tableView = UITableView()
     private let historyLabel = UILabel()
-    private let noHistoryLabel = UILabel()
-    private let closeButton = UIButton()
+    private let historyNavigationBar = HistoryNavigationTitle()
+    private lazy var noHistoryLabel = UILabel()
+    private lazy var tableView = UITableView(frame: .zero, style: .grouped)
+
+//    private let closeButton = UIButton()
     
     private var historyItems: [HistoryItems]
     private let tableViewCellReuseIdentifier = "HistoryCell"
@@ -49,36 +51,28 @@ extension HistoryViewController {
     private func prepareView() {
         
         view.backgroundColor = .background.primary
-        
-        historyLabel.text = "History"
-        historyLabel.textColor = .text.white
-        historyLabel.font = UIFont(name: .fonts.poppinsSemiBold, size: 30)
-        
-        noHistoryLabel.text = "No History"
-        noHistoryLabel.textColor = .text.grey
-        noHistoryLabel.font = UIFont(name: .fonts.poppinsMedium, size: 15)
-        
         navigationController?.isNavigationBarHidden = true
     }
     
     private func layoutUI() {
         
-        historyLabel.translatesAutoresizingMaskIntoConstraints = false
+        historyNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(historyLabel)
+        view.addSubview(historyNavigationBar)
         
-        let padding = 18.0
-        
+        historyNavigationBar.layer.zPosition = 1
+                
         NSLayoutConstraint.activate([
             
-            historyLabel.topAnchor.constraint(equalTo: view.topAnchor),
-            historyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            historyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            historyLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
+            historyNavigationBar.topAnchor.constraint(equalTo: view.topAnchor),
+            historyNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            historyNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            historyNavigationBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
         ])
         
         if historyItems.isEmpty {
             
+            prepareNoHistoryLabel()
             layoutNoHistoryLabel()
         } else {
             
@@ -89,14 +83,24 @@ extension HistoryViewController {
     
     private func prepareTableView() {
         
+        let labelHeight = (view.frame.height / 8)
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 400
+        tableView.contentInset = UIEdgeInsets(top: labelHeight, left: 0, bottom: 0, right: 0)
         tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: tableViewCellReuseIdentifier)
         tableView.register(HistoryHeader.self, forHeaderFooterViewReuseIdentifier: tableViewHeaderReuseIdentifier)
+    }
+    
+    private func prepareNoHistoryLabel() {
+        
+        noHistoryLabel.text = "No History"
+        noHistoryLabel.textColor = .text.grey
+        noHistoryLabel.font = UIFont(name: .fonts.poppinsMedium, size: 15)
     }
     
     private func layoutTableView() {
@@ -104,10 +108,11 @@ extension HistoryViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(tableView)
+        tableView.layer.zPosition = 0
                 
         NSLayoutConstraint.activate([
             
-            tableView.topAnchor.constraint(equalTo: historyLabel.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
