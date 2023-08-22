@@ -35,7 +35,7 @@ class HistoryTableViewCell: UITableViewCell {
                 
         let padding = 16.0
         
-        historyPreviewText.font = UIFont(name: .fonts.poppinsMedium, size: 16)
+        historyPreviewText.font = UIFont(name: .fonts.poppinsMedium, size: 17)
         historyPreviewText.textColor = .text.white
         historyPreviewText.isEditable = false
         historyPreviewText.isSelectable = false

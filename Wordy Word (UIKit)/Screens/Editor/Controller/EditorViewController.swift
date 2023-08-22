@@ -104,7 +104,7 @@ extension EditorViewController {
         overrideUserInterfaceStyle = .dark
         editorScrollView.alwaysBounceVertical = true
         editorScrollView.showsVerticalScrollIndicator = false
-        editorScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: screenHeight, right: 0)
+        editorScrollView.contentInset = UIEdgeInsets(top: 75, left: 0, bottom: screenHeight, right: 0)
         
         editorNavBar.delegate = self
         textEditorStack.delegate = self
@@ -139,21 +139,23 @@ extension EditorViewController {
         view.addSubview(editorScrollView)
         view.addSubview(tabBar)
         
-        tabBar.layer.zPosition = 0
+//        editorNavBar.layer.zPosition = 0
+//        tabBar.layer.zPosition = 0
         editorScrollView.layer.zPosition = -1
         
         let navHorizontalPadding = 18.0
-        let navVerticalPadding = 15.0
+//        let navVerticalPadding = 15.0
         let horizontalPadding = 26.0
         
         NSLayoutConstraint.activate([
             
             editorNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            editorNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: navHorizontalPadding),
-            editorNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -navHorizontalPadding),
+            editorNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            editorNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             editorNavBar.heightAnchor.constraint(equalToConstant: 60),
             
-            editorScrollView.topAnchor.constraint(equalTo: editorNavBar.bottomAnchor, constant: navVerticalPadding),
+//            editorScrollView.topAnchor.constraint(equalTo: editorNavBar.bottomAnchor, constant: navVerticalPadding),
+            editorScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             editorScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             editorScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             editorScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

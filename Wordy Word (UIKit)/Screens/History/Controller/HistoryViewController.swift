@@ -9,7 +9,6 @@ import UIKit
 
 class HistoryViewController: UIViewController {
     
-    private let historyLabel = UILabel()
     private let historyNavigationBar = HistoryNavigationTitle()
     private lazy var noHistoryLabel = UILabel()
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
@@ -67,7 +66,7 @@ extension HistoryViewController {
             historyNavigationBar.topAnchor.constraint(equalTo: view.topAnchor),
             historyNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             historyNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            historyNavigationBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
+            historyNavigationBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
         ])
         
         if historyItems.isEmpty {
@@ -83,7 +82,7 @@ extension HistoryViewController {
     
     private func prepareTableView() {
         
-        let labelHeight = (view.frame.height / 8)
+        let labelHeight = (view.frame.height / 6.2)
         
         tableView.delegate = self
         tableView.dataSource = self

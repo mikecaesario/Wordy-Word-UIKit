@@ -9,6 +9,7 @@ import UIKit
 
 class EditHistoryViewController: UIViewController {
 
+    private let scrollView = UIScrollView()
     private let originalEditLabel = UILabel()
     private let originalEditText = UITextView()
     private let allEditLabel = UILabel()
