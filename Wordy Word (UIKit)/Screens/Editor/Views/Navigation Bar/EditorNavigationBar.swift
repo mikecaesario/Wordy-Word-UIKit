@@ -25,14 +25,13 @@ class EditorNavigationBar: UIView {
         super.init(frame: frame)
         
         prepareView()
-        configureView()
         layoutUI()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        applyGradientBackground()
+        setGradientBackgroundFrame()
     }
     
     required init?(coder: NSCoder) {
@@ -46,7 +45,7 @@ class EditorNavigationBar: UIView {
         navigationTitle.text = title.rawValue
     }
     
-    private func applyGradientBackground() {
+    private func setGradientBackgroundFrame() {
         
         gradientBackground.frame = self.bounds
     }
@@ -57,16 +56,11 @@ class EditorNavigationBar: UIView {
         editorMenuButton.addTarget(self, action: #selector(showEditorMenu), for: .touchUpInside)
         
         if let color = UIColor.background.primary?.cgColor {
-            
+
             gradientBackground.colors = [color, UIColor.clear.cgColor]
         }
-        
-        gradientBackground.locations = [0.7, 1.0]
-    }
-    
-    private func configureView() {
-        
-        self.backgroundColor = .clear
+
+        gradientBackground.locations = [0.35, 1.0]
     }
     
     private func layoutUI() {
@@ -88,8 +82,8 @@ class EditorNavigationBar: UIView {
             
             editorMenuButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -10),
             editorMenuButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            editorMenuButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.85),
-            editorMenuButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.85),
+            editorMenuButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.75),
+            editorMenuButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.75),
 
         ])
     }
@@ -98,6 +92,7 @@ class EditorNavigationBar: UIView {
 extension EditorNavigationBar {
     
     @objc private func showEditorMenu() {
+        
         delegate?.didTapMenuButton()
     }
 }

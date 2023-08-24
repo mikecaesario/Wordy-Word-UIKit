@@ -139,12 +139,9 @@ extension EditorViewController {
         view.addSubview(editorScrollView)
         view.addSubview(tabBar)
         
-//        editorNavBar.layer.zPosition = 0
-//        tabBar.layer.zPosition = 0
+        view.bringSubviewToFront(editorNavBar)
         editorScrollView.layer.zPosition = -1
-        
-        let navHorizontalPadding = 18.0
-//        let navVerticalPadding = 15.0
+
         let horizontalPadding = 26.0
         
         NSLayoutConstraint.activate([
@@ -152,9 +149,8 @@ extension EditorViewController {
             editorNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             editorNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             editorNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            editorNavBar.heightAnchor.constraint(equalToConstant: 60),
+            editorNavBar.heightAnchor.constraint(equalToConstant: 70),
             
-//            editorScrollView.topAnchor.constraint(equalTo: editorNavBar.bottomAnchor, constant: navVerticalPadding),
             editorScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             editorScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             editorScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
