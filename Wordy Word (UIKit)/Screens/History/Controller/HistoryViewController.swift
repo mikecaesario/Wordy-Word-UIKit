@@ -9,11 +9,9 @@ import UIKit
 
 class HistoryViewController: UIViewController {
     
-    private let historyNavigationBar = HistoryNavigationTitle()
+    private let historyNavigationBar = SubviewNavigationTitle()
     private lazy var noHistoryLabel = UILabel()
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
-
-//    private let closeButton = UIButton()
     
     private var historyItems: [HistoryItems]
     private let tableViewCellReuseIdentifier = "HistoryCell"
@@ -34,6 +32,7 @@ class HistoryViewController: UIViewController {
         print("\(historyItems.count) HISTORY ITEM FOUND")
         
         prepareView()
+        configureView()
         layoutUI()
     }
     
@@ -51,6 +50,11 @@ extension HistoryViewController {
         
         view.backgroundColor = .background.primary
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    private func configureView() {
+        
+        historyNavigationBar.setNavigationTitle(title: "History")
     }
     
     private func layoutUI() {

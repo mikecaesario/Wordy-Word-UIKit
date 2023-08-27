@@ -323,33 +323,29 @@ extension EditorViewController: HistoryAndSettingsTabBarDelegate {
         
         print("DID TAP HISTORY BUTTON")
         
-        openHistoryViewController(historyItems: historyDataArray)
+        openViewControllerModal(controller: HistoryViewController(historyItems: historyDataArray), detents: [.medium(), .large()])
     }
     
     func didTappedSettingsButton() {
         
         print("DID TAP SETTINGS BUTTON")
         
-        openSettingsViewController()
+        openViewControllerModal(controller: SettingsViewController(), detents: [.medium()])
     }
-   
-    private func openHistoryViewController(historyItems: [HistoryItems]) {
+    
+    private func openViewControllerModal(controller: UIViewController, detents: [UISheetPresentationController.Detent]) {
         
-        let historyVC = HistoryViewController(historyItems: historyItems)
-        let navigation = UINavigationController(rootViewController: historyVC)
+        let viewController = controller
+        let navigation = UINavigationController(rootViewController: viewController)
         
         if let historyVCSheet = navigation.sheetPresentationController {
             
-            historyVCSheet.detents = [.medium(), .large()]
+            historyVCSheet.detents = detents
             historyVCSheet.preferredCornerRadius = 40
             historyVCSheet.prefersScrollingExpandsWhenScrolledToEdge = true
             historyVCSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
         }
         
         present(navigation, animated: true)
-    }
-    
-    private func openSettingsViewController() {
-        
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HistoryNavigationTitle: UIView {
+class SubviewNavigationTitle: UIView {
 
     let navigationLabel = UILabel()
     let gradientBackground = CAGradientLayer()
@@ -36,7 +36,6 @@ class HistoryNavigationTitle: UIView {
     
     private func prepareView() {
         
-        navigationLabel.text = "History"
         navigationLabel.textColor = .text.white
         navigationLabel.textAlignment = .left
         navigationLabel.font = UIFont(name: .fonts.poppinsSemiBold, size: 30)
@@ -63,5 +62,9 @@ class HistoryNavigationTitle: UIView {
             navigationLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             navigationLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
+    }
+    
+    func setNavigationTitle(title: String) {
+        navigationLabel.text = title
     }
 }
