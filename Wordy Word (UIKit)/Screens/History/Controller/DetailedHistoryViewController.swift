@@ -9,12 +9,10 @@ import UIKit
 
 class DetailedHistoryViewController: UIViewController {
 
+    private let detailedNavigationBar = DetailedHistoryNavigationBarButtons()
     private let detailedHistoryItemText = UITextView()
-    private let backButton = UIButton()
-    private let copyItemButton = UIButton()
     
     private let detailedHistoryItem: EditHistoryItemResults
-    private let padding = 16.0
     
     init(detailedHistoryItem: EditHistoryItemResults) {
         
@@ -29,85 +27,65 @@ class DetailedHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        prepareView()
+        configureView()
         layoutUI()
-    }
-
-    @objc private func didTappedCopyButton() {
-        
     }
 }
 
 extension DetailedHistoryViewController {
     
-    private func prepareView() {
+    private func configureView() {
         
         view.backgroundColor = .background.primary
+        navigationController?.isNavigationBarHidden = true
         
-        let screenWidth = CGFloat(view.frame.width / 4)
+        detailedNavigationBar.delegate = self
         
-        configureDetailedTextView(padding: screenWidth)
-        configureCopyButton()
+        configureDetailedTextView()
     }
     
-    private func configureDetailedTextView(padding: CGFloat) {
+    private func configureDetailedTextView() {
+        
+        let padding = 16.0
         
         detailedHistoryItemText.font = UIFont(name: .fonts.poppinsMedium, size: 22)
         detailedHistoryItemText.text = detailedHistoryItem.result
-        detailedHistoryItemText.contentInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        detailedHistoryItemText.contentInset = UIEdgeInsets(top: 110, left: padding, bottom: padding, right: padding)
         detailedHistoryItemText.isEditable = false
         detailedHistoryItemText.isSelectable = true
         detailedHistoryItemText.textColor = .text.white
         detailedHistoryItemText.textAlignment = .left
     }
     
-    private func configureCopyButton() {
-        
-        var buttonConfig = UIButton.Configuration.tinted()
-        buttonConfig.title = "Copy"
-        buttonConfig.cornerStyle = .capsule
-        buttonConfig.titleAlignment = .leading
-        buttonConfig.image = UIImage(systemName: "doc.on.doc")
-        buttonConfig.imagePlacement = .trailing
-        buttonConfig.imagePadding = 10.0
-        buttonConfig.titlePadding = 10.0
-        buttonConfig.baseBackgroundColor = .button.copy
-        buttonConfig.baseForegroundColor = .text.white
-        
-        copyItemButton.addTarget(self, action: #selector(didTappedCopyButton), for: .touchUpInside)
-        copyItemButton.configuration = buttonConfig
-    }
-    
     private func layoutUI() {
         
-        copyItemButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.translatesAutoresizingMaskIntoConstraints = false
+        detailedNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         detailedHistoryItemText.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(copyItemButton)
-        view.addSubview(backButton)
+        view.addSubview(detailedNavigationBar)
         view.addSubview(detailedHistoryItemText)
         
         detailedHistoryItemText.layer.zPosition = -1
-        
-        let multiplier = 0.2
-        
+        view.bringSubviewToFront(detailedNavigationBar)
+                
         NSLayoutConstraint.activate([
         
-            backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            backButton.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier),
-            backButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier),
-            
-            backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
-            backButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            backButton.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier),
-            backButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier * 2),
+            detailedNavigationBar.topAnchor.constraint(equalTo: view.topAnchor),
+            detailedNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            detailedNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            detailedNavigationBar.heightAnchor.constraint(equalToConstant: 100),
 
             detailedHistoryItemText.topAnchor.constraint(equalTo: view.topAnchor),
             detailedHistoryItemText.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             detailedHistoryItemText.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             detailedHistoryItemText.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+}
+
+extension DetailedHistoryViewController: DetailedHistoryNavigationBarButtonsProtocol {
+    
+    func didTappedCopyToClipboardButton() {
+        print("DID TAPPED COPY TO CLIPBOARD BUTTON")
     }
 }

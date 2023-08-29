@@ -24,10 +24,15 @@ class NavigationBarCircleButton: UIButton {
     }
     
     private func configure() {
-        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .light, scale: .small)
-        setImage(UIImage(systemName: "slider.horizontal.3", withConfiguration: config), for: .normal)
+//        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .light, scale: .small)
+//        setImage(UIImage(systemName: "slider.horizontal.3", withConfiguration: config), for: .normal)
         backgroundColor = .background.thirtiary
         tintColor = .text.white
         layer.masksToBounds = true
+    }
+    
+    func setImageForButton(imageName: String, size: CGFloat) {
+        let config = UIImage.SymbolConfiguration(pointSize: size, weight: .light, scale: .small)
+        setImage(UIImage(systemName: imageName, withConfiguration: config), for: .normal)
     }
 }

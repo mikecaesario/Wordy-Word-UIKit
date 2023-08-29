@@ -70,7 +70,7 @@ extension HistoryViewController {
             historyNavigationBar.topAnchor.constraint(equalTo: view.topAnchor),
             historyNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             historyNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            historyNavigationBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
+            historyNavigationBar.heightAnchor.constraint(equalToConstant: 100),
         ])
         
         if historyItems.isEmpty {
@@ -85,16 +85,14 @@ extension HistoryViewController {
     }
     
     private func prepareTableView() {
-        
-        let labelHeight = (view.frame.height / 6.2)
-        
+                
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 400
-        tableView.contentInset = UIEdgeInsets(top: labelHeight, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
         tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: tableViewCellReuseIdentifier)
         tableView.register(HistoryHeader.self, forHeaderFooterViewReuseIdentifier: tableViewHeaderReuseIdentifier)
     }

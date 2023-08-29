@@ -37,4 +37,8 @@ extension UIColor {
         static let black = UIColor(named: "BlackTextColor")
         static let grey = UIColor(named: "GreyTextColor")
     }
+    
+    struct miscellaneous {
+        static let grabber = UIColor(named: "GrabberBackgroundColor")
+    }
 }

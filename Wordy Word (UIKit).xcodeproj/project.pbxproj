@@ -42,6 +42,7 @@
 		4CF53A762A13EDD40038E043 /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A752A13EDD40038E043 /* HistoryModel.swift */; };
 		4CF53A782A13EE030038E043 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A772A13EE030038E043 /* Date+Ext.swift */; };
 		9329BDAC2A9BAF3A00C168A0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9329BDAB2A9BAF3A00C168A0 /* SettingsViewController.swift */; };
+		9329BDAE2A9BCD1E00C168A0 /* HistoryNavigationBarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9329BDAD2A9BCD1E00C168A0 /* HistoryNavigationBarButtons.swift */; };
 		932C42582A72C52C00CEE1E4 /* DetailedHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C42572A72C52C00CEE1E4 /* DetailedHistoryTableViewCell.swift */; };
 		933F6C502A87E82900F93814 /* HistoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F6C4F2A87E82900F93814 /* HistoryHeader.swift */; };
 		933F6C532A926B2300F93814 /* SubviewNavigationTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933F6C522A926B2300F93814 /* SubviewNavigationTitle.swift */; };
@@ -87,6 +88,7 @@
 		4CF53A752A13EDD40038E043 /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
 		4CF53A772A13EE030038E043 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		9329BDAB2A9BAF3A00C168A0 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		9329BDAD2A9BCD1E00C168A0 /* HistoryNavigationBarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryNavigationBarButtons.swift; sourceTree = "<group>"; };
 		932C42572A72C52C00CEE1E4 /* DetailedHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		933F6C4F2A87E82900F93814 /* HistoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHeader.swift; sourceTree = "<group>"; };
 		933F6C522A926B2300F93814 /* SubviewNavigationTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewNavigationTitle.swift; sourceTree = "<group>"; };
@@ -128,8 +130,6 @@
 		1628BB532A5BEBF0004BDB93 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				933F6C4E2A87E7BD00F93814 /* Section */,
-				9356B68A2A7024C000FB3CD1 /* Cell */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -392,6 +392,22 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		9329BDAF2A9BCD2500C168A0 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				9329BDAD2A9BCD1E00C168A0 /* HistoryNavigationBarButtons.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		9329BDB02A9E4C0300C168A0 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				933F6C522A926B2300F93814 /* SubviewNavigationTitle.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		933F6C4E2A87E7BD00F93814 /* Section */ = {
 			isa = PBXGroup;
 			children = (
@@ -403,7 +419,10 @@
 		933F6C512A926AF800F93814 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				933F6C522A926B2300F93814 /* SubviewNavigationTitle.swift */,
+				9329BDB02A9E4C0300C168A0 /* Navigation */,
+				9329BDAF2A9BCD2500C168A0 /* Header */,
+				933F6C4E2A87E7BD00F93814 /* Section */,
+				9356B68A2A7024C000FB3CD1 /* Cell */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -488,6 +507,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9329BDAE2A9BCD1E00C168A0 /* HistoryNavigationBarButtons.swift in Sources */,
 				4C8474752A027016006F0930 /* NavigationBarLabel.swift in Sources */,
 				4CABA5032A00157200442908 /* EditorStackView.swift in Sources */,
 				4CA67A162A25054300EACC02 /* EditorMenuItemCellCollectionViewCell.swift in Sources */,

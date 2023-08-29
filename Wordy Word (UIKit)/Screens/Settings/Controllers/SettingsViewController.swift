@@ -42,7 +42,7 @@ class SettingsViewController: UIViewController {
             settingsNavigationBar.topAnchor.constraint(equalTo: view.topAnchor),
             settingsNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             settingsNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            settingsNavigationBar.heightAnchor.constraint(equalToConstant: 60)
+            settingsNavigationBar.heightAnchor.constraint(equalToConstant: 100)
         ])
         
     }

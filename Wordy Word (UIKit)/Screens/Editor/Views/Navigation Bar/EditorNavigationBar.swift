@@ -55,6 +55,8 @@ class EditorNavigationBar: UIView {
         navigationTitle.text = navigationTitleText
         editorMenuButton.addTarget(self, action: #selector(showEditorMenu), for: .touchUpInside)
         
+        editorMenuButton.setImageForButton(imageName: "slider.horizontal.3", size: 20)
+        
         if let color = UIColor.background.primary?.cgColor {
 
             gradientBackground.colors = [color, UIColor.clear.cgColor]
