@@ -110,8 +110,8 @@
 		1628BB4F2A5AFBFC004BDB93 /* History */ = {
 			isa = PBXGroup;
 			children = (
-				933F6C512A926AF800F93814 /* Components */,
 				1628BB502A5AFC07004BDB93 /* Controller */,
+				933F6C512A926AF800F93814 /* Components */,
 				1628BB532A5BEBF0004BDB93 /* Views */,
 			);
 			path = History;

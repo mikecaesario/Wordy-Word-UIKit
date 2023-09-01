@@ -9,15 +9,14 @@ import UIKit
 
 class EditHistoryViewController: UIViewController {
 
-    private let scrollView = UIScrollView()
-    private let originalEditLabel = UILabel()
-    private let originalEditText = UITextView()
-    private let allEditLabel = UILabel()
-    private let allEditResultTableView = UITableView()
+    private let navigationBar = EditHistoryNavigationBar()
+    private let allEditResultTableView = UITableView(frame: .zero, style: .grouped)
     
     private let historyData: EditHistoryItem
     
-    private let allEditResultCellIdentifier = "allEditResultHistoryCell"
+    private let editHistoryHeaderIdentifier = "editHistoryHeaderIdentifier"
+    private let originalTextCellIdentifier = "originalTextCellIdentifier"
+    private let editedItemCellIdentifier = "editedItemCellIdentifier"
     
     init(historyData: EditHistoryItem) {
         
@@ -32,7 +31,7 @@ class EditHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        prepareView()
+        configureView()
         prepareUITableView()
         layoutUI()
     }
@@ -47,89 +46,112 @@ class EditHistoryViewController: UIViewController {
 
 extension EditHistoryViewController {
     
-    private func prepareView() {
+    private func configureView() {
         
-        view.backgroundColor = .background.thirtiary
+        view.backgroundColor = .background.primary
+        navigationController?.isNavigationBarHidden = true
         
-        originalEditLabel.text = "Original"
-        originalEditLabel.textColor = .text.white
-        originalEditLabel.textAlignment = .left
-        originalEditLabel.font = UIFont(name: .fonts.poppinsMedium, size: 20)
-        
-        originalEditText.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        originalEditText.textColor = .text.white
-        originalEditText.backgroundColor = .background.secondary
-        originalEditText.isScrollEnabled = false
-        originalEditText.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        originalEditText.backgroundColor = .background.thirtiary
-        originalEditText.layer.cornerRadius = 20
-        originalEditText.layer.masksToBounds = true
-        
-        allEditLabel.text = "All Edits"
-        allEditLabel.textColor = .text.white
-        allEditLabel.textAlignment = .left
-        allEditLabel.font = UIFont(name: .fonts.poppinsMedium, size: 20)
+        navigationBar.delegate = self
     }
     
     private func prepareUITableView() {
         
-        let padding = 16.0
-        
         allEditResultTableView.dataSource = self
         allEditResultTableView.delegate = self
-        allEditResultTableView.register(DetailedHistoryTableViewCell.self, forCellReuseIdentifier: allEditResultCellIdentifier)
-        
-        allEditResultTableView.contentInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        
+        allEditResultTableView.register(HistoryHeader.self, forHeaderFooterViewReuseIdentifier: editHistoryHeaderIdentifier)
+        allEditResultTableView.register(EditedItemTableViewCell.self, forCellReuseIdentifier: editedItemCellIdentifier)
+        allEditResultTableView.register(OriginalHistoryTableviewCell.self, forCellReuseIdentifier: originalTextCellIdentifier)
+        allEditResultTableView.estimatedRowHeight = 400
+        allEditResultTableView.rowHeight = UITableView.automaticDimension
+        allEditResultTableView.showsVerticalScrollIndicator = false
+        allEditResultTableView.backgroundColor = .clear
+        allEditResultTableView.contentInset = UIEdgeInsets(top: 110, left: 0, bottom: 0, right: 0)
     }
     
     private func layoutUI() {
         
-        originalEditLabel.translatesAutoresizingMaskIntoConstraints = false
-        originalEditText.translatesAutoresizingMaskIntoConstraints = false
-        allEditLabel.translatesAutoresizingMaskIntoConstraints = false
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
         allEditResultTableView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(originalEditText)
+        view.addSubview(navigationBar)
         view.addSubview(allEditResultTableView)
         
-        let padding = 16.0
-        let spacer = 32.0
+        allEditResultTableView.layer.zPosition = -1
+        view.bringSubviewToFront(navigationBar)
         
         NSLayoutConstraint.activate([
-        
-            originalEditLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
-            originalEditLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             
-            originalEditText.topAnchor.constraint(equalTo: originalEditLabel.bottomAnchor, constant: padding),
-            originalEditText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            originalEditText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            navigationBar.topAnchor.constraint(equalTo: view.topAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            navigationBar.heightAnchor.constraint(equalToConstant: 100),
             
-            allEditLabel.topAnchor.constraint(equalTo: originalEditText.bottomAnchor, constant: spacer),
-            allEditLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            
-            allEditResultTableView.topAnchor.constraint(equalTo: allEditLabel.topAnchor, constant: padding),
-            allEditResultTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            allEditResultTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
-            allEditResultTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding)
+            allEditResultTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            allEditResultTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            allEditResultTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            allEditResultTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+}
+
+extension EditHistoryViewController: EditHistoryNavigationBarDelegate {
+    
+    func didFinishTappingBackButton() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
 extension EditHistoryViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: editHistoryHeaderIdentifier) as! HistoryHeader
+        
+        if section == 0 {
+            header.setHeaderLabel(text: "Original")
+        } else {
+            header.setHeaderLabel(text: "Edits")
+        }
+        
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return historyData.result.count
+        
+        if section == 0 {
+            return 1
+        } else {
+            return historyData.result.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = allEditResultTableView.dequeueReusableCell(withIdentifier: allEditResultCellIdentifier, for: indexPath) as! DetailedHistoryTableViewCell
+        let originalCell = tableView.dequeueReusableCell(withIdentifier: originalTextCellIdentifier) as! OriginalHistoryTableviewCell
+        let editCell = tableView.dequeueReusableCell(withIdentifier: editedItemCellIdentifier, for: indexPath) as! EditedItemTableViewCell
         
-        let item = historyData.result[indexPath.row]
-        cell.setupCell(historyItem: item)
-        
-        return cell
+        if indexPath.section == 0 {
+            
+            let originalItem = historyData.uneditedItem
+            originalCell.setupCell(originalHistoryItem: originalItem)
+            
+            return originalCell
+        } else {
+            
+            let item = historyData.result[indexPath.row]
+            editCell.setupCell(historyItem: item)
+            
+            return editCell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -139,5 +161,237 @@ extension EditHistoryViewController: UITableViewDelegate, UITableViewDataSource 
         let item = historyData.result[indexPath.row]
 
         didTappedHistoryEditsItemsCell(historyItem: item)
+    }
+}
+
+class EditedItemTableViewCell: UITableViewCell {
+    
+    private let backgroundContainer = UIView()
+    private let editedItemText = UITextView()
+    private let timeStampLabel = UILabel()
+    private let editingStyleLabel = UILabel()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        configureView()
+        layoutUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureView() {
+                
+        self.backgroundColor = .clear
+        
+        backgroundContainer.backgroundColor = .background.thirtiary
+        
+        editedItemText.backgroundColor = .clear
+        editedItemText.font = UIFont(name: .fonts.poppinsMedium, size: 16)
+        editedItemText.textColor = .text.white
+        editedItemText.textContainer.maximumNumberOfLines = 5
+        editedItemText.textContainer.lineBreakMode = .byTruncatingTail
+        editedItemText.isEditable = false
+        editedItemText.isSelectable = false
+        editedItemText.isScrollEnabled = false
+        
+        timeStampLabel.font = UIFont(name: .fonts.poppinsMedium, size: 12)
+        timeStampLabel.textColor = .text.grey
+        timeStampLabel.textAlignment = .left
+        timeStampLabel.numberOfLines = 1
+        
+        editingStyleLabel.font = UIFont(name: .fonts.poppinsMedium, size: 12)
+        editingStyleLabel.textColor = .text.grey
+        editingStyleLabel.textAlignment = .right
+        editingStyleLabel.numberOfLines = 1
+    }
+    
+    private func layoutUI() {
+        
+        backgroundContainer.translatesAutoresizingMaskIntoConstraints = false
+        editedItemText.translatesAutoresizingMaskIntoConstraints = false
+        timeStampLabel.translatesAutoresizingMaskIntoConstraints = false
+        editingStyleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        self.addSubview(editedItemText)
+        self.addSubview(timeStampLabel)
+        self.addSubview(editingStyleLabel)
+        self.addSubview(backgroundContainer)
+        
+        backgroundContainer.layer.zPosition = -1
+
+        let verticalPadding = 10.0
+        let padding = 16.0
+        
+        NSLayoutConstraint.activate([
+            
+            backgroundContainer.topAnchor.constraint(equalTo: self.topAnchor, constant: verticalPadding),
+            backgroundContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            backgroundContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -verticalPadding),
+            backgroundContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            
+            editedItemText.topAnchor.constraint(equalTo: backgroundContainer.topAnchor, constant: padding),
+            editedItemText.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor, constant: padding),
+            editedItemText.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor, constant: -padding),
+            
+            timeStampLabel.topAnchor.constraint(equalTo: editedItemText.bottomAnchor, constant: 5),
+            timeStampLabel.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor, constant: padding),
+            timeStampLabel.bottomAnchor.constraint(equalTo: backgroundContainer.bottomAnchor, constant: -padding),
+            timeStampLabel.heightAnchor.constraint(equalToConstant: 10),
+            
+            editingStyleLabel.topAnchor.constraint(equalTo: editedItemText.bottomAnchor, constant: 5),
+            editingStyleLabel.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor, constant: -padding),
+            editingStyleLabel.bottomAnchor.constraint(equalTo: backgroundContainer.bottomAnchor, constant: -padding),
+            editingStyleLabel.heightAnchor.constraint(equalToConstant: 10)
+        ])
+    }
+    
+    func setupCell(historyItem: EditHistoryItemResults) {
+        
+        roundCellCorner()
+        editedItemText.text = historyItem.result
+        timeStampLabel.text = "\(historyItem.timeStamp)"
+        editingStyleLabel.text = historyItem.style
+    }
+    
+    private func roundCellCorner() {
+        
+        backgroundContainer.layer.cornerRadius = (self.frame.height / 1.2)
+        backgroundContainer.layer.masksToBounds = true
+    }
+}
+
+class OriginalHistoryTableviewCell: UITableViewCell {
+    
+    private let originalHistoryText = UITextView()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        configureCell()
+        layoutUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureCell() {
+        
+        self.backgroundColor = .clear
+        
+        originalHistoryText.backgroundColor = .clear
+        originalHistoryText.textColor = .text.white
+        originalHistoryText.font = UIFont(name: .fonts.poppinsMedium, size: 22)
+        originalHistoryText.textAlignment = .left
+        originalHistoryText.textContainer.maximumNumberOfLines = 10
+        originalHistoryText.textContainer.lineBreakMode = .byTruncatingTail
+        originalHistoryText.isEditable = false
+        originalHistoryText.isSelectable = false
+        originalHistoryText.isScrollEnabled = false
+        originalHistoryText.textContainerInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
+    }
+    
+    private func layoutUI() {
+        
+        originalHistoryText.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(originalHistoryText)
+                
+        NSLayoutConstraint.activate([
+            
+            originalHistoryText.topAnchor.constraint(equalTo: self.topAnchor),
+            originalHistoryText.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            originalHistoryText.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            originalHistoryText.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
+    }
+    
+    func setupCell(originalHistoryItem: String) {
+        originalHistoryText.text = originalHistoryItem
+    }
+}
+
+protocol EditHistoryNavigationBarDelegate: AnyObject {
+    func didFinishTappingBackButton()
+}
+
+class EditHistoryNavigationBar: UIView {
+    
+    private let grabberPill = UIView()
+    private let backButton = NavigationBarCircleButton()
+    private let gradientBackground = CAGradientLayer()
+    
+    weak var delegate: EditHistoryNavigationBarDelegate?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        configureView()
+        layoutUI()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        setGradientBackgroundAndAddCornerRadius()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setGradientBackgroundAndAddCornerRadius() {
+        
+        gradientBackground.frame = self.bounds
+        
+        grabberPill.layer.cornerRadius = (grabberPill.frame.height / 2.0)
+        grabberPill.clipsToBounds = true
+    }
+    
+    private func configureView() {
+        
+        self.backgroundColor = .clear
+        
+        grabberPill.backgroundColor = .miscellaneous.grabber
+        backButton.setImageForButton(imageName: "chevron.left", size: 20)
+        
+        if let color = UIColor.background.primary?.cgColor {
+            
+            gradientBackground.colors = [color, UIColor.clear.cgColor]
+        }
+        
+        gradientBackground.locations = [0.6, 1.0]
+    }
+    
+    private func layoutUI() {
+        
+        grabberPill.translatesAutoresizingMaskIntoConstraints = false
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(grabberPill)
+        self.addSubview(backButton)
+        self.layer.insertSublayer(gradientBackground, at: 0)
+        
+        let padding = 18.0
+        
+        NSLayoutConstraint.activate([
+            
+            grabberPill.topAnchor.constraint(equalTo: self.topAnchor, constant: 15),
+            grabberPill.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            grabberPill.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2),
+            grabberPill.heightAnchor.constraint(equalToConstant: 5),
+            
+            backButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            backButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            backButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5),
+            backButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5)
+        ])
+    }
+    
+    @objc private func backButtonTapped() {
+        delegate?.didFinishTappingBackButton()
     }
 }
