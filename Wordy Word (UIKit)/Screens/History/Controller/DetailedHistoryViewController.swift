@@ -11,8 +11,16 @@ class DetailedHistoryViewController: UIViewController {
 
     private let detailedNavigationBar = DetailedHistoryNavigationBarButtons()
     private let detailedHistoryItemText = UITextView()
+    private let detailedFooter = DetailedHistoryNavigationFooter()
     
-    private let detailedHistoryItem: EditHistoryItemResults
+    private var detailedHistoryItem: EditHistoryItemResults 
+//        didSet {
+//
+//            if let time = detailedHistoryItem.timeStamp, let style = detailedHistoryItem.style {
+//                detailedFooter.setupFooterLabels(time: "\(time)", style: style)
+//            }
+//        }
+//    }
     
     init(detailedHistoryItem: EditHistoryItemResults) {
         
@@ -36,18 +44,14 @@ extension DetailedHistoryViewController {
     
     private func configureView() {
         
+        let padding = 16.0
+
         view.backgroundColor = .background.primary
         navigationController?.isNavigationBarHidden = true
         
         detailedNavigationBar.delegate = self
         
-        configureDetailedTextView()
-    }
-    
-    private func configureDetailedTextView() {
-        
-        let padding = 16.0
-        
+        detailedHistoryItemText.backgroundColor = .clear
         detailedHistoryItemText.font = UIFont(name: .fonts.poppinsMedium, size: 22)
         detailedHistoryItemText.text = detailedHistoryItem.result
         detailedHistoryItemText.contentInset = UIEdgeInsets(top: 110, left: padding, bottom: padding, right: padding)
@@ -55,15 +59,18 @@ extension DetailedHistoryViewController {
         detailedHistoryItemText.isSelectable = true
         detailedHistoryItemText.textColor = .text.white
         detailedHistoryItemText.textAlignment = .left
+        
     }
     
     private func layoutUI() {
         
         detailedNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         detailedHistoryItemText.translatesAutoresizingMaskIntoConstraints = false
+        detailedFooter.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(detailedNavigationBar)
         view.addSubview(detailedHistoryItemText)
+        view.addSubview(detailedFooter)
         
         detailedHistoryItemText.layer.zPosition = -1
         view.bringSubviewToFront(detailedNavigationBar)
@@ -78,7 +85,12 @@ extension DetailedHistoryViewController {
             detailedHistoryItemText.topAnchor.constraint(equalTo: view.topAnchor),
             detailedHistoryItemText.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             detailedHistoryItemText.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            detailedHistoryItemText.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            detailedHistoryItemText.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            detailedFooter.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            detailedFooter.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            detailedFooter.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            detailedFooter.heightAnchor.constraint(equalToConstant: 75)
         ])
     }
 }

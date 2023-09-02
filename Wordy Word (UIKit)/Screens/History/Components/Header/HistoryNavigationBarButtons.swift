@@ -14,7 +14,7 @@ protocol DetailedHistoryNavigationBarButtonsProtocol: AnyObject {
 class DetailedHistoryNavigationBarButtons: UIView {
     
     private let backButton = NavigationBarCircleButton()
-    private lazy var copyButton = NavigationBarCircleButton()
+    private let copyButton = NavigationBarCircleButton()
     private let gradientBackground = CAGradientLayer()
     
     weak var delegate: DetailedHistoryNavigationBarButtonsProtocol?
@@ -38,7 +38,7 @@ class DetailedHistoryNavigationBarButtons: UIView {
     
     private func setupBoundsForGradientBackground() {
         
-        gradientBackground.bounds = self.bounds
+        gradientBackground.frame = self.bounds
     }
     
     private func configureView() {
@@ -61,21 +61,22 @@ class DetailedHistoryNavigationBarButtons: UIView {
         
         self.addSubview(backButton)
         self.addSubview(copyButton)
+        self.layer.insertSublayer(gradientBackground, at: 0)
         
         let padding = 18.0
-        let multipliedValue = 0.75
+        let multiplier = 0.55
         
         NSLayoutConstraint.activate([
             
             backButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             backButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            backButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multipliedValue),
-            backButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multipliedValue),
+            backButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier),
+            backButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier),
             
-            copyButton.trailingAnchor.constraint(equalTo: self.leadingAnchor, constant: -padding),
+            copyButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
             copyButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            copyButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multipliedValue),
-            copyButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multipliedValue)
+            copyButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier),
+            copyButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier)
         ])
     }
     

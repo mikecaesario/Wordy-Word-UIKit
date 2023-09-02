@@ -143,12 +143,14 @@ extension EditHistoryViewController: UITableViewDelegate, UITableViewDataSource 
             
             let originalItem = historyData.uneditedItem
             originalCell.setupCell(originalHistoryItem: originalItem)
+            originalCell.selectionStyle = .none
             
             return originalCell
         } else {
             
             let item = historyData.result[indexPath.row]
             editCell.setupCell(historyItem: item)
+            editCell.selectionStyle = .none
             
             return editCell
         }
@@ -376,6 +378,7 @@ class EditHistoryNavigationBar: UIView {
         self.layer.insertSublayer(gradientBackground, at: 0)
         
         let padding = 18.0
+        let multiplier = 0.55
         
         NSLayoutConstraint.activate([
             
@@ -386,8 +389,8 @@ class EditHistoryNavigationBar: UIView {
             
             backButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             backButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            backButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5),
-            backButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5)
+            backButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier),
+            backButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier)
         ])
     }
     

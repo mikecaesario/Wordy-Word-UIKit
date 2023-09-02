@@ -41,6 +41,7 @@
 		4CF53A732A13EDAE0038E043 /* HistoryDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A722A13EDAE0038E043 /* HistoryDataService.swift */; };
 		4CF53A762A13EDD40038E043 /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A752A13EDD40038E043 /* HistoryModel.swift */; };
 		4CF53A782A13EE030038E043 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF53A772A13EE030038E043 /* Date+Ext.swift */; };
+		9313AF932AA392D7005E02AC /* DetailedHistoryNavigationFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313AF922AA392D7005E02AC /* DetailedHistoryNavigationFooter.swift */; };
 		9329BDAC2A9BAF3A00C168A0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9329BDAB2A9BAF3A00C168A0 /* SettingsViewController.swift */; };
 		9329BDAE2A9BCD1E00C168A0 /* HistoryNavigationBarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9329BDAD2A9BCD1E00C168A0 /* HistoryNavigationBarButtons.swift */; };
 		932C42582A72C52C00CEE1E4 /* DetailedHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C42572A72C52C00CEE1E4 /* DetailedHistoryTableViewCell.swift */; };
@@ -87,6 +88,7 @@
 		4CF53A722A13EDAE0038E043 /* HistoryDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataService.swift; sourceTree = "<group>"; };
 		4CF53A752A13EDD40038E043 /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
 		4CF53A772A13EE030038E043 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		9313AF922AA392D7005E02AC /* DetailedHistoryNavigationFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHistoryNavigationFooter.swift; sourceTree = "<group>"; };
 		9329BDAB2A9BAF3A00C168A0 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9329BDAD2A9BCD1E00C168A0 /* HistoryNavigationBarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryNavigationBarButtons.swift; sourceTree = "<group>"; };
 		932C42572A72C52C00CEE1E4 /* DetailedHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHistoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -376,6 +378,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		9313AF912AA392B7005E02AC /* Footer */ = {
+			isa = PBXGroup;
+			children = (
+				9313AF922AA392D7005E02AC /* DetailedHistoryNavigationFooter.swift */,
+			);
+			path = Footer;
+			sourceTree = "<group>";
+		};
 		9329BDA92A9BAEFE00C168A0 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -419,6 +429,7 @@
 		933F6C512A926AF800F93814 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9313AF912AA392B7005E02AC /* Footer */,
 				9329BDB02A9E4C0300C168A0 /* Navigation */,
 				9329BDAF2A9BCD2500C168A0 /* Header */,
 				933F6C4E2A87E7BD00F93814 /* Section */,
@@ -514,6 +525,7 @@
 				1628BB522A5AFC33004BDB93 /* HistoryViewController.swift in Sources */,
 				4C10676B2A168A9700797AC9 /* RemoveButtonStack.swift in Sources */,
 				4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */,
+				9313AF932AA392D7005E02AC /* DetailedHistoryNavigationFooter.swift in Sources */,
 				4CF53A702A13ED6D0038E043 /* EditingStyleEnum.swift in Sources */,
 				4CF53A782A13EE030038E043 /* Date+Ext.swift in Sources */,
 				1628BB552A5BEC12004BDB93 /* HistoryTableViewCell.swift in Sources */,
