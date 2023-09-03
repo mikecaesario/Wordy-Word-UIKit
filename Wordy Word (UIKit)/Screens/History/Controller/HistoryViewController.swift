@@ -39,8 +39,18 @@ class HistoryViewController: UIViewController {
     private func pushEditHistoryDetailView(historyItem: EditHistoryItem) {
         
         let EditHistoryVC = EditHistoryViewController(historyData: historyItem)
-        
+                
         self.navigationController?.pushViewController(EditHistoryVC, animated: true)
+    }
+    
+    private func setSheetHeightToLarge() {
+        
+        if let sheet = navigationController?.sheetPresentationController {
+            
+            sheet.animateChanges {
+                sheet.selectedDetentIdentifier = .large
+            }
+        }
     }
 }
 
@@ -150,7 +160,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderReuseIdentifier) as! HistoryHeader
         
-        header.setHeaderLabel(text: "\(historyItems[section].date)")
+        header.setHeaderLabel(text: DateFormatter.formattedDateInFull.string(from: historyItems[section].date))
         print("HEADER ADDED")
         
         return header
@@ -178,7 +188,8 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let historyItem = historyItems[indexPath.section].items[indexPath.row]
-        
+                
+        setSheetHeightToLarge()
         pushEditHistoryDetailView(historyItem: historyItem)
     }
 }

@@ -11,20 +11,26 @@ class DetailedHistoryViewController: UIViewController {
 
     private let detailedNavigationBar = DetailedHistoryNavigationBarButtons()
     private let detailedHistoryItemText = UITextView()
-    private let detailedFooter = DetailedHistoryNavigationFooter()
     
-    private var detailedHistoryItem: EditHistoryItemResults 
-//        didSet {
-//
-//            if let time = detailedHistoryItem.timeStamp, let style = detailedHistoryItem.style {
-//                detailedFooter.setupFooterLabels(time: "\(time)", style: style)
-//            }
-//        }
-//    }
+    private var detailedHistoryItem: EditHistoryItemResults? {
+        didSet {
+            setupDetailedFooter(item: detailedHistoryItem)
+        }
+    }
     
-    init(detailedHistoryItem: EditHistoryItemResults) {
+    private var originalText: String? {
+        didSet {
+            setupOriginalFooter(text: originalText)
+        }
+    }
+    
+    init(detailedHistoryItem: EditHistoryItemResults? = nil, originalText: String? = nil) {
         
-        self.detailedHistoryItem = detailedHistoryItem
+        defer {
+            self.originalText = originalText
+            self.detailedHistoryItem = detailedHistoryItem
+        }
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -53,8 +59,7 @@ extension DetailedHistoryViewController {
         
         detailedHistoryItemText.backgroundColor = .clear
         detailedHistoryItemText.font = UIFont(name: .fonts.poppinsMedium, size: 22)
-        detailedHistoryItemText.text = detailedHistoryItem.result
-        detailedHistoryItemText.contentInset = UIEdgeInsets(top: 110, left: padding, bottom: padding, right: padding)
+        detailedHistoryItemText.contentInset = UIEdgeInsets(top: 100, left: padding, bottom: padding, right: padding)
         detailedHistoryItemText.isEditable = false
         detailedHistoryItemText.isSelectable = true
         detailedHistoryItemText.textColor = .text.white
@@ -66,11 +71,9 @@ extension DetailedHistoryViewController {
         
         detailedNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         detailedHistoryItemText.translatesAutoresizingMaskIntoConstraints = false
-        detailedFooter.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(detailedNavigationBar)
         view.addSubview(detailedHistoryItemText)
-        view.addSubview(detailedFooter)
         
         detailedHistoryItemText.layer.zPosition = -1
         view.bringSubviewToFront(detailedNavigationBar)
@@ -85,13 +88,57 @@ extension DetailedHistoryViewController {
             detailedHistoryItemText.topAnchor.constraint(equalTo: view.topAnchor),
             detailedHistoryItemText.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             detailedHistoryItemText.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            detailedHistoryItemText.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            detailedFooter.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            detailedFooter.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            detailedFooter.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            detailedFooter.heightAnchor.constraint(equalToConstant: 75)
+            detailedHistoryItemText.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+    
+    private func setupDetailedFooter(item: EditHistoryItemResults?) {
+        
+        guard let item = item else { return }
+        
+        detailedHistoryItemText.text = item.result
+        
+        let footer = DetailedHistoryNavigationFooter()
+        
+        footer.setupLabel(time: item.timeStamp, style: item.style)
+        
+        footer.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(footer)
+        
+        NSLayoutConstraint.activate([
+            
+            footer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            footer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            footer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            footer.heightAnchor.constraint(equalToConstant: 75)
+        ])
+        
+        print("RESULT FOOTER ADDED")
+
+    }
+    
+    private func setupOriginalFooter(text: String?) {
+        
+        guard let text = text else { return }
+        
+        detailedHistoryItemText.text = text
+        
+        let footer = OriginalTextNavigationFooter()
+        
+        footer.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(footer)
+        
+        NSLayoutConstraint.activate([
+            
+            footer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            footer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            footer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            footer.heightAnchor.constraint(equalToConstant: 75)
+        ])
+        
+        print("ORIGINAL FOOTER ADDED")
     }
 }
 

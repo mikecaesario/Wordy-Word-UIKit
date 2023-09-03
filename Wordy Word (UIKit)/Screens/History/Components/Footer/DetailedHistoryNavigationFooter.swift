@@ -10,13 +10,11 @@ import UIKit
 class DetailedHistoryNavigationFooter: UIView {
 
     private let timeStampLabel = UILabel()
-    private let originalTextLabel = UILabel()
     private let editingStyleLabel = UILabel()
     private let gradientBackground = CAGradientLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         configureView()
         layoutUI()
     }
@@ -46,13 +44,6 @@ class DetailedHistoryNavigationFooter: UIView {
         timeStampLabel.numberOfLines = 1
         timeStampLabel.minimumScaleFactor = 0.7
         
-        originalTextLabel.text = "Original"
-        originalTextLabel.font = UIFont(name: .fonts.poppinsSemiBold, size: 22)
-        originalTextLabel.textColor = .text.white
-        originalTextLabel.textAlignment = .center
-        originalTextLabel.numberOfLines = 1
-        originalTextLabel.minimumScaleFactor = 0.7
-        
         editingStyleLabel.font = UIFont(name: .fonts.poppinsSemiBold, size: 22)
         editingStyleLabel.textColor = .text.white
         editingStyleLabel.textAlignment = .right
@@ -63,17 +54,15 @@ class DetailedHistoryNavigationFooter: UIView {
             gradientBackground.colors = [UIColor.clear.cgColor, color]
         }
         
-        gradientBackground.locations = [0.1, 0.5]
+        gradientBackground.locations = [0.05, 0.35]
     }
     
     private func layoutUI() {
         
         timeStampLabel.translatesAutoresizingMaskIntoConstraints = false
-        originalTextLabel.translatesAutoresizingMaskIntoConstraints = false
         editingStyleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubview(timeStampLabel)
-        self.addSubview(originalTextLabel)
         self.addSubview(editingStyleLabel)
         self.layer.insertSublayer(gradientBackground, at: 0)
         
@@ -83,30 +72,75 @@ class DetailedHistoryNavigationFooter: UIView {
         
             timeStampLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             timeStampLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            
-            originalTextLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            originalTextLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            
+
             editingStyleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
             editingStyleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
-   
-    func setupFooterLabels(time: String?, style: String?) {
+    
+    func setupLabel(time: Date, style: String) {
         
-        if let time = time, let style = style {
-            
-            originalTextLabel.isHidden = true
-            
-            timeStampLabel.text = time
-            editingStyleLabel.text = style
-        } else {
-            
-            timeStampLabel.isHidden = true
-            timeStampLabel.isHidden = true
-            
-            timeStampLabel.text = ""
-            editingStyleLabel.text = ""
+        timeStampLabel.text = DateFormatter.formattedHourFromDate.string(from: time)
+        editingStyleLabel.text = style
+    }
+}
+
+class OriginalTextNavigationFooter: UIView {
+    
+    private let originalTextLabel = UILabel()
+    private let gradientBackground = CAGradientLayer()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        configureView()
+        layoutUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        setupGradientBackground()
+    }
+    
+    private func setupGradientBackground() {
+        
+        gradientBackground.frame = self.bounds
+    }
+    
+    private func configureView() {
+        
+        self.backgroundColor = .clear
+        
+        originalTextLabel.text = "Original"
+        originalTextLabel.font = UIFont(name: .fonts.poppinsSemiBold, size: 22)
+        originalTextLabel.textColor = .text.white
+        originalTextLabel.textAlignment = .center
+        originalTextLabel.numberOfLines = 1
+        originalTextLabel.minimumScaleFactor = 0.7
+        
+        if let color = UIColor.background.primary?.cgColor {
+            gradientBackground.colors = [UIColor.clear.cgColor, color]
         }
+        
+        gradientBackground.locations = [0.05, 0.35]
+    }
+    
+    private func layoutUI() {
+        
+        originalTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(originalTextLabel)
+        self.layer.insertSublayer(gradientBackground, at: 0)
+                
+        NSLayoutConstraint.activate([
+            
+            originalTextLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            originalTextLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+        ])
     }
 }

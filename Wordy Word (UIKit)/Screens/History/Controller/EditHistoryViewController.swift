@@ -36,9 +36,9 @@ class EditHistoryViewController: UIViewController {
         layoutUI()
     }
 
-    private func didTappedHistoryEditsItemsCell(historyItem: EditHistoryItemResults) {
+    private func didTappedHistoryEditsItemsCell(historyItem: EditHistoryItemResults? = nil, originalText: String? = nil) {
         
-        let detailedHistoryVC = DetailedHistoryViewController(detailedHistoryItem: historyItem)
+        let detailedHistoryVC = DetailedHistoryViewController(detailedHistoryItem: historyItem, originalText: originalText)
         
         self.navigationController?.pushViewController(detailedHistoryVC, animated: true)
     }
@@ -98,6 +98,7 @@ extension EditHistoryViewController: EditHistoryNavigationBarDelegate {
     
     func didFinishTappingBackButton() {
         navigationController?.popViewController(animated: true)
+        print("DISMISS BUTTON TAPPED")
     }
 }
 
@@ -160,9 +161,17 @@ extension EditHistoryViewController: UITableViewDelegate, UITableViewDataSource 
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let item = historyData.result[indexPath.row]
-
-        didTappedHistoryEditsItemsCell(historyItem: item)
+        if indexPath.section == 0 {
+            
+            let item = historyData.uneditedItem
+            
+            didTappedHistoryEditsItemsCell(originalText: item)
+        } else {
+            
+            let item = historyData.result[indexPath.row]
+            
+            didTappedHistoryEditsItemsCell(historyItem: item)
+        }
     }
 }
 
@@ -254,7 +263,7 @@ class EditedItemTableViewCell: UITableViewCell {
         
         roundCellCorner()
         editedItemText.text = historyItem.result
-        timeStampLabel.text = "\(historyItem.timeStamp)"
+        timeStampLabel.text = DateFormatter.formattedHourFromDate.string(from: historyItem.timeStamp)
         editingStyleLabel.text = historyItem.style
     }
     
@@ -359,6 +368,7 @@ class EditHistoryNavigationBar: UIView {
         
         grabberPill.backgroundColor = .miscellaneous.grabber
         backButton.setImageForButton(imageName: "chevron.left", size: 20)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         
         if let color = UIColor.background.primary?.cgColor {
             
