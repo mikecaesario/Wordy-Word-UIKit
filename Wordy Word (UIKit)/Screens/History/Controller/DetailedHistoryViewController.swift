@@ -12,25 +12,13 @@ class DetailedHistoryViewController: UIViewController {
     private let detailedNavigationBar = DetailedHistoryNavigationBarButtons()
     private let detailedHistoryItemText = UITextView()
     
-    private var detailedHistoryItem: EditHistoryItemResults? {
-        didSet {
-            setupDetailedFooter(item: detailedHistoryItem)
-        }
-    }
-    
-    private var originalText: String? {
-        didSet {
-            setupOriginalFooter(text: originalText)
-        }
-    }
+    private var detailedHistoryItem: EditHistoryItemResults?
+    private var originalText: String?
     
     init(detailedHistoryItem: EditHistoryItemResults? = nil, originalText: String? = nil) {
         
-        defer {
-            self.originalText = originalText
-            self.detailedHistoryItem = detailedHistoryItem
-        }
-        
+        self.originalText = originalText
+        self.detailedHistoryItem = detailedHistoryItem
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,8 +29,12 @@ class DetailedHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        print("DETAILED HISTORY VIEW CONTROLLER DID LOAD")
+
         configureView()
         layoutUI()
+        setupDetailedFooter(item: detailedHistoryItem)
+        setupOriginalFooter(text: originalText)
     }
 }
 
@@ -144,7 +136,22 @@ extension DetailedHistoryViewController {
 
 extension DetailedHistoryViewController: DetailedHistoryNavigationBarButtonsProtocol {
     
-    func didTappedCopyToClipboardButton() {
+    func didFinishedTappingBackButton() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func didFinishTappingCopyToClipboardButton() {
         print("DID TAPPED COPY TO CLIPBOARD BUTTON")
+        
+        if let historyText = detailedHistoryItem?.result {
+            UIPasteboard.general.string = historyText
+        } else if let originalText = originalText {
+            UIPasteboard.general.string = originalText
+        }
+        
+        let haptics = UIImpactFeedbackGenerator(style: .medium)
+        haptics.impactOccurred(intensity: 0.7)
+        haptics.impactOccurred()
+        detailedNavigationBar.animateCopyButtonForSuccess()
     }
 }
