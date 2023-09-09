@@ -24,7 +24,7 @@ class EditorTextView: UITextView {
         textAlignment = .left
         backgroundColor = .clear
         showsVerticalScrollIndicator = false
-        contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 85, right: 20)
         returnKeyType = .done
     }
 }

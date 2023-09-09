@@ -98,7 +98,7 @@ extension EditorViewController {
     
     private func configureView() {
         
-        let screenHeight = CGFloat(view.bounds.height / 5)
+        let screenHeight = CGFloat(view.bounds.height / 8)
         
         view.backgroundColor = .background.primary
         overrideUserInterfaceStyle = .dark
@@ -168,10 +168,10 @@ extension EditorViewController {
             replaceTexfieldStack.heightAnchor.constraint(equalToConstant: 60),
             replaceTexfieldStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant:  -horizontalPadding),
             
-            textEditorStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
+            textEditorStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
             textEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
 
-            textResultStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
+            textResultStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
             textResultStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
             
             tabBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),

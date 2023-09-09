@@ -18,12 +18,39 @@ class TextResultCapsuleView: UIView {
     private let sentenceLabel = PillLabelsWithStroke()
     private let paragraphLabel = PillLabelsWithStroke()
     
-    private var characterCount = 0 { didSet { } }
-    private var wordCount = 0 { didSet { } }
-    private var sentenceCount = 0 { didSet { } }
-    private var paragraphCount = 0 { didSet { } }
+    private var characterCount = 0 {
+        didSet {
+            characterLabel.updateTextLabel(label: characterCount > 1 ? "\(characterCount) Characters" : "\(characterCount) Character" )
+        }
+    }
     
-    private var resultText: String? { didSet { textResult.text = resultText } }
+    private var wordCount = 0 {
+        didSet {
+            wordLabel.updateTextLabel(label: wordCount > 1 ? "\(wordCount) Words" : "\(wordCount) Word")
+        }
+    }
+    
+    private var sentenceCount = 0 {
+        didSet {
+            sentenceLabel.updateTextLabel(label: sentenceCount > 1 ? "\(sentenceCount) Sentences" : "\(sentenceCount) Sentence")
+        }
+    }
+    
+    private var paragraphCount = 0 {
+        didSet {
+            paragraphLabel.updateTextLabel(label: paragraphCount > 1 ? "\(paragraphCount) Parahraphs" : "\(paragraphCount) Paragraph")
+        }
+    }
+    
+    private var resultText: String? {
+        didSet {
+            
+            if let text = resultText {
+                textResult.text = text
+                calculateText(text: text)
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,25 +86,10 @@ extension TextResultCapsuleView {
         buttonScrollView.alwaysBounceHorizontal = true
         buttonScrollView.showsHorizontalScrollIndicator = false
         
-        characterLabel.insets = labelInsets
-        characterLabel.text = "0 Character"
-        characterLabel.textColor = .text.white
-        characterLabel.layer.borderColor = UIColor.text.grey?.cgColor
-        
-        wordLabel.insets = labelInsets
-        wordLabel.text = "0 Word"
-        wordLabel.textColor = .text.white
-        wordLabel.layer.borderColor = UIColor.text.grey?.cgColor
-        
-        sentenceLabel.insets = labelInsets
-        sentenceLabel.text = "0 Sentence"
-        sentenceLabel.textColor = .text.white
-        sentenceLabel.layer.borderColor = UIColor.text.grey?.cgColor
-        
-        paragraphLabel.insets = labelInsets
-        paragraphLabel.text = "0 Paragraph"
-        paragraphLabel.textColor = .text.white
-        paragraphLabel.layer.borderColor = UIColor.text.grey?.cgColor
+        characterLabel.prepareLabel(labelText: "0 Character", titleColor: .text.white, borderColor: .text.grey, buttonColor: .background.secondary, labelInsets: labelInsets)
+        wordLabel.prepareLabel(labelText: "0 Word", titleColor: .text.white, borderColor: .text.grey, buttonColor: .background.secondary, labelInsets: labelInsets)
+        sentenceLabel.prepareLabel(labelText: "0 Sentence", titleColor: .text.white, borderColor: .text.grey, buttonColor: .background.secondary, labelInsets: labelInsets)
+        paragraphLabel.prepareLabel(labelText: "0 Paragraph", titleColor: .text.white, borderColor: .text.grey, buttonColor: .background.secondary, labelInsets: labelInsets)
     }
     
     private func configureView() {
@@ -111,7 +123,10 @@ extension TextResultCapsuleView {
         self.addSubview(buttonScrollView)
         self.addSubview(textResult)
         
-        let padding = 18.0
+        textResult.layer.zPosition = -1
+        self.bringSubviewToFront(buttonScrollView)
+        
+        let padding = 16.0
 
         NSLayoutConstraint.activate([
         
@@ -125,15 +140,15 @@ extension TextResultCapsuleView {
             buttonStack.trailingAnchor.constraint(equalTo: buttonScrollView.trailingAnchor),
             buttonStack.bottomAnchor.constraint(equalTo: buttonScrollView.bottomAnchor),
             
-            characterLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
-            wordLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
-            sentenceLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
-            paragraphLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
+            characterLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor),
+            wordLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor),
+            sentenceLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor),
+            paragraphLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor),
             
-            copyButton.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
+            copyButton.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor),
             copyButton.widthAnchor.constraint(equalToConstant: 130),
             
-            textResult.topAnchor.constraint(equalTo: buttonScrollView.bottomAnchor),
+            textResult.topAnchor.constraint(equalTo: self.topAnchor),
             textResult.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             textResult.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             textResult.bottomAnchor.constraint(equalTo: self.bottomAnchor)
@@ -153,6 +168,10 @@ extension TextResultCapsuleView {
     
     private func calculateText(text: String) {
         
+        characterCount = text.count
+        wordCount = text.wordCount
+        sentenceCount = text.sentenceCount
+        paragraphCount = text.paragraphsCount()
     }
     
     @objc private func didTappedCopyButton() {

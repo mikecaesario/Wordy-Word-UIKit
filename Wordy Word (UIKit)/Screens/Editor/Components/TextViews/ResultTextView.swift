@@ -26,6 +26,6 @@ class ResultTextView: UITextView {
         isEditable = false
         isSelectable = false
         showsVerticalScrollIndicator = false
-        contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        contentInset = UIEdgeInsets(top: 85, left: 20, bottom: 20, right: 20)
     }
 }

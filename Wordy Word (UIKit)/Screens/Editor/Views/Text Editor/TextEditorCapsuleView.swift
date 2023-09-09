@@ -87,10 +87,10 @@ class TextEditorCapsuleView: UIView {
         
         let labelInsets = UIEdgeInsets(top: 15, left: 30, bottom: 15, right: 30)
         
-        characterLabel.prepareLabel(labelText: "0 Character", color: .text.black, labelInsets: labelInsets)
-        wordLabel.prepareLabel(labelText: "0 Word", color: .text.black, labelInsets: labelInsets)
-        sentenceLabel.prepareLabel(labelText: "0 Sentence", color: .text.black, labelInsets: labelInsets)
-        paragraphLabel.prepareLabel(labelText: "0 Paragraph", color: .text.black, labelInsets: labelInsets)
+        characterLabel.prepareLabel(labelText: "0 Character", titleColor: .text.black, borderColor: .text.black, buttonColor: .background.quarternary, labelInsets: labelInsets)
+        wordLabel.prepareLabel(labelText: "0 Word", titleColor: .text.black, borderColor: .text.black, buttonColor: .background.quarternary, labelInsets: labelInsets)
+        sentenceLabel.prepareLabel(labelText: "0 Sentence", titleColor: .text.black, borderColor: .text.black, buttonColor: .background.quarternary, labelInsets: labelInsets)
+        paragraphLabel.prepareLabel(labelText: "0 Paragraph", titleColor: .text.black, borderColor: .text.black, buttonColor: .background.quarternary, labelInsets: labelInsets)
     }
     
     private func configureView() {
@@ -126,14 +126,16 @@ class TextEditorCapsuleView: UIView {
         self.addSubview(textEditor)
         self.addSubview(buttonScrollView)
         
-        let padding = 8.0
+        textEditor.layer.zPosition = -1
+
+        let padding = 16.0
         
         NSLayoutConstraint.activate([
         
             textEditor.topAnchor.constraint(equalTo: self.topAnchor),
             textEditor.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             textEditor.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            textEditor.heightAnchor.constraint(equalToConstant: 250),
+            textEditor.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
             buttonScrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             buttonScrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
@@ -145,12 +147,12 @@ class TextEditorCapsuleView: UIView {
             buttonStack.trailingAnchor.constraint(equalTo: buttonScrollView.trailingAnchor),
             buttonStack.bottomAnchor.constraint(equalTo: buttonScrollView.bottomAnchor),
 
-            characterLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
-            wordLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
-            sentenceLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
-            paragraphLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
+            characterLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor),
+            wordLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor),
+            sentenceLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor),
+            paragraphLabel.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor),
             
-            pasteButton.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor, multiplier: 0.9),
+            pasteButton.heightAnchor.constraint(equalTo: buttonScrollView.heightAnchor),
             pasteButton.widthAnchor.constraint(equalToConstant: 130)
         ])
     }
@@ -159,9 +161,12 @@ class TextEditorCapsuleView: UIView {
         
         guard let pasteboardData = UIPasteboard.general.string else { return }
         
-        textEditor.text = pasteboardData
-        calculateText(text: pasteboardData)
-        delegate?.didFinishPastingText(text: pasteboardData)
+        if pasteboardData != " " || pasteboardData != "" {
+            textEditor.text = pasteboardData
+            textEditor.textColor = .text.editor
+            calculateText(text: pasteboardData)
+            delegate?.didFinishPastingText(text: pasteboardData)
+        }
     }
     
     private func calculateText(text: String) {
@@ -169,6 +174,7 @@ class TextEditorCapsuleView: UIView {
         characterCount = text.count
         wordCount = text.wordCount
         sentenceCount = text.sentenceCount
+        paragraphCount = text.paragraphsCount()
     }
 }
 
@@ -196,14 +202,6 @@ extension TextEditorCapsuleView: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         print("TEXT HAS CHANGED")
-        
-        /*
-            if the texview value changed and textview color is not in placeholder color,
-            set the textview value to editing text variable
-        */
-//        if textView.textColor != .text.placeholder {
-//            editingText = textView.text
-//        }
         
         calculateText(text: textView.text)
     }

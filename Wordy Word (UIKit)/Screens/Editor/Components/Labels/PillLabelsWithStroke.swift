@@ -31,17 +31,17 @@ class PillLabelsWithStroke: UILabel {
         layer.cornerRadius = self.frame.height / 2
         layer.borderWidth = 1.0
         clipsToBounds = true
-        backgroundColor = .clear
     }
     
-    func prepareLabel(labelText: String, color: UIColor?, labelInsets: UIEdgeInsets) {
+    func prepareLabel(labelText: String, titleColor: UIColor?, borderColor: UIColor?, buttonColor: UIColor?, labelInsets: UIEdgeInsets) {
         
         text = labelText
         insets = labelInsets
         
-        if let borderColor = color {
-            layer.borderColor = color?.cgColor
-            textColor = color
+        if let titleColor = titleColor, let borderColor = borderColor, let buttonColor = buttonColor {
+            backgroundColor = buttonColor
+            layer.borderColor = borderColor.cgColor
+            textColor = titleColor
         }
     }
     

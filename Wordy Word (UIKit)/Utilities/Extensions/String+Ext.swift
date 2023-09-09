@@ -67,6 +67,12 @@ extension String {
         
         return capitalizedSentences.joined(separator: ". ")
     }
+    
+    func paragraphsCount() -> Int {
+
+        let paragraphs = self.components(separatedBy: "\n\n")
+        return paragraphs.count
+    }
 }
 
 extension String {
