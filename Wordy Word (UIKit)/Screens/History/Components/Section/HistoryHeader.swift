@@ -42,7 +42,6 @@ class HistoryHeader: UITableViewHeaderFooterView {
         NSLayoutConstraint.activate([
             
             dateLabelHeader.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            dateLabelHeader.heightAnchor.constraint(equalToConstant: 20),
             dateLabelHeader.widthAnchor.constraint(equalTo: self.widthAnchor),
             dateLabelHeader.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])

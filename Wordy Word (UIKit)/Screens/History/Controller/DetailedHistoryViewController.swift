@@ -51,7 +51,7 @@ extension DetailedHistoryViewController {
         
         detailedHistoryItemText.backgroundColor = .clear
         detailedHistoryItemText.font = UIFont(name: .fonts.poppinsMedium, size: 22)
-        detailedHistoryItemText.textContainerInset = UIEdgeInsets(top: 100, left: padding, bottom: padding, right: padding)
+        detailedHistoryItemText.textContainerInset = UIEdgeInsets(top: 100, left: padding, bottom: 100, right: padding)
         detailedHistoryItemText.isEditable = false
         detailedHistoryItemText.isSelectable = true
         detailedHistoryItemText.textColor = .text.white
@@ -103,7 +103,7 @@ extension DetailedHistoryViewController {
             footer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             footer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             footer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            footer.heightAnchor.constraint(equalToConstant: 75)
+            footer.heightAnchor.constraint(equalToConstant: 100)
         ])
         
         print("RESULT FOOTER ADDED")
@@ -127,7 +127,7 @@ extension DetailedHistoryViewController {
             footer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             footer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             footer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            footer.heightAnchor.constraint(equalToConstant: 75)
+            footer.heightAnchor.constraint(equalToConstant: 100)
         ])
         
         print("ORIGINAL FOOTER ADDED")
