@@ -198,6 +198,8 @@ class EditedItemTableViewCell: UITableViewCell {
         self.backgroundColor = .clear
         
         backgroundContainer.backgroundColor = .background.thirtiary
+        backgroundContainer.layer.cornerRadius = (self.frame.height / 1.5)
+        backgroundContainer.layer.masksToBounds = true
         
         editedItemText.backgroundColor = .clear
         editedItemText.font = UIFont(name: .fonts.poppinsMedium, size: 16)
@@ -261,16 +263,9 @@ class EditedItemTableViewCell: UITableViewCell {
     
     func setupCell(historyItem: EditHistoryItemResults) {
         
-        roundCellCorner()
         editedItemText.text = historyItem.result
         timeStampLabel.text = DateFormatter.formattedHourFromDate.string(from: historyItem.timeStamp)
         editingStyleLabel.text = historyItem.style
-    }
-    
-    private func roundCellCorner() {
-        
-        backgroundContainer.layer.cornerRadius = (self.frame.height / 1.2)
-        backgroundContainer.layer.masksToBounds = true
     }
 }
 

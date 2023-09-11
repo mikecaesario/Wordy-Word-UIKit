@@ -102,7 +102,8 @@ extension HistoryViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 400
-        tableView.contentInset = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
+        tableView.contentInset.top = 100
+        tableView.contentOffset.y = -100
         tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: tableViewCellReuseIdentifier)
         tableView.register(HistoryHeader.self, forHeaderFooterViewReuseIdentifier: tableViewHeaderReuseIdentifier)
     }

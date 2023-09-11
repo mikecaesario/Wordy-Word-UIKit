@@ -51,7 +51,7 @@ extension DetailedHistoryViewController {
         
         detailedHistoryItemText.backgroundColor = .clear
         detailedHistoryItemText.font = UIFont(name: .fonts.poppinsMedium, size: 22)
-        detailedHistoryItemText.contentInset = UIEdgeInsets(top: 100, left: padding, bottom: padding, right: padding)
+        detailedHistoryItemText.textContainerInset = UIEdgeInsets(top: 100, left: padding, bottom: padding, right: padding)
         detailedHistoryItemText.isEditable = false
         detailedHistoryItemText.isSelectable = true
         detailedHistoryItemText.textColor = .text.white
@@ -80,7 +80,7 @@ extension DetailedHistoryViewController {
             detailedHistoryItemText.topAnchor.constraint(equalTo: view.topAnchor),
             detailedHistoryItemText.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             detailedHistoryItemText.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            detailedHistoryItemText.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            detailedHistoryItemText.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
     
