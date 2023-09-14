@@ -56,6 +56,7 @@ extension DetailedHistoryViewController {
         detailedHistoryItemText.isSelectable = true
         detailedHistoryItemText.textColor = .text.white
         detailedHistoryItemText.textAlignment = .left
+        detailedHistoryItemText.tintColor = .white
         
     }
     

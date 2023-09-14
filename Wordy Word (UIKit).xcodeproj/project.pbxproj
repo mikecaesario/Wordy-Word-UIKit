@@ -51,6 +51,7 @@
 		93436BFE2AAF7687006FC6BE /* OriginalHistoryTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436BFD2AAF7687006FC6BE /* OriginalHistoryTableviewCell.swift */; };
 		93436C002AAF76FB006FC6BE /* EditHistoryNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436BFF2AAF76FB006FC6BE /* EditHistoryNavigationBar.swift */; };
 		93436C022AAF7860006FC6BE /* OriginalTextNavigationFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C012AAF7860006FC6BE /* OriginalTextNavigationFooter.swift */; };
+		93436C042AAF8C6A006FC6BE /* TextEditorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C032AAF8C6A006FC6BE /* TextEditorService.swift */; };
 		934A7AF12A74287100EC5BC4 /* DetailedHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */; };
 		934A7AF32A742A9900EC5BC4 /* EditHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A7AF22A742A9900EC5BC4 /* EditHistoryViewController.swift */; };
 /* End PBXBuildFile section */
@@ -102,6 +103,7 @@
 		93436BFD2AAF7687006FC6BE /* OriginalHistoryTableviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalHistoryTableviewCell.swift; sourceTree = "<group>"; };
 		93436BFF2AAF76FB006FC6BE /* EditHistoryNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHistoryNavigationBar.swift; sourceTree = "<group>"; };
 		93436C012AAF7860006FC6BE /* OriginalTextNavigationFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalTextNavigationFooter.swift; sourceTree = "<group>"; };
+		93436C032AAF8C6A006FC6BE /* TextEditorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorService.swift; sourceTree = "<group>"; };
 		934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHistoryViewController.swift; sourceTree = "<group>"; };
 		934A7AF22A742A9900EC5BC4 /* EditHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditHistoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -375,6 +377,7 @@
 			isa = PBXGroup;
 			children = (
 				4CF53A722A13EDAE0038E043 /* HistoryDataService.swift */,
+				93436C032AAF8C6A006FC6BE /* TextEditorService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				4C397F4C2A000CF8006F8D3C /* AppDelegate.swift in Sources */,
 				4CABA5022A00157200442908 /* ButtonAndLabelStack.swift in Sources */,
 				4CABA4F72A00155E00442908 /* TextEditorCapsuleView.swift in Sources */,
+				93436C042AAF8C6A006FC6BE /* TextEditorService.swift in Sources */,
 				4CABA5052A00157200442908 /* PillButtonImageWithText.swift in Sources */,
 				4CABA5092A0015A200442908 /* UIColor+Ext.swift in Sources */,
 				4CF53A732A13EDAE0038E043 /* HistoryDataService.swift in Sources */,

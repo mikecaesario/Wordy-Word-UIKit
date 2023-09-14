@@ -14,6 +14,7 @@ protocol DetailedHistoryNavigationBarButtonsProtocol: AnyObject {
 
 class DetailedHistoryNavigationBarButtons: UIView {
     
+    private let grabberPill = UIView()
     private let backButton = NavigationBarCircleButton()
     private let copyButton = NavigationBarCircleButton()
     private let gradientBackground = CAGradientLayer()
