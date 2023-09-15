@@ -48,23 +48,30 @@ extension SettingsViewController {
     private func prepareView() {
         
         view.backgroundColor = .background.primary
+        navigationController?.isNavigationBarHidden = true
     }
     
     private func configureView() {
         
         settingsNavigationBar.setNavigationTitle(title: "Settings")
         
+        settingsTableView.backgroundColor = .clear
         settingsTableView.dataSource = self
         settingsTableView.delegate = self
         settingsTableView.register(SavedHistorySettingsCell.self, forCellReuseIdentifier: savedHistoryReusableCellIdentifier)
         settingsTableView.register(GoToDeveloperWebsiteCell.self, forCellReuseIdentifier: goToDeveloperWebsiteCellIdentifier)
+//        settingsTableView.estimatedRowHeight = 200
+//        settingsTableView.rowHeight = UITableView.automaticDimension
+        settingsTableView.showsVerticalScrollIndicator = false
     }
     
     private func layoutUI() {
         
         settingsNavigationBar.translatesAutoresizingMaskIntoConstraints = false
+        settingsTableView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(settingsNavigationBar)
+        view.addSubview(settingsTableView)
         settingsNavigationBar.layer.zPosition = 1
         
         NSLayoutConstraint.activate([
@@ -72,7 +79,12 @@ extension SettingsViewController {
             settingsNavigationBar.topAnchor.constraint(equalTo: view.topAnchor),
             settingsNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             settingsNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            settingsNavigationBar.heightAnchor.constraint(equalToConstant: 100)
+            settingsNavigationBar.heightAnchor.constraint(equalToConstant: 100),
+            
+            settingsTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            settingsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            settingsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            settingsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
@@ -92,10 +104,13 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: savedHistoryReusableCellIdentifier) as! SavedHistorySettingsCell
             cell.delegate = self
             cell.setupCell(currentValue: savedHistoryValue)
+            cell.selectionStyle = .none
+            cell.contentView.isUserInteractionEnabled = true
             return cell
         case 1:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: goToDeveloperWebsiteCellIdentifier) as! GoToDeveloperWebsiteCell
+            cell.selectionStyle = .none
             return cell
         default:
             
@@ -108,13 +123,15 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.row {
             
+        case 0:
+            print("cell selected")
         case 1:
+            
             tableView.deselectRow(at: indexPath, animated: true)
         default:
-            tableView.deselectRow(at: indexPath, animated: true)
+            break
         }
     }
-    
 }
 
 extension SettingsViewController: SavedHistorySettingsCellDelegate {
@@ -135,7 +152,7 @@ class SavedHistorySettingsCell: UITableViewCell {
     private let backgroundContainer = UIView()
     private let savedHistoryLabel = UILabel()
     private let valueLabel = UILabel()
-    private let valueSlider = UISlider()
+    private let valueSlider = HistoryValueUISlider()
     private let moreInfoTextView = UITextView()
     
     private let moreInfoText = "Adjust the maximum limit of historical data to be stored."
@@ -147,6 +164,7 @@ class SavedHistorySettingsCell: UITableViewCell {
         
         configureCell()
         layoutUI()
+        print("SAVED HISTORY CELL CONFIGURED")
     }
     
     required init?(coder: NSCoder) {
@@ -174,16 +192,16 @@ class SavedHistorySettingsCell: UITableViewCell {
         valueLabel.textAlignment = .right
         valueLabel.numberOfLines = 1
         
-        valueSlider.minimumTrackTintColor = .background.quarternary
-        valueSlider.thumbTintColor = .background.quarternary
-        valueSlider.maximumTrackTintColor = .background.secondary
-        valueSlider.minimumValue = 1
-        valueSlider.maximumValue = 50
-        valueSlider.isContinuous = true
-        valueSlider.addTarget(self, action: #selector(onSliderValueChanged(sender:)), for: .editingDidEnd)
+//        valueSlider.backgroundColor = .blue
+//        valueSlider.isEnabled = true
+        valueSlider.isUserInteractionEnabled = true
+        valueSlider.setupSlider(minValue: 5, maxValue: 25)
+        valueSlider.addTarget(self, action: #selector(onSliderValueChanged(sender:)), for: .valueChanged)
         
+        moreInfoTextView.text = moreInfoText
+        moreInfoTextView.backgroundColor = .clear
         moreInfoTextView.textColor = .text.grey
-        moreInfoTextView.font = UIFont(name: .fonts.poppinsSemiBold, size: 20)
+        moreInfoTextView.font = UIFont(name: .fonts.poppinsMedium, size: 15)
         moreInfoTextView.textAlignment = .left
         moreInfoTextView.isEditable = false
         moreInfoTextView.isSelectable = false
@@ -200,31 +218,33 @@ class SavedHistorySettingsCell: UITableViewCell {
         
         let views = [backgroundContainer, savedHistoryLabel, valueLabel, valueSlider, moreInfoTextView]
         
-        self.addSubviews(views)
+        contentView.addSubviews(views)
+        backgroundContainer.layer.zPosition = -1
         
         let padding = 16.0
+        let verticalPadding = 10.0
         
         NSLayoutConstraint.activate([
             
-            backgroundContainer.topAnchor.constraint(equalTo: self.topAnchor),
-            backgroundContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            backgroundContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            backgroundContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            backgroundContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: verticalPadding),
+            backgroundContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            backgroundContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -verticalPadding),
+            backgroundContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
         
-            savedHistoryLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
-            savedHistoryLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            savedHistoryLabel.topAnchor.constraint(equalTo: backgroundContainer.topAnchor, constant: padding),
+            savedHistoryLabel.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor, constant: padding),
             
-            valueLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
-            valueLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            valueLabel.topAnchor.constraint(equalTo: backgroundContainer.topAnchor, constant: padding),
+            valueLabel.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor, constant: -padding),
             
-            valueSlider.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            valueSlider.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            valueSlider.heightAnchor.constraint(equalToConstant: 25),
+            valueSlider.topAnchor.constraint(equalTo: savedHistoryLabel.bottomAnchor, constant: padding),
+            valueSlider.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor, constant: padding),
+            valueSlider.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor, constant: -padding),
             
             moreInfoTextView.topAnchor.constraint(equalTo: valueSlider.bottomAnchor, constant: padding),
-            moreInfoTextView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            moreInfoTextView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
-            moreInfoTextView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            moreInfoTextView.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor, constant: padding),
+            moreInfoTextView.bottomAnchor.constraint(equalTo: backgroundContainer.bottomAnchor, constant: -padding),
+            moreInfoTextView.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor, constant: -padding),
         ])
     }
     
@@ -242,6 +262,38 @@ class SavedHistorySettingsCell: UITableViewCell {
     }
 }
 
+// MARK: - CUSTOM SLIDER
+
+class HistoryValueUISlider: UISlider {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureSlider()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func trackRect(forBounds bounds: CGRect) -> CGRect {
+        var customTrackSize = super.trackRect(forBounds: bounds)
+        customTrackSize.size.height = 12
+        return customTrackSize
+    }
+    
+    private func configureSlider() {
+        minimumTrackTintColor = .background.quarternary
+        thumbTintColor = .background.quarternary
+        maximumTrackTintColor = .background.secondary
+        isContinuous = true
+    }
+    
+    func setupSlider(minValue: Float, maxValue: Float) {
+        minimumValue = minValue
+        maximumValue = maxValue
+    }
+}
+
 // MARK: - SAVED HISTORY SETTINGS CELL
 
 class GoToDeveloperWebsiteCell: UITableViewCell {
@@ -255,6 +307,9 @@ class GoToDeveloperWebsiteCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        configureCell()
+        layoutUI()
+        print("DEV CELL CONFIGURED")
     }
     
     required init?(coder: NSCoder) {
@@ -264,6 +319,10 @@ class GoToDeveloperWebsiteCell: UITableViewCell {
     private func configureCell() {
         
         self.backgroundColor = .clear
+        
+        backgroundContainer.backgroundColor = .background.thirtiary
+        backgroundContainer.layer.cornerRadius = (self.frame.height / 2.0)
+        backgroundContainer.clipsToBounds = true
         
         developerLabel.text = "Developer"
         developerLabel.textColor = .text.white
@@ -289,21 +348,24 @@ class GoToDeveloperWebsiteCell: UITableViewCell {
         let views = [backgroundContainer, developerLabel, developerNameLabel]
         
         self.addSubviews(views)
+        backgroundContainer.layer.zPosition = -1
         
         let padding = 16.0
+        let verticalPadding = 10.0
         
         NSLayoutConstraint.activate([
         
-            backgroundContainer.topAnchor.constraint(equalTo: self.topAnchor),
-            backgroundContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            backgroundContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            backgroundContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            backgroundContainer.topAnchor.constraint(equalTo: self.topAnchor, constant: verticalPadding),
+            backgroundContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            backgroundContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -verticalPadding),
+            backgroundContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            backgroundContainer.heightAnchor.constraint(equalToConstant: 70),
             
-            developerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            developerLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            developerLabel.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor, constant: padding),
+            developerLabel.centerYAnchor.constraint(equalTo: backgroundContainer.centerYAnchor),
             
-            developerNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            developerNameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            developerNameLabel.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor, constant: -padding),
+            developerNameLabel.centerYAnchor.constraint(equalTo: backgroundContainer.centerYAnchor),
         ])
     }
 }

@@ -330,7 +330,7 @@ extension EditorViewController: HistoryAndSettingsTabBarDelegate {
         
         print("DID TAP SETTINGS BUTTON")
         
-        openViewControllerModal(controller: SettingsViewController(), detents: [.medium()])
+        openViewControllerModal(controller: SettingsViewController(savedHistoryValue: 20), detents: [.medium()])
     }
     
     private func openViewControllerModal(controller: UIViewController, detents: [UISheetPresentationController.Detent]) {

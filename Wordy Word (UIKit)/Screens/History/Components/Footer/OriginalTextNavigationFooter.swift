@@ -59,9 +59,7 @@ class OriginalTextNavigationFooter: UIView {
         
         self.addSubview(originalTextLabel)
         self.layer.insertSublayer(gradientBackground, at: 0)
-                
-        let padding = 16.0
-        
+                        
         NSLayoutConstraint.activate([
             
             originalTextLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
