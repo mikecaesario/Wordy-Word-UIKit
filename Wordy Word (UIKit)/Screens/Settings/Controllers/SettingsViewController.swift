@@ -13,8 +13,10 @@ final class SettingsViewController: UIViewController {
     
     private let savedHistoryReusableCellIdentifier = "savedHistoryReusableCellIdentifier"
     private let goToDeveloperWebsiteCellIdentifier = "goToDeveloperWebsiteCellIdentifier"
+    
+    private let developerURL = "https://google.com"
 
-    private let savedHistoryValue: Int
+    private var savedHistoryValue: Int
     
     init(savedHistoryValue: Int) {
         self.savedHistoryValue = savedHistoryValue
@@ -35,7 +37,16 @@ final class SettingsViewController: UIViewController {
     
     private func presentWebView(withURL: String) {
         
-        guard let url = URL(string: withURL), let sheet = navigationController?.sheetPresentationController else { return }
+        guard let url = URL(string: withURL) else { return }
+        
+        let webViewController = WebViewController(url: url)
+        
+        self.navigationController?.pushViewController(webViewController, animated: true)
+    }
+    
+    private func setSheetDetentsToLarge() {
+        
+        guard let sheet = navigationController?.sheetPresentationController else { return }
         
         sheet.animateChanges {
             sheet.selectedDetentIdentifier = .large
@@ -60,9 +71,9 @@ extension SettingsViewController {
         settingsTableView.delegate = self
         settingsTableView.register(SavedHistorySettingsCell.self, forCellReuseIdentifier: savedHistoryReusableCellIdentifier)
         settingsTableView.register(GoToDeveloperWebsiteCell.self, forCellReuseIdentifier: goToDeveloperWebsiteCellIdentifier)
-//        settingsTableView.estimatedRowHeight = 200
-//        settingsTableView.rowHeight = UITableView.automaticDimension
         settingsTableView.showsVerticalScrollIndicator = false
+        settingsTableView.contentInset.top = 50
+        settingsTableView.contentOffset.y = -50
     }
     
     private func layoutUI() {
@@ -122,14 +133,26 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch indexPath.row {
-            
-        case 0:
-            print("cell selected")
         case 1:
             
+            setSheetDetentsToLarge()
+            presentWebView(withURL: developerURL)
             tableView.deselectRow(at: indexPath, animated: true)
         default:
-            break
+            
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        switch indexPath.row {
+        case 0:
+            return 220
+        case 1:
+            return 80
+        default:
+            return 100
         }
     }
 }
@@ -192,8 +215,6 @@ class SavedHistorySettingsCell: UITableViewCell {
         valueLabel.textAlignment = .right
         valueLabel.numberOfLines = 1
         
-//        valueSlider.backgroundColor = .blue
-//        valueSlider.isEnabled = true
         valueSlider.isUserInteractionEnabled = true
         valueSlider.setupSlider(minValue: 5, maxValue: 25)
         valueSlider.addTarget(self, action: #selector(onSliderValueChanged(sender:)), for: .valueChanged)
@@ -347,7 +368,7 @@ class GoToDeveloperWebsiteCell: UITableViewCell {
         
         let views = [backgroundContainer, developerLabel, developerNameLabel]
         
-        self.addSubviews(views)
+        contentView.addSubviews(views)
         backgroundContainer.layer.zPosition = -1
         
         let padding = 16.0
@@ -355,17 +376,19 @@ class GoToDeveloperWebsiteCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
         
-            backgroundContainer.topAnchor.constraint(equalTo: self.topAnchor, constant: verticalPadding),
-            backgroundContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            backgroundContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -verticalPadding),
-            backgroundContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            backgroundContainer.heightAnchor.constraint(equalToConstant: 70),
+            backgroundContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: verticalPadding),
+            backgroundContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            backgroundContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -verticalPadding),
+            backgroundContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             
             developerLabel.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor, constant: padding),
             developerLabel.centerYAnchor.constraint(equalTo: backgroundContainer.centerYAnchor),
+            developerLabel.heightAnchor.constraint(equalToConstant: 50),
             
             developerNameLabel.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor, constant: -padding),
             developerNameLabel.centerYAnchor.constraint(equalTo: backgroundContainer.centerYAnchor),
+            developerNameLabel.heightAnchor.constraint(equalToConstant: 50)
+
         ])
     }
 }

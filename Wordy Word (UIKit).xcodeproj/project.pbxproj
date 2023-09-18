@@ -52,6 +52,7 @@
 		93436C002AAF76FB006FC6BE /* EditHistoryNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436BFF2AAF76FB006FC6BE /* EditHistoryNavigationBar.swift */; };
 		93436C022AAF7860006FC6BE /* OriginalTextNavigationFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C012AAF7860006FC6BE /* OriginalTextNavigationFooter.swift */; };
 		93436C042AAF8C6A006FC6BE /* TextEditorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C032AAF8C6A006FC6BE /* TextEditorService.swift */; };
+		93436C062AB4D11B006FC6BE /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C052AB4D11B006FC6BE /* WebViewController.swift */; };
 		934A7AF12A74287100EC5BC4 /* DetailedHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */; };
 		934A7AF32A742A9900EC5BC4 /* EditHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A7AF22A742A9900EC5BC4 /* EditHistoryViewController.swift */; };
 /* End PBXBuildFile section */
@@ -104,6 +105,7 @@
 		93436BFF2AAF76FB006FC6BE /* EditHistoryNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHistoryNavigationBar.swift; sourceTree = "<group>"; };
 		93436C012AAF7860006FC6BE /* OriginalTextNavigationFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalTextNavigationFooter.swift; sourceTree = "<group>"; };
 		93436C032AAF8C6A006FC6BE /* TextEditorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorService.swift; sourceTree = "<group>"; };
+		93436C052AB4D11B006FC6BE /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHistoryViewController.swift; sourceTree = "<group>"; };
 		934A7AF22A742A9900EC5BC4 /* EditHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditHistoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -411,6 +413,7 @@
 			isa = PBXGroup;
 			children = (
 				9329BDAB2A9BAF3A00C168A0 /* SettingsViewController.swift */,
+				93436C052AB4D11B006FC6BE /* WebViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				4CABA5092A0015A200442908 /* UIColor+Ext.swift in Sources */,
 				4CF53A732A13EDAE0038E043 /* HistoryDataService.swift in Sources */,
 				93436BFC2AAF7636006FC6BE /* EditedItemTableViewCell.swift in Sources */,
+				93436C062AB4D11B006FC6BE /* WebViewController.swift in Sources */,
 				4CABA5042A00157200442908 /* EditorTextView.swift in Sources */,
 				4CF53A762A13EDD40038E043 /* HistoryModel.swift in Sources */,
 				9329BDAC2A9BAF3A00C168A0 /* SettingsViewController.swift in Sources */,
