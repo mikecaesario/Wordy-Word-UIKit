@@ -323,26 +323,26 @@ extension EditorViewController: HistoryAndSettingsTabBarDelegate {
         
         print("DID TAP HISTORY BUTTON")
         
-        openViewControllerModal(controller: HistoryViewController(historyItems: historyDataArray), detents: [.medium(), .large()])
+        openViewControllerModal(controller: HistoryViewController(historyItems: historyDataArray), autoResizeOnScrollEdge: true)
     }
     
     func didTappedSettingsButton() {
         
         print("DID TAP SETTINGS BUTTON")
         
-        openViewControllerModal(controller: SettingsViewController(savedHistoryValue: 20), detents: [.medium()])
+        openViewControllerModal(controller: SettingsViewController(savedHistoryValue: 20), autoResizeOnScrollEdge: false)
     }
     
-    private func openViewControllerModal(controller: UIViewController, detents: [UISheetPresentationController.Detent]) {
+    private func openViewControllerModal(controller: UIViewController, autoResizeOnScrollEdge: Bool) {
         
         let viewController = controller
         let navigation = UINavigationController(rootViewController: viewController)
         
         if let historyVCSheet = navigation.sheetPresentationController {
             
-            historyVCSheet.detents = detents
+            historyVCSheet.detents = [.medium(), .large()]
             historyVCSheet.preferredCornerRadius = 40
-            historyVCSheet.prefersScrollingExpandsWhenScrolledToEdge = true
+            historyVCSheet.prefersScrollingExpandsWhenScrolledToEdge = autoResizeOnScrollEdge
             historyVCSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
         }
         

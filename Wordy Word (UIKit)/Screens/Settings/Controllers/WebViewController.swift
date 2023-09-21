@@ -35,7 +35,6 @@ final class WebViewController: UIViewController {
 
         configureView()
         layoutUI()
-//        goToWeb(withURL: url)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -45,13 +44,13 @@ final class WebViewController: UIViewController {
     
     deinit {
         
-        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward))
-        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack))
+        removeObserver()
         print("DEINTILIZE WEBVIEW")
     }
     
-    private func goToWeb(withURL: URL) {
+    private func goToWeb(withURL: URL?) {
         
+        guard let url = withURL else { return }
         let urlRequest = URLRequest(url: url)
         webView.load(urlRequest)
     }
@@ -79,6 +78,16 @@ final class WebViewController: UIViewController {
             break
         }
     }
+    
+    private func removeObserver() {
+        
+        if webView.observationInfo != nil {
+            
+            webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward))
+            webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack))
+            print("WEBKIT HAS OBSERVER")
+        }
+    }
 }
 
 extension WebViewController {
@@ -95,7 +104,7 @@ extension WebViewController {
     private func prepareWebView() {
         
         let webViewConfiguration = WKWebViewConfiguration()
-        let webView = WKWebView(frame: .zero, configuration: webViewConfiguration)
+        self.webView = WKWebView(frame: .zero, configuration: webViewConfiguration)
         webView.uiDelegate = self
         webView.allowsBackForwardNavigationGestures = true
         webView.frame = view.bounds
@@ -109,9 +118,6 @@ extension WebViewController {
     private func layoutUI() {
         
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
-//        webView.translatesAutoresizingMaskIntoConstraints = false
-        
-//        let views = [navigationBar, webView]
         
         view.addSubview(navigationBar)
         navigationBar.layer.zPosition = 1
@@ -123,11 +129,6 @@ extension WebViewController {
             navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             navigationBar.heightAnchor.constraint(equalToConstant: 75),
-//
-//            webView.topAnchor.constraint(equalTo: view.topAnchor),
-//            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 100),
-//            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
@@ -135,133 +136,27 @@ extension WebViewController {
 extension WebViewController: WebNavigationDelegate, WKUIDelegate, WKNavigationDelegate {
     
     func didFinishTappingCloseButton() {
+        
+        setSheetDetentToMedium()
+
         navigationController?.popViewController(animated: true)
     }
     
     func didFinishTappingBackButton() {
-        webView.goBack()
+        
+        if webView.canGoBack {
+            webView.goBack()
+        }
     }
     
     func didFinishTappingForwardButton() {
-        webView.goForward()
-    }
-    
-}
-
-protocol WebNavigationDelegate: AnyObject {
-    
-    func didFinishTappingCloseButton()
-    func didFinishTappingBackButton()
-    func didFinishTappingForwardButton()
-}
-
-final class WebNavigation: UIView {
-    
-    private let gradientBackground = CAGradientLayer()
-    private let closeButton = NavigationBarCircleButton()
-    private let backButton = NavigationBarCircleButton()
-    private let forwardButton = NavigationBarCircleButton()
-
-    weak var delegate: WebNavigationDelegate?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureView()
-        layoutUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureView() {
         
-        self.backgroundColor = .clear
-        
-        closeButton.setImageForButton(imageName: "xmark", size: 22)
-        backButton.setImageForButton(imageName: "chevron.left", size: 22)
-        forwardButton.setImageForButton(imageName: "chevron.right", size: 22)
-        
-        backButton.tintColor = .text.grey
-        backButton.isEnabled = false
-        
-        forwardButton.tintColor = .text.grey
-        forwardButton.isEnabled = false
-        
-        closeButton.addTarget(self, action: #selector(didTappedBackButton), for: .touchUpInside)
-        backButton.addTarget(self, action: #selector(didTappedBackButton), for: .touchUpInside)
-        forwardButton.addTarget(self, action: #selector(didTappedForwardButton), for: .touchUpInside)
-    }
-    
-    private func layoutUI() {
-        
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        forwardButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.addSubviews([closeButton, backButton, forwardButton])
-        
-        let padding = 16.0
-        let forwardAndBackSpacing = 10.0
-        let multiplierValue = 0.8
-        
-        NSLayoutConstraint.activate([
-        
-            closeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            closeButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            closeButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplierValue),
-            closeButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplierValue),
-            
-            forwardButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            forwardButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            forwardButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplierValue),
-            forwardButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplierValue),
-            
-            backButton.trailingAnchor.constraint(equalTo: forwardButton.leadingAnchor, constant: -forwardAndBackSpacing),
-            backButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            backButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplierValue),
-            backButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplierValue)
-
-        ])
-    }
-    
-    @objc private func didTappedCloseButton() {
-        print("CLOSE BUTTON TAPPED")
-        delegate?.didFinishTappingCloseButton()
-    }
-    
-    @objc private func didTappedBackButton() {
-        print("BACK BUTTON TAPPED")
-
-        delegate?.didFinishTappingBackButton()
-    }
-    
-    @objc private func didTappedForwardButton() {
-        print("FORWARD BUTTON TAPPED")
-
-        delegate?.didFinishTappingForwardButton()
-    }
-    
-    func isBackButtonEnabled(isEnabled: Bool) {
-        
-        if isEnabled {
-            backButton.tintColor = .text.white
-            backButton.isEnabled = true
-        } else {
-            backButton.tintColor = .text.grey
-            backButton.isEnabled = false
+        if webView.canGoForward {
+            webView.goForward()
         }
     }
     
-    func isForwardButtonEnabled(isEnabled: Bool) {
-        
-        if isEnabled {
-            forwardButton.tintColor = .text.white
-            forwardButton.isEnabled = true
-        } else {
-            forwardButton.tintColor = .text.grey
-            forwardButton.isEnabled = false
-        }
-    }
 }
+
+
 

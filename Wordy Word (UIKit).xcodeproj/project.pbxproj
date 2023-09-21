@@ -53,6 +53,10 @@
 		93436C022AAF7860006FC6BE /* OriginalTextNavigationFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C012AAF7860006FC6BE /* OriginalTextNavigationFooter.swift */; };
 		93436C042AAF8C6A006FC6BE /* TextEditorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C032AAF8C6A006FC6BE /* TextEditorService.swift */; };
 		93436C062AB4D11B006FC6BE /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C052AB4D11B006FC6BE /* WebViewController.swift */; };
+		93436C092ABCA5DD006FC6BE /* WebNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C082ABCA5DD006FC6BE /* WebNavigation.swift */; };
+		93436C0C2ABCA62D006FC6BE /* HistoryValueUISlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C0B2ABCA62D006FC6BE /* HistoryValueUISlider.swift */; };
+		93436C112ABCA68E006FC6BE /* GoToDeveloperWebsiteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C102ABCA68E006FC6BE /* GoToDeveloperWebsiteCell.swift */; };
+		93436C132ABCA6BA006FC6BE /* SavedHistorySettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C122ABCA6BA006FC6BE /* SavedHistorySettingsCell.swift */; };
 		934A7AF12A74287100EC5BC4 /* DetailedHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */; };
 		934A7AF32A742A9900EC5BC4 /* EditHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A7AF22A742A9900EC5BC4 /* EditHistoryViewController.swift */; };
 /* End PBXBuildFile section */
@@ -106,6 +110,10 @@
 		93436C012AAF7860006FC6BE /* OriginalTextNavigationFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalTextNavigationFooter.swift; sourceTree = "<group>"; };
 		93436C032AAF8C6A006FC6BE /* TextEditorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorService.swift; sourceTree = "<group>"; };
 		93436C052AB4D11B006FC6BE /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		93436C082ABCA5DD006FC6BE /* WebNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebNavigation.swift; sourceTree = "<group>"; };
+		93436C0B2ABCA62D006FC6BE /* HistoryValueUISlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryValueUISlider.swift; sourceTree = "<group>"; };
+		93436C102ABCA68E006FC6BE /* GoToDeveloperWebsiteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToDeveloperWebsiteCell.swift; sourceTree = "<group>"; };
+		93436C122ABCA6BA006FC6BE /* SavedHistorySettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedHistorySettingsCell.swift; sourceTree = "<group>"; };
 		934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHistoryViewController.swift; sourceTree = "<group>"; };
 		934A7AF22A742A9900EC5BC4 /* EditHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditHistoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -404,7 +412,9 @@
 		9329BDA92A9BAEFE00C168A0 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				93436C0A2ABCA60E006FC6BE /* Components */,
 				9329BDAA2A9BAF0B00C168A0 /* Controllers */,
+				93436C072ABCA58D006FC6BE /* Views */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -453,6 +463,48 @@
 				9356B68A2A7024C000FB3CD1 /* Cell */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		93436C072ABCA58D006FC6BE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				93436C0F2ABCA661006FC6BE /* Navigations */,
+				93436C0E2ABCA65B006FC6BE /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		93436C0A2ABCA60E006FC6BE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				93436C0D2ABCA64F006FC6BE /* UISlider */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		93436C0D2ABCA64F006FC6BE /* UISlider */ = {
+			isa = PBXGroup;
+			children = (
+				93436C0B2ABCA62D006FC6BE /* HistoryValueUISlider.swift */,
+			);
+			path = UISlider;
+			sourceTree = "<group>";
+		};
+		93436C0E2ABCA65B006FC6BE /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				93436C102ABCA68E006FC6BE /* GoToDeveloperWebsiteCell.swift */,
+				93436C122ABCA6BA006FC6BE /* SavedHistorySettingsCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		93436C0F2ABCA661006FC6BE /* Navigations */ = {
+			isa = PBXGroup;
+			children = (
+				93436C082ABCA5DD006FC6BE /* WebNavigation.swift */,
+			);
+			path = Navigations;
 			sourceTree = "<group>";
 		};
 		9356B68A2A7024C000FB3CD1 /* Cell */ = {
@@ -546,9 +598,12 @@
 				4C17B92B2A02B59B00FA7FB3 /* MainEditorStack.swift in Sources */,
 				9313AF932AA392D7005E02AC /* DetailedHistoryNavigationFooter.swift in Sources */,
 				4CF53A702A13ED6D0038E043 /* EditingStyleEnum.swift in Sources */,
+				93436C092ABCA5DD006FC6BE /* WebNavigation.swift in Sources */,
 				4CF53A782A13EE030038E043 /* Date+Ext.swift in Sources */,
 				1628BB552A5BEC12004BDB93 /* HistoryTableViewCell.swift in Sources */,
+				93436C0C2ABCA62D006FC6BE /* HistoryValueUISlider.swift in Sources */,
 				4C6551E52A1695530059F92A /* PillButtonWithStroke.swift in Sources */,
+				93436C132ABCA6BA006FC6BE /* SavedHistorySettingsCell.swift in Sources */,
 				4CBAB0772A1D187E00342EAC /* ReplaceTextfieldStack.swift in Sources */,
 				4C397F502A000CF8006F8D3C /* EditorViewController.swift in Sources */,
 				934A7AF12A74287100EC5BC4 /* DetailedHistoryViewController.swift in Sources */,
@@ -561,6 +616,7 @@
 				4CABA4F72A00155E00442908 /* TextEditorCapsuleView.swift in Sources */,
 				93436C042AAF8C6A006FC6BE /* TextEditorService.swift in Sources */,
 				4CABA5052A00157200442908 /* PillButtonImageWithText.swift in Sources */,
+				93436C112ABCA68E006FC6BE /* GoToDeveloperWebsiteCell.swift in Sources */,
 				4CABA5092A0015A200442908 /* UIColor+Ext.swift in Sources */,
 				4CF53A732A13EDAE0038E043 /* HistoryDataService.swift in Sources */,
 				93436BFC2AAF7636006FC6BE /* EditedItemTableViewCell.swift in Sources */,
