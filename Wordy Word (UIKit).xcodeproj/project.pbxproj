@@ -132,21 +132,21 @@
 		1628BB4F2A5AFBFC004BDB93 /* History */ = {
 			isa = PBXGroup;
 			children = (
-				1628BB502A5AFC07004BDB93 /* Controller */,
+				1628BB502A5AFC07004BDB93 /* Controllers */,
 				933F6C512A926AF800F93814 /* Components */,
 				1628BB532A5BEBF0004BDB93 /* Views */,
 			);
 			path = History;
 			sourceTree = "<group>";
 		};
-		1628BB502A5AFC07004BDB93 /* Controller */ = {
+		1628BB502A5AFC07004BDB93 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				1628BB512A5AFC33004BDB93 /* HistoryViewController.swift */,
 				934A7AF22A742A9900EC5BC4 /* EditHistoryViewController.swift */,
 				934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */,
 			);
-			path = Controller;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		1628BB532A5BEBF0004BDB93 /* Views */ = {

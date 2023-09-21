@@ -90,6 +90,16 @@ class EditorViewController: UIViewController {
         configureView()
         layoutUI()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("EDITOR VIEW DID APPEAR")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("EDITOR VIEW WILL APPEAR")
+    }
 }
 
 // MARK: - View Setup

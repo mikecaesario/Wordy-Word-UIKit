@@ -112,7 +112,7 @@ extension HistoryViewController {
         
         noHistoryLabel.text = "No History"
         noHistoryLabel.textColor = .text.grey
-        noHistoryLabel.font = UIFont(name: .fonts.poppinsMedium, size: 15)
+        noHistoryLabel.font = UIFont(name: .fonts.poppinsMedium, size: 20)
     }
     
     private func layoutTableView() {

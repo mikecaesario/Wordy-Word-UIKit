@@ -30,8 +30,17 @@ final class WebNavigation: UIView {
         layoutUI()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setGradientBackgroundFrame()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setGradientBackgroundFrame() {
+        gradientBackground.frame = self.bounds
     }
     
     private func configureView() {
@@ -51,6 +60,13 @@ final class WebNavigation: UIView {
         closeButton.addTarget(self, action: #selector(didTappedCloseButton), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(didTappedBackButton), for: .touchUpInside)
         forwardButton.addTarget(self, action: #selector(didTappedForwardButton), for: .touchUpInside)
+        
+        if let color = UIColor.background.primary?.cgColor {
+
+            gradientBackground.colors = [UIColor.clear.cgColor, color]
+        }
+
+        gradientBackground.locations = [0.05, 0.6]
     }
     
     private func layoutUI() {
@@ -60,25 +76,27 @@ final class WebNavigation: UIView {
         forwardButton.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubviews([closeButton, backButton, forwardButton])
+        self.layer.insertSublayer(gradientBackground, at: 0)
         
         let padding = 16.0
+        let bottomPadding = -10.0
         let forwardAndBackSpacing = 10.0
-        let multiplierValue = 0.8
+        let multiplierValue = 0.6
         
         NSLayoutConstraint.activate([
         
             closeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            closeButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: <#T##CGFloat#>),
+            closeButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: bottomPadding),
             closeButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplierValue),
             closeButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplierValue),
             
             forwardButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            forwardButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: <#T##CGFloat#>),
+            forwardButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: bottomPadding),
             forwardButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplierValue),
             forwardButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplierValue),
             
             backButton.trailingAnchor.constraint(equalTo: forwardButton.leadingAnchor, constant: -forwardAndBackSpacing),
-            backButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: <#T##CGFloat#>),
+            backButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: bottomPadding),
             backButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplierValue),
             backButton.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplierValue)
 

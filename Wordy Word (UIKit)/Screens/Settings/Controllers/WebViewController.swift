@@ -125,10 +125,10 @@ extension WebViewController {
         
         NSLayoutConstraint.activate([
             
-            navigationBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            navigationBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            navigationBar.heightAnchor.constraint(equalToConstant: 75),
+            navigationBar.heightAnchor.constraint(equalToConstant: 100),
         ])
     }
 }
