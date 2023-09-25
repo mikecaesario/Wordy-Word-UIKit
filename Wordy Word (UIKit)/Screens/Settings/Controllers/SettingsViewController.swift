@@ -163,13 +163,3 @@ extension SettingsViewController: SavedHistorySettingsCellDelegate {
         print("SAVED HISTORY VALUE CHANGED TO \(value)")
     }
 }
-
-extension UIView {
-    
-    func addSubviews(_ views: [UIView]) {
-        
-        for view in views {
-            self.addSubview(view)
-        }
-    }
-}

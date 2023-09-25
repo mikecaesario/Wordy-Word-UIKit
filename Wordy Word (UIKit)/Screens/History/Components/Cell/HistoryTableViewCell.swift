@@ -9,6 +9,7 @@ import UIKit
 
 class HistoryTableViewCell: UITableViewCell {
 
+    private let backgroundContainer = UIView()
     private let historyPreviewText = UITextView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -23,17 +24,15 @@ class HistoryTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
     private func prepareCell() {
         
         self.backgroundColor = .clear
                 
         let padding = 16.0
+        
+        backgroundContainer.backgroundColor = .background.thirtiary
+        backgroundContainer.layer.cornerRadius = (self.frame.height / 1.5)
+        backgroundContainer.clipsToBounds = true
         
         historyPreviewText.font = UIFont(name: .fonts.poppinsMedium, size: 17)
         historyPreviewText.textColor = .text.white
@@ -48,9 +47,12 @@ class HistoryTableViewCell: UITableViewCell {
     
     private func layoutUI() {
         
+        backgroundContainer.translatesAutoresizingMaskIntoConstraints = false
         historyPreviewText.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubview(historyPreviewText)
+        contentView.addSubviews([backgroundContainer, historyPreviewText])
+        
+        backgroundContainer.layer.zPosition = -1
         
         let horizontalPadding = 16.0
         let verticalPadding = 8.0
@@ -66,13 +68,6 @@ class HistoryTableViewCell: UITableViewCell {
     
     func setupCell(histroyItem: EditHistoryItem) {
         
-        setupTextViewCornerRadius()
         historyPreviewText.text = histroyItem.uneditedItem
-    }
-    
-    private func setupTextViewCornerRadius() {
-        
-        historyPreviewText.layer.cornerRadius = (self.bounds.height / 1.2)
-        historyPreviewText.layer.masksToBounds = true
     }
 }

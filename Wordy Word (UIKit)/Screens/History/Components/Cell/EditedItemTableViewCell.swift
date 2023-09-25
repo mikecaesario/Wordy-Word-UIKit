@@ -61,10 +61,7 @@ class EditedItemTableViewCell: UITableViewCell {
         timeStampLabel.translatesAutoresizingMaskIntoConstraints = false
         editingStyleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        self.addSubview(editedItemText)
-        self.addSubview(timeStampLabel)
-        self.addSubview(editingStyleLabel)
-        self.addSubview(backgroundContainer)
+        contentView.addSubviews([backgroundContainer, editedItemText, timeStampLabel, editingStyleLabel])
         
         backgroundContainer.layer.zPosition = -1
 

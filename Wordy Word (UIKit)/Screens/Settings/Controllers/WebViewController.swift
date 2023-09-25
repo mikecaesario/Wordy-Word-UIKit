@@ -37,8 +37,9 @@ final class WebViewController: UIViewController {
         layoutUI()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         goToWeb(withURL: url)
     }
     
@@ -155,7 +156,6 @@ extension WebViewController: WebNavigationDelegate, WKUIDelegate, WKNavigationDe
             webView.goForward()
         }
     }
-    
 }
 
 

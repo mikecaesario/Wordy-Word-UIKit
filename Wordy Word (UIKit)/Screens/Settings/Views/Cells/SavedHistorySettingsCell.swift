@@ -78,10 +78,8 @@ class SavedHistorySettingsCell: UITableViewCell {
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
         valueSlider.translatesAutoresizingMaskIntoConstraints = false
         moreInfoTextView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let views = [backgroundContainer, savedHistoryLabel, valueLabel, valueSlider, moreInfoTextView]
-        
-        contentView.addSubviews(views)
+                
+        contentView.addSubviews([backgroundContainer, savedHistoryLabel, valueLabel, valueSlider, moreInfoTextView])
         backgroundContainer.layer.zPosition = -1
         
         let padding = 16.0

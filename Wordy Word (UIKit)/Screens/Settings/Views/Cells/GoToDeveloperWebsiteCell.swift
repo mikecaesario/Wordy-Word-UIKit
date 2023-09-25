@@ -56,10 +56,8 @@ class GoToDeveloperWebsiteCell: UITableViewCell {
         backgroundContainer.translatesAutoresizingMaskIntoConstraints = false
         developerLabel.translatesAutoresizingMaskIntoConstraints = false
         developerNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let views = [backgroundContainer, developerLabel, developerNameLabel]
-        
-        contentView.addSubviews(views)
+                
+        contentView.addSubviews([backgroundContainer, developerLabel, developerNameLabel])
         backgroundContainer.layer.zPosition = -1
         
         let padding = 16.0
