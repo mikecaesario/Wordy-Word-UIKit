@@ -46,7 +46,7 @@ class ReplaceTextfieldStack: UIView {
         
         findTextfield.delegate = self
         replaceTextfield.delegate = self
-        
+                
         findTextfield.placeholder = "Find text"
         replaceTextfield.placeholder = "Replace with"
         
@@ -96,15 +96,27 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
         switch textField {
             
         case findTextfield:
+            
             if let text = textField.text {
                 findText = text
             }
+            
             textField.backgroundColor = .background.secondary
+
+            if replaceTextWith == nil {
+                replaceTextfield.becomeFirstResponder()
+            }
         case replaceTextfield:
+            
             if let text = textField.text {
                 replaceTextWith = text
             }
+            
             textField.backgroundColor = .background.secondary
+
+            if findText == nil {
+                findTextfield.becomeFirstResponder()
+            }
         default:
             break
         }

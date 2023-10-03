@@ -16,8 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let service = HistoryDataService()
-        let mainView = EditorViewController(historyDataService: service)
+        let historyDataService = HistoryDataService()
+        let textEditorService = TextEditorService()
+        let mainView = EditorViewController(historyDataService: historyDataService, textEditorService: textEditorService)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.rootViewController = mainView

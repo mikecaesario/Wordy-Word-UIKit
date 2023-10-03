@@ -17,17 +17,18 @@ class EditorViewController: UIViewController {
     private let replaceTexfieldStack = ReplaceTextfieldStack()
     private let textEditorStack = TextEditorCapsuleView()
     private let textResultStack = TextResultCapsuleView()
-    
     private let tabBar = HistoryAndSettingsTabBar()
     
     private var editorMenu: EditorStylePickerViewController?
-    private var historyVC: HistoryViewController?
     
     private let historyDataService: HistoryDataService
+    private let textEditorService: TextEditorServiceProtocol
     
     private var findText: String?
     private var replaceWithText: String?
     private var removeCharacterArray: [String]?
+    private var resultText: String?
+    private var historyDataArray: [HistoryItems] = []
     
     private var editingText: String? {
         didSet {
@@ -35,46 +36,26 @@ class EditorViewController: UIViewController {
         }
     }
     
-    private var resultText: String? {
-        didSet {
-            textResultStack.setResultText(result: resultText)
-        }
-    }
-    
     private var editingStyle: EditingStyleEnum? {
         didSet {
             
             editorNavBar.setNavBarTitle(title: editingStyle)
-            
-            switch editingStyle {
-            case .replace:
-                
-                hideOrUnhideViewFromMainStack(hide: false, view: replaceTexfieldStack, stack: mainEditorStack)
-                hideOrUnhideViewFromMainStack(hide: true, view: removeButtonStack, stack: mainEditorStack)
-                removeButtonStack.resetRemoveItemsButton()
-            case .remove:
-                
-                hideOrUnhideViewFromMainStack(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
-                hideOrUnhideViewFromMainStack(hide: false, view: removeButtonStack, stack: mainEditorStack)
-                replaceTexfieldStack.resetTextfields()
-                removeCharacterArray = nil
-            default:
-                
-                hideOrUnhideViewFromMainStack(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
-                hideOrUnhideViewFromMainStack(hide: true, view: removeButtonStack, stack: mainEditorStack)
-                removeButtonStack.resetRemoveItemsButton()
-                replaceTexfieldStack.resetTextfields()
-                removeCharacterArray = nil
-            }
-
+            rearrangeStacksIfNeeded(style: editingStyle)
             startEditText(text: editingText, editingStyle: editingStyle, remove: removeCharacterArray, find: findText, replace: replaceWithText)
         }
     }
     
-    private var historyDataArray: [HistoryItems] = []
+    private var historyDataLimit: Int {
+        didSet {
+            UserDefaults.standard.set(historyDataLimit, forKey: UserDefaultsEnum.maxHistoryDataLimit)
+        }
+    }
     
-    init(historyDataService: HistoryDataService) {
+    init(historyDataService: HistoryDataService, textEditorService: TextEditorServiceProtocol) {
         self.historyDataService = historyDataService
+        self.textEditorService = textEditorService
+        historyDataLimit = UserDefaults.standard.integer(forKey: UserDefaultsEnum.maxHistoryDataLimit)
+        historyDataArray = historyDataService.fetchHistoryItemsFromJSON()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -85,20 +66,10 @@ class EditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        historyDataArray = historyDataService.fetchHistoryItemsFromJSON()
-        
+        print("MAX HISTORY DATA LIMIT", historyDataLimit)
+        setupDelegates()
         configureView()
         layoutUI()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("EDITOR VIEW DID APPEAR")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("EDITOR VIEW WILL APPEAR")
     }
 }
 
@@ -116,13 +87,18 @@ extension EditorViewController {
         editorScrollView.showsVerticalScrollIndicator = false
         editorScrollView.contentInset = UIEdgeInsets(top: 75, left: 0, bottom: screenHeight, right: 0)
         
-        editorNavBar.delegate = self
-        textEditorStack.delegate = self
-        tabBar.delegate = self
-        
         replaceTexfieldStack.isHidden = true
         removeButtonStack.isHidden = true
         textResultStack.isHidden = true
+    }
+    
+    private func setupDelegates() {
+        
+        editorNavBar.delegate = self
+        textEditorStack.delegate = self
+        tabBar.delegate = self
+        replaceTexfieldStack.delegate = self
+        removeButtonStack.delegate = self
     }
     
     private func layoutUI() {
@@ -134,8 +110,6 @@ extension EditorViewController {
         removeButtonStack.translatesAutoresizingMaskIntoConstraints = false
         replaceTexfieldStack.translatesAutoresizingMaskIntoConstraints = false
         textEditorStack.translatesAutoresizingMaskIntoConstraints = false
-        textResultStack.translatesAutoresizingMaskIntoConstraints = false
-        
         tabBar.translatesAutoresizingMaskIntoConstraints = false
 
         mainEditorStack.insertArrangedSubview(removeButtonStack, at: 0)
@@ -152,7 +126,7 @@ extension EditorViewController {
         view.bringSubviewToFront(editorNavBar)
         editorScrollView.layer.zPosition = -1
 
-        let horizontalPadding = 26.0
+        let horizontalPadding = 32.0
         
         NSLayoutConstraint.activate([
             
@@ -180,7 +154,7 @@ extension EditorViewController {
             
             textEditorStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
             textEditorStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
-
+            
             textResultStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
             textResultStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
             
@@ -190,6 +164,11 @@ extension EditorViewController {
             tabBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1)
         ])
     }
+}
+
+// MARK: - View Transitions
+
+extension EditorViewController {
     
     // hide or unhide view inside of a stackview
     private func hideOrUnhideViewFromMainStack(hide: Bool, view: UIView, stack: UIStackView) {
@@ -202,17 +181,12 @@ extension EditorViewController {
             view.isHidden = hide
         }
     }
-    
+        
     private func presentEditorStylePickerViewController() {
         
         guard editorMenu == nil else { return }
         
         view.endEditing(true)
-
-//        if let historyVC = historyVC {
-//            historyVC.dismiss(animated: true)
-//            self.historyVC = nil
-//        }
         
         editorMenu = EditorStylePickerViewController(currentSelectedStyle: editingStyle)
         
@@ -227,58 +201,97 @@ extension EditorViewController {
     
     private func dismissEditorStylePickerViewController() {
         
-        if let menu = editorMenu {
+        // check if editorMenu exist and not nil
+        guard let editorMenu = editorMenu else { return }
+        
+        // remove the delegates, dismiss the view, and set editorMenu to nil
+        editorMenu.delegate = nil
+        editorMenu.dismiss(animated: true)
+        self.editorMenu = nil
+    }
+    
+    private func rearrangeStacksIfNeeded(style: EditingStyleEnum?) {
+        
+        guard let style = style else { return }
+        
+        switch style {
+        case .replace:
             
-            menu.delegate = nil
-            menu.dismiss(animated: true)
-            editorMenu = nil
+            hideOrUnhideViewFromMainStack(hide: false, view: replaceTexfieldStack, stack: mainEditorStack)
+            hideOrUnhideViewFromMainStack(hide: true, view: removeButtonStack, stack: mainEditorStack)
+            removeButtonStack.resetRemoveItemsButton()
+            removeCharacterArray = nil
+        case .remove:
+            
+            hideOrUnhideViewFromMainStack(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
+            hideOrUnhideViewFromMainStack(hide: false, view: removeButtonStack, stack: mainEditorStack)
+            replaceTexfieldStack.resetTextfields()
+            replaceWithText = nil
+            findText = nil
+        default:
+            
+            hideOrUnhideViewFromMainStack(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
+            hideOrUnhideViewFromMainStack(hide: true, view: removeButtonStack, stack: mainEditorStack)
+            removeButtonStack.resetRemoveItemsButton()
+            replaceTexfieldStack.resetTextfields()
+            removeCharacterArray = nil
+            replaceWithText = nil
+            findText = nil
         }
     }
+    
+    private func openViewControllerModal(controller: UIViewController, autoResizeOnScrollEdge: Bool) {
+        
+        let viewController = controller
+        let navigation = UINavigationController(rootViewController: viewController)
+        
+        if let historyVCSheet = navigation.sheetPresentationController {
+            
+            historyVCSheet.detents = [.medium(), .large()]
+            historyVCSheet.preferredCornerRadius = 40
+            historyVCSheet.prefersScrollingExpandsWhenScrolledToEdge = autoResizeOnScrollEdge
+            historyVCSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+        }
+        
+        present(navigation, animated: true)
+    }
 }
+
+// MARK: - Editor Methods
 
 extension EditorViewController {
     
     private func startEditText(text: String?, editingStyle: EditingStyleEnum?, remove: [String]?, find: String?, replace: String?) {
-            
+                
         guard let text = text, text != "", let style = editingStyle else { return }
-        
-        hideOrUnhideViewFromMainStack(hide: true, view: textResultStack, stack: mainEditorStack)
         
         let haptics = UIImpactFeedbackGenerator(style: .rigid)
         
-        var result = ""
-        
-        switch style {
-        case .capitalize:
-            result = text.capitalized
-        case .title:
-            result = text.capitalizeSentences()
-        case .upper:
-            result = text.uppercased()
-        case .lower:
-            result = text.lowercased()
-        case .replace:
+        do {
             
-            guard let find = find, let replace = replace else { return }
+            let result = try textEditorService.startEditText(text: text, editingStyle: editingStyle, remove: remove, find: find, replace: replace)
             
-            result = text.replaceCharacter(find: find, replaceWith: replace)
+            hideOrUnhideViewFromMainStack(hide: true, view: textResultStack, stack: mainEditorStack)
             
-        case .remove:
+            resultText = result
             
-            guard let remove = remove else { return }
-
-            result = text.removeCharacter(remove: remove)
-        case .reverse:
-            result = String(text.reversed())
+            historyDataArray = historyDataService.didFinishEditingNowAppendingHistoryItem(history: historyDataArray, editingText: text, editingResult: result, editingStyle: style)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) { [weak self] in
+                
+                if let self = self{
+                    
+                    self.textResultStack.setResultText(result: result)
+                    self.hideOrUnhideViewFromMainStack(hide: false, view: textResultStack, stack: mainEditorStack)
+                }
+            }
+            
+            haptics.impactOccurred()
+            
+            print("FINISHED SHOWING RESULTS")
+        } catch {
+            print("ERROR OCCURRED")
         }
-        
-        resultText = result
-        
-        historyDataArray = historyDataService.didFinishEditingNowAppendingHistoryItem(history: historyDataArray, editingText: text, editingResult: result, editingStyle: style)
-        
-        hideOrUnhideViewFromMainStack(hide: false, view: textResultStack, stack: mainEditorStack)
-        
-        haptics.impactOccurred()
     }
 }
 
@@ -314,6 +327,14 @@ extension EditorViewController: RemoveButtonStackDelegate {
     }
 }
 
+extension EditorViewController: ReplaceTextfieldStackDelegate {
+    
+    func didFinishInputingReplaceText(find: String, replaceWith: String) {
+        findText = find
+        replaceWithText = replaceWith
+    }
+}
+
 extension EditorViewController: TextEditorCapsuleViewDelegate {
     
     func didFinishInputingText(text: String) {
@@ -331,31 +352,13 @@ extension EditorViewController: HistoryAndSettingsTabBarDelegate {
     
     func didTappedHistoryButton() {
         
-        print("DID TAP HISTORY BUTTON")
-        
-        openViewControllerModal(controller: HistoryViewController(historyItems: historyDataArray), autoResizeOnScrollEdge: true)
+        let historyViewController = HistoryViewController(historyItems: historyDataArray)
+        openViewControllerModal(controller: historyViewController, autoResizeOnScrollEdge: true)
     }
     
     func didTappedSettingsButton() {
         
-        print("DID TAP SETTINGS BUTTON")
-        
-        openViewControllerModal(controller: SettingsViewController(savedHistoryValue: 20), autoResizeOnScrollEdge: false)
-    }
-    
-    private func openViewControllerModal(controller: UIViewController, autoResizeOnScrollEdge: Bool) {
-        
-        let viewController = controller
-        let navigation = UINavigationController(rootViewController: viewController)
-        
-        if let historyVCSheet = navigation.sheetPresentationController {
-            
-            historyVCSheet.detents = [.medium(), .large()]
-            historyVCSheet.preferredCornerRadius = 40
-            historyVCSheet.prefersScrollingExpandsWhenScrolledToEdge = autoResizeOnScrollEdge
-            historyVCSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
-        }
-        
-        present(navigation, animated: true)
+        let settingsViewController = SettingsViewController(savedHistoryValue: historyDataLimit)
+        openViewControllerModal(controller: settingsViewController, autoResizeOnScrollEdge: false)
     }
 }

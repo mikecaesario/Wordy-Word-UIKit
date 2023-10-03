@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+enum UserDefaultsEnum {
+    
+    static let maxHistoryDataLimit = "maxHistoryDataLimit"
+}

@@ -12,6 +12,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+        registerDefaults()
+        
         return true
     }
 
@@ -23,5 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) { }
+    
+    func registerDefaults() {
+        
+        let defaults = UserDefaults.standard
+        let defaultValue: [String: Any] = [UserDefaultsEnum.maxHistoryDataLimit: 5]
+        defaults.register(defaults: defaultValue)
+    }
 }
 

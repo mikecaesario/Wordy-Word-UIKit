@@ -41,7 +41,7 @@ class HistoryTableViewCell: UITableViewCell {
         historyPreviewText.isScrollEnabled = false
         historyPreviewText.textContainer.maximumNumberOfLines = 7
         historyPreviewText.textContainer.lineBreakMode = .byTruncatingTail
-        historyPreviewText.backgroundColor = .background.secondary
+        historyPreviewText.backgroundColor = .clear
         historyPreviewText.textContainerInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
     }
     
@@ -50,7 +50,7 @@ class HistoryTableViewCell: UITableViewCell {
         backgroundContainer.translatesAutoresizingMaskIntoConstraints = false
         historyPreviewText.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubviews([backgroundContainer, historyPreviewText])
+        self.addSubviews([backgroundContainer, historyPreviewText])
         
         backgroundContainer.layer.zPosition = -1
         
@@ -58,11 +58,16 @@ class HistoryTableViewCell: UITableViewCell {
         let verticalPadding = 8.0
         
         NSLayoutConstraint.activate([
+            
+            backgroundContainer.topAnchor.constraint(equalTo: self.topAnchor, constant: verticalPadding),
+            backgroundContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: horizontalPadding),
+            backgroundContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -verticalPadding),
+            backgroundContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -horizontalPadding),
         
-            historyPreviewText.topAnchor.constraint(equalTo: self.topAnchor, constant: verticalPadding),
-            historyPreviewText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: horizontalPadding),
-            historyPreviewText.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -verticalPadding),
-            historyPreviewText.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -horizontalPadding),
+            historyPreviewText.topAnchor.constraint(equalTo: backgroundContainer.topAnchor),
+            historyPreviewText.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor),
+            historyPreviewText.bottomAnchor.constraint(equalTo: backgroundContainer.bottomAnchor),
+            historyPreviewText.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor)
         ])
     }
     

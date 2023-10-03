@@ -43,7 +43,7 @@ class OriginalHistoryTableviewCell: UITableViewCell {
         
         originalHistoryText.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubview(originalHistoryText)
+        self.addSubview(originalHistoryText)
                 
         NSLayoutConstraint.activate([
             

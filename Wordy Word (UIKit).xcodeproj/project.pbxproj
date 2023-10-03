@@ -58,6 +58,7 @@
 		93436C112ABCA68E006FC6BE /* GoToDeveloperWebsiteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C102ABCA68E006FC6BE /* GoToDeveloperWebsiteCell.swift */; };
 		93436C132ABCA6BA006FC6BE /* SavedHistorySettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C122ABCA6BA006FC6BE /* SavedHistorySettingsCell.swift */; };
 		93436C152AC1EA0A006FC6BE /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C142AC1EA0A006FC6BE /* UIView+Ext.swift */; };
+		93436C172AC20EC3006FC6BE /* UserDefaultsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93436C162AC20EC3006FC6BE /* UserDefaultsEnum.swift */; };
 		934A7AF12A74287100EC5BC4 /* DetailedHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */; };
 		934A7AF32A742A9900EC5BC4 /* EditHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A7AF22A742A9900EC5BC4 /* EditHistoryViewController.swift */; };
 /* End PBXBuildFile section */
@@ -116,6 +117,7 @@
 		93436C102ABCA68E006FC6BE /* GoToDeveloperWebsiteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToDeveloperWebsiteCell.swift; sourceTree = "<group>"; };
 		93436C122ABCA6BA006FC6BE /* SavedHistorySettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedHistorySettingsCell.swift; sourceTree = "<group>"; };
 		93436C142AC1EA0A006FC6BE /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		93436C162AC20EC3006FC6BE /* UserDefaultsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsEnum.swift; sourceTree = "<group>"; };
 		934A7AF02A74287100EC5BC4 /* DetailedHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHistoryViewController.swift; sourceTree = "<group>"; };
 		934A7AF22A742A9900EC5BC4 /* EditHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditHistoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -193,13 +195,13 @@
 		4C397F4A2A000CF8006F8D3C /* Wordy Word (UIKit) */ = {
 			isa = PBXGroup;
 			children = (
+				4C397F4B2A000CF8006F8D3C /* AppDelegate.swift */,
+				4C397F4D2A000CF8006F8D3C /* SceneDelegate.swift */,
 				4CF53A742A13EDB80038E043 /* Models */,
 				4CF53A712A13EDA00038E043 /* Services */,
 				4CABA5062A00158F00442908 /* Utilities */,
 				4CABA4F02A00138D00442908 /* Screens */,
 				4C397F5F2A000D6D006F8D3C /* Resources */,
-				4C397F4B2A000CF8006F8D3C /* AppDelegate.swift */,
-				4C397F4D2A000CF8006F8D3C /* SceneDelegate.swift */,
 				4C397F542A000CFA006F8D3C /* Assets.xcassets */,
 				4C397F592A000CFA006F8D3C /* Info.plist */,
 			);
@@ -382,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				4CF53A6F2A13ED6D0038E043 /* EditingStyleEnum.swift */,
+				93436C162AC20EC3006FC6BE /* UserDefaultsEnum.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 				4CABA5022A00157200442908 /* ButtonAndLabelStack.swift in Sources */,
 				4CABA4F72A00155E00442908 /* TextEditorCapsuleView.swift in Sources */,
 				93436C042AAF8C6A006FC6BE /* TextEditorService.swift in Sources */,
+				93436C172AC20EC3006FC6BE /* UserDefaultsEnum.swift in Sources */,
 				4CABA5052A00157200442908 /* PillButtonImageWithText.swift in Sources */,
 				93436C112ABCA68E006FC6BE /* GoToDeveloperWebsiteCell.swift in Sources */,
 				4CABA5092A0015A200442908 /* UIColor+Ext.swift in Sources */,
