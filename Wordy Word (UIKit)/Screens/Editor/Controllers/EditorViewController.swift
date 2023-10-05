@@ -24,6 +24,9 @@ class EditorViewController: UIViewController {
     private let historyDataService: HistoryDataService
     private let textEditorService: TextEditorServiceProtocol
     
+    private let animationDuration = 0.2
+    private let textResultWillShowResultAnimationDuration = 0.3
+    
     private var findText: String?
     private var replaceWithText: String?
     private var removeCharacterArray: [String]?
@@ -32,7 +35,7 @@ class EditorViewController: UIViewController {
     
     private var editingText: String? {
         didSet {
-            startEditText(text: editingText, editingStyle: editingStyle, remove: removeCharacterArray, find: findText, replace: replaceWithText)
+            beginEditingText(text: editingText, editingStyle: editingStyle, remove: removeCharacterArray, find: findText, replace: replaceWithText)
         }
     }
     
@@ -41,7 +44,7 @@ class EditorViewController: UIViewController {
             
             editorNavBar.setNavBarTitle(title: editingStyle)
             rearrangeStacksIfNeeded(style: editingStyle)
-            startEditText(text: editingText, editingStyle: editingStyle, remove: removeCharacterArray, find: findText, replace: replaceWithText)
+            beginEditingText(text: editingText, editingStyle: editingStyle, remove: removeCharacterArray, find: findText, replace: replaceWithText)
         }
     }
     
@@ -52,10 +55,13 @@ class EditorViewController: UIViewController {
     }
     
     init(historyDataService: HistoryDataService, textEditorService: TextEditorServiceProtocol) {
+        
         self.historyDataService = historyDataService
         self.textEditorService = textEditorService
+        
         historyDataLimit = UserDefaults.standard.integer(forKey: UserDefaultsEnum.maxHistoryDataLimit)
         historyDataArray = historyDataService.fetchHistoryItemsFromJSON()
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -171,7 +177,7 @@ extension EditorViewController {
 extension EditorViewController {
     
     // hide or unhide view inside of a stackview
-    private func hideOrUnhideViewFromMainStack(hide: Bool, view: UIView, stack: UIStackView) {
+    private func hideOrUnhideViewFromMainStack(hide: Bool, view: UIView, stack: UIStackView, animationDuration: Double) {
         
         UIView.animate(withDuration: 0.3, delay: 0) {
             view.alpha = hide ? 0 : 1
@@ -217,21 +223,21 @@ extension EditorViewController {
         switch style {
         case .replace:
             
-            hideOrUnhideViewFromMainStack(hide: false, view: replaceTexfieldStack, stack: mainEditorStack)
-            hideOrUnhideViewFromMainStack(hide: true, view: removeButtonStack, stack: mainEditorStack)
+            hideOrUnhideViewFromMainStack(hide: false, view: replaceTexfieldStack, stack: mainEditorStack, animationDuration: animationDuration)
+            hideOrUnhideViewFromMainStack(hide: true, view: removeButtonStack, stack: mainEditorStack, animationDuration: animationDuration)
             removeButtonStack.resetRemoveItemsButton()
             removeCharacterArray = nil
         case .remove:
             
-            hideOrUnhideViewFromMainStack(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
-            hideOrUnhideViewFromMainStack(hide: false, view: removeButtonStack, stack: mainEditorStack)
+            hideOrUnhideViewFromMainStack(hide: true, view: replaceTexfieldStack, stack: mainEditorStack, animationDuration: animationDuration)
+            hideOrUnhideViewFromMainStack(hide: false, view: removeButtonStack, stack: mainEditorStack, animationDuration: animationDuration)
             replaceTexfieldStack.resetTextfields()
             replaceWithText = nil
             findText = nil
         default:
             
-            hideOrUnhideViewFromMainStack(hide: true, view: replaceTexfieldStack, stack: mainEditorStack)
-            hideOrUnhideViewFromMainStack(hide: true, view: removeButtonStack, stack: mainEditorStack)
+            hideOrUnhideViewFromMainStack(hide: true, view: replaceTexfieldStack, stack: mainEditorStack, animationDuration: animationDuration)
+            hideOrUnhideViewFromMainStack(hide: true, view: removeButtonStack, stack: mainEditorStack, animationDuration: animationDuration)
             removeButtonStack.resetRemoveItemsButton()
             replaceTexfieldStack.resetTextfields()
             removeCharacterArray = nil
@@ -261,7 +267,7 @@ extension EditorViewController {
 
 extension EditorViewController {
     
-    private func startEditText(text: String?, editingStyle: EditingStyleEnum?, remove: [String]?, find: String?, replace: String?) {
+    private func beginEditingText(text: String?, editingStyle: EditingStyleEnum?, remove: [String]?, find: String?, replace: String?) {
                 
         guard let text = text, text != "", let style = editingStyle else { return }
         
@@ -271,7 +277,7 @@ extension EditorViewController {
             
             let result = try textEditorService.startEditText(text: text, editingStyle: editingStyle, remove: remove, find: find, replace: replace)
             
-            hideOrUnhideViewFromMainStack(hide: true, view: textResultStack, stack: mainEditorStack)
+            hideOrUnhideViewFromMainStack(hide: true, view: textResultStack, stack: mainEditorStack, animationDuration: animationDuration)
             
             resultText = result
             
@@ -282,15 +288,26 @@ extension EditorViewController {
                 if let self = self{
                     
                     self.textResultStack.setResultText(result: result)
-                    self.hideOrUnhideViewFromMainStack(hide: false, view: textResultStack, stack: mainEditorStack)
+                    self.hideOrUnhideViewFromMainStack(hide: false, view: textResultStack, stack: mainEditorStack, animationDuration: textResultWillShowResultAnimationDuration)
                 }
             }
             
             haptics.impactOccurred()
             
             print("FINISHED SHOWING RESULTS")
+            
+        } catch(let error as EditingTextError) {
+            
+            switch error {
+            case .findTextIsEmpty, .replaceTextIsEmpty, .removeIsEmpty:
+                hideOrUnhideViewFromMainStack(hide: true, view: textResultStack, stack: mainEditorStack, animationDuration: animationDuration)
+                print(error.localizedDescription)
+            default:
+                print(error.localizedDescription)
+                break
+            }
         } catch {
-            print("ERROR OCCURRED")
+            print("UNKNOWN ERROR")
         }
     }
 }

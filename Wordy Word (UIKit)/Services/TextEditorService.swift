@@ -15,8 +15,10 @@ class TextEditorService: TextEditorServiceProtocol {
     
     func startEditText(text: String?, editingStyle: EditingStyleEnum?, remove: [String]?, find: String?, replace: String?) throws -> String {
         
-        guard let text = text, text != "", let style = editingStyle else { throw EditingTextError.textIsEmpty }
+        guard let text = text, text != "" else { throw EditingTextError.noTextInput }
 
+        guard let style = editingStyle else { throw EditingTextError.editingStyleIsNotSelected}
+                
         var result = ""
         
         switch style {
@@ -30,7 +32,9 @@ class TextEditorService: TextEditorServiceProtocol {
             result = text.lowercased()
         case .replace:
             
-            guard let find = find, let replace = replace else { throw EditingTextError.findOrReplaceIsEmpty }
+            guard let find = find else { throw EditingTextError.findTextIsEmpty }
+            
+            guard let replace = replace else { throw EditingTextError.replaceTextIsEmpty }
             
             result = text.replaceCharacter(find: find, replaceWith: replace)
         case .remove:
@@ -47,5 +51,27 @@ class TextEditorService: TextEditorServiceProtocol {
 }
 
 enum EditingTextError: Error {
-    case noTextInput, textIsEmpty, editingStyleIsNotSelected, findOrReplaceIsEmpty, removeIsEmpty
+    
+    case noTextInput, editingStyleIsNotSelected, findTextIsEmpty, replaceTextIsEmpty, removeIsEmpty
+    
+    var localizedDescription: String {
+        switch self {
+            
+        case .noTextInput:
+            return NSLocalizedString("There are no text available to be edited", comment: "")
+
+        case .editingStyleIsNotSelected:
+            return NSLocalizedString("Editing style hasn't been selected", comment: "")
+
+        case .findTextIsEmpty:
+            return NSLocalizedString("Enter find text before continuing", comment: "")
+            
+        case .replaceTextIsEmpty:
+            return NSLocalizedString("Enter replacing text before continuing", comment: "")
+
+        case .removeIsEmpty:
+            return NSLocalizedString("Remove character is empty", comment: "")
+
+        }
+    }
 }

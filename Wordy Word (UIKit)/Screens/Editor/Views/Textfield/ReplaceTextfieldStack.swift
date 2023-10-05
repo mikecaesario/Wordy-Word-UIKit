@@ -81,6 +81,11 @@ class ReplaceTextfieldStack: UIView {
         delegate?.didFinishInputingReplaceText(find: find, replaceWith: replace)
     }
     
+    private func setKeyboardReturnButtonIfNeeded() {
+        
+        findTextfield.returnKeyType = .next
+    }
+    
     func resetTextfields() {
         findText = nil
         findTextfield.text = nil
@@ -90,6 +95,32 @@ class ReplaceTextfieldStack: UIView {
 }
 
 extension ReplaceTextfieldStack: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        switch textField {
+        case findTextfield:
+            
+            if replaceTextWith == nil {
+                
+                replaceTextfield.becomeFirstResponder()
+            } else {
+                self.endEditing(true)
+            }
+        case replaceTextfield:
+            
+            if findText == nil {
+                
+                findTextfield.becomeFirstResponder()
+            } else {
+                
+                self.endEditing(true)
+            }
+        default: break
+        }
+        
+        return true
+    }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
@@ -102,10 +133,6 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
             }
             
             textField.backgroundColor = .background.secondary
-
-            if replaceTextWith == nil {
-                replaceTextfield.becomeFirstResponder()
-            }
         case replaceTextfield:
             
             if let text = textField.text {
@@ -113,10 +140,6 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
             }
             
             textField.backgroundColor = .background.secondary
-
-            if findText == nil {
-                findTextfield.becomeFirstResponder()
-            }
         default:
             break
         }
@@ -127,9 +150,27 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
         switch textField {
             
         case findTextfield:
+            
             textField.backgroundColor = .background.thirtiary
+            
+            if replaceTextWith == nil {
+              
+                findTextfield.returnKeyType = .next
+            } else {
+                
+                findTextfield.returnKeyType = .done
+            }
         case replaceTextfield:
+            
             textField.backgroundColor = .background.thirtiary
+            
+            if findText == nil {
+                
+                replaceTextfield.returnKeyType = .next
+            } else {
+                
+                replaceTextfield.returnKeyType = .done
+            }
         default:
             break
         }
