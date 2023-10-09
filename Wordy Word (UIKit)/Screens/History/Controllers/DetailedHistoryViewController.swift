@@ -153,6 +153,6 @@ extension DetailedHistoryViewController: DetailedHistoryNavigationBarButtonsProt
         let haptics = UIImpactFeedbackGenerator(style: .medium)
         haptics.impactOccurred(intensity: 0.7)
         haptics.impactOccurred()
-        detailedNavigationBar.animateCopyButtonForSuccess()
+        detailedNavigationBar.animateCopyButtonOnSuccess()
     }
 }

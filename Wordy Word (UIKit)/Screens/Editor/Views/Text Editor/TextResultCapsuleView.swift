@@ -154,6 +154,36 @@ extension TextResultCapsuleView {
             textResult.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
+    
+    private func animateCopyButton(sender: UIButton) {
+        
+        UIView.transition(with: sender, duration: 0.5, options: [.curveEaseIn, .transitionFlipFromBottom]) {
+            
+            sender.setTitle("Copied", for: .normal)
+            sender.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            sender.backgroundColor = .background.secondary
+            sender.setTitleColor(.text.white, for: .normal)
+            sender.tintColor = .text.white
+            sender.layer.borderWidth = 1.0
+            
+            if let color = UIColor.text.grey?.cgColor {
+                sender.layer.borderColor = color
+            }
+        } completion: { _ in
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                
+                UIView.transition(with: sender, duration: 0.5, options: [.curveEaseOut, .transitionFlipFromTop]) {
+                    sender.setTitle("Copy", for: .normal)
+                    sender.setImage(UIImage(systemName: "doc.on.doc"), for: .normal)
+                    sender.backgroundColor = .button.copy
+                    sender.setTitleColor(.text.white, for: .normal)
+                    sender.tintColor = .text.white
+                    sender.layer.borderWidth = 0
+                }
+            }
+        }
+    }
 }
 
 extension TextResultCapsuleView {
@@ -174,10 +204,11 @@ extension TextResultCapsuleView {
         paragraphCount = text.paragraphsCount()
     }
     
-    @objc private func didTappedCopyButton() {
+    @objc private func didTappedCopyButton(sender: UIButton) {
         
         guard let textItemReadyToBeCopiedToClipboard = resultText else { return }
         
         UIPasteboard.general.string = textItemReadyToBeCopiedToClipboard
+        animateCopyButton(sender: sender)
     }
 }

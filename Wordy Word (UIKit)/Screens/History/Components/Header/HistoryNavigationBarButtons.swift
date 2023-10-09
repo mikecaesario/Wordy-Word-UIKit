@@ -87,24 +87,29 @@ class DetailedHistoryNavigationBarButtons: UIView {
         delegate?.didFinishedTappingBackButton()
     }
     
-    @objc private func copyTextToClipboard() {
+    @objc private func copyTextToClipboard(sender: UIButton) {
         delegate?.didFinishTappingCopyToClipboardButton()
     }
     
-    func animateCopyButtonForSuccess() {
+    func animateCopyButtonOnSuccess() {
         
-        UIView.transition(with: copyButton, duration: 1.0, options: .transitionCrossDissolve) { [weak self] in
-            self?.copyButton.backgroundColor = .button.primary
-            self?.copyButton.tintColor = .text.black
-            self?.copyButton.setImageForButton(imageName: "checkmark", size: 20)
-        } completion: { _ in
+        UIView.transition(with: copyButton, duration: 0.5, options: [.curveEaseIn, .transitionFlipFromBottom]) { [weak self] in
             
-            UIView.transition(with: self.copyButton, duration: 0.6, options: .transitionCrossDissolve) { [weak self] in
+            guard let self = self else { return }
+            self.copyButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            self.copyButton.backgroundColor = .background.quarternary
+            self.copyButton.tintColor = .text.black
+
+        } completion: { [weak self] _ in
+            
+            guard let self = self else { return }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 
-                if let self = self {
+                UIView.transition(with: self.copyButton, duration: 0.5, options: [.curveEaseOut, .transitionFlipFromTop]) {
+                    self.copyButton.setImage(UIImage(systemName: "doc.on.doc"), for: .normal)
                     self.copyButton.backgroundColor = .background.thirtiary
                     self.copyButton.tintColor = .text.white
-                    self.copyButton.setImageForButton(imageName: "doc.on.doc", size: 20)
                 }
             }
         }

@@ -157,7 +157,7 @@ class TextEditorCapsuleView: UIView {
         ])
     }
     
-    @objc private func didTappedPasteButton() {
+    @objc private func didTappedPasteButton(sender: UIButton) {
         
         guard let pasteboardData = UIPasteboard.general.string else { return }
         
@@ -166,6 +166,7 @@ class TextEditorCapsuleView: UIView {
             textEditor.textColor = .text.editor
             calculateText(text: pasteboardData)
             delegate?.didFinishPastingText(text: pasteboardData)
+            animatePasteButtonOnSuccess(sender: sender)
         }
     }
     
@@ -175,6 +176,36 @@ class TextEditorCapsuleView: UIView {
         wordCount = text.wordCount
         sentenceCount = text.sentenceCount
         paragraphCount = text.paragraphsCount()
+    }
+    
+    private func animatePasteButtonOnSuccess(sender: UIButton) {
+        
+        UIView.transition(with: sender, duration: 0.5, options: [.curveEaseIn, .transitionFlipFromBottom]) {
+            
+            sender.setTitle("Pasted", for: .normal)
+            sender.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            sender.backgroundColor = .background.quarternary
+            sender.setTitleColor(.text.black, for: .normal)
+            sender.tintColor = .text.black
+            sender.layer.borderWidth = 1.0
+            
+            if let color = UIColor.text.black?.cgColor {
+                sender.layer.borderColor = color
+            }
+        } completion: { _ in
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                
+                UIView.transition(with: sender, duration: 0.5, options: [.curveEaseOut, .transitionFlipFromTop]) {
+                    sender.setTitle("Paste", for: .normal)
+                    sender.setImage(UIImage(systemName: "doc.on.clipboard"), for: .normal)
+                    sender.backgroundColor = .button.paste
+                    sender.setTitleColor(.text.white, for: .normal)
+                    sender.tintColor = .text.white
+                    sender.layer.borderWidth = 0
+                }
+            }
+        }
     }
 }
 

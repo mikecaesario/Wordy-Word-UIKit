@@ -81,9 +81,19 @@ class ReplaceTextfieldStack: UIView {
         delegate?.didFinishInputingReplaceText(find: find, replaceWith: replace)
     }
     
-    private func setKeyboardReturnButtonIfNeeded() {
+    private func animateTextfieldBackgroundColor(textfield: UITextField, isHighlighted: Bool) {
         
-        findTextfield.returnKeyType = .next
+        if isHighlighted {
+            
+            UIView.animate(withDuration: 0.2) {
+                textfield.backgroundColor = .background.thirtiary
+            }
+        } else {
+            
+            UIView.animate(withDuration: 0.2) {
+                textfield.backgroundColor = .background.secondary
+            }
+        }
     }
     
     func resetTextfields() {
@@ -101,7 +111,7 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
         switch textField {
         case findTextfield:
             
-            if replaceTextWith == nil {
+            if !replaceTextfield.hasText {
                 
                 replaceTextfield.becomeFirstResponder()
             } else {
@@ -109,7 +119,7 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
             }
         case replaceTextfield:
             
-            if findText == nil {
+            if !findTextfield.hasText {
                 
                 findTextfield.becomeFirstResponder()
             } else {
@@ -132,14 +142,15 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
                 findText = text
             }
             
-            textField.backgroundColor = .background.secondary
+            animateTextfieldBackgroundColor(textfield: findTextfield, isHighlighted: false)
+            
         case replaceTextfield:
             
             if let text = textField.text {
                 replaceTextWith = text
             }
             
-            textField.backgroundColor = .background.secondary
+            animateTextfieldBackgroundColor(textfield: replaceTextfield, isHighlighted: false)
         default:
             break
         }
@@ -151,9 +162,9 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
             
         case findTextfield:
             
-            textField.backgroundColor = .background.thirtiary
+            animateTextfieldBackgroundColor(textfield: findTextfield, isHighlighted: true)
             
-            if replaceTextWith == nil {
+            if !replaceTextfield.hasText {
               
                 findTextfield.returnKeyType = .next
             } else {
@@ -162,9 +173,9 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
             }
         case replaceTextfield:
             
-            textField.backgroundColor = .background.thirtiary
+            animateTextfieldBackgroundColor(textfield: replaceTextfield, isHighlighted: true)
             
-            if findText == nil {
+            if !findTextfield.hasText {
                 
                 replaceTextfield.returnKeyType = .next
             } else {
