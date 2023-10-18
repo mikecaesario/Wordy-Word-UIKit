@@ -9,6 +9,8 @@ import UIKit
 
 class EditorMenuItemCellCollectionViewCell: UICollectionViewCell {
     
+    static let reuseIdentifier = "EditorMenuItem-UICollectionView-Cell"
+    
     private let editingStyleImage = ImageButtonForEditorMenuItemCell()
     private let editingStyleLabel = UILabel()
     

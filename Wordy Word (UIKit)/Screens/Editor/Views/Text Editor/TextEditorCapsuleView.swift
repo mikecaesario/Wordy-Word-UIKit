@@ -175,7 +175,7 @@ class TextEditorCapsuleView: UIView {
         characterCount = text.count
         wordCount = text.wordCount
         sentenceCount = text.sentenceCount
-        paragraphCount = text.paragraphsCount()
+        paragraphCount = text.count >= 1 ? text.paragraphsCount() : 0
     }
     
     private func animatePasteButtonOnSuccess(sender: UIButton) {

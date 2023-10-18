@@ -7,16 +7,21 @@
 
 import UIKit
 
+protocol SettingsViewControllerDelegate: AnyObject {
+    
+    func updatingCurrentHistoryDataLimitValue(value: Int)
+}
+
 final class SettingsViewController: UIViewController {
+    
     private let settingsNavigationBar = SubviewNavigationTitle()
     private let settingsTableView = UITableView(frame: .zero, style: .grouped)
-    
-    private let savedHistoryReusableCellIdentifier = "savedHistoryReusableCellIdentifier"
-    private let goToDeveloperWebsiteCellIdentifier = "goToDeveloperWebsiteCellIdentifier"
     
     private let developerURL = "https://google.com"
 
     private var savedHistoryValue: Int
+    
+    weak var delegate: SettingsViewControllerDelegate?
     
     init(savedHistoryValue: Int) {
         self.savedHistoryValue = savedHistoryValue
@@ -35,6 +40,12 @@ final class SettingsViewController: UIViewController {
         layoutUI()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        delegate?.updatingCurrentHistoryDataLimitValue(value: savedHistoryValue)
+    }
+    
+    // navigate to WebView
     private func presentWebView(withURL: String) {
         
         guard let url = URL(string: withURL) else { return }
@@ -44,6 +55,7 @@ final class SettingsViewController: UIViewController {
         self.navigationController?.pushViewController(webViewController, animated: true)
     }
     
+    // set the presentation sheet detent to Large
     private func setSheetDetentsToLarge() {
         
         guard let sheet = navigationController?.sheetPresentationController else { return }
@@ -52,8 +64,6 @@ final class SettingsViewController: UIViewController {
             sheet.selectedDetentIdentifier = .large
         }
     }
-    
-    
 }
 
 extension SettingsViewController {
@@ -71,8 +81,8 @@ extension SettingsViewController {
         settingsTableView.backgroundColor = .clear
         settingsTableView.dataSource = self
         settingsTableView.delegate = self
-        settingsTableView.register(SavedHistorySettingsCell.self, forCellReuseIdentifier: savedHistoryReusableCellIdentifier)
-        settingsTableView.register(GoToDeveloperWebsiteCell.self, forCellReuseIdentifier: goToDeveloperWebsiteCellIdentifier)
+        settingsTableView.register(SavedHistorySettingsCell.self, forCellReuseIdentifier: SavedHistorySettingsCell.reuseIdentifier)
+        settingsTableView.register(GoToDeveloperWebsiteCell.self, forCellReuseIdentifier: GoToDeveloperWebsiteCell.reuseIdentifier)
         settingsTableView.showsVerticalScrollIndicator = false
         settingsTableView.contentInset.top = 50
         settingsTableView.contentOffset.y = -50
@@ -102,6 +112,8 @@ extension SettingsViewController {
     }
 }
 
+// MARK: - UITableView Delegate & Data Source
+
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -114,16 +126,24 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             
         case 0:
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: savedHistoryReusableCellIdentifier) as! SavedHistorySettingsCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SavedHistorySettingsCell.reuseIdentifier) as? SavedHistorySettingsCell else {
+                fatalError()
+            }
+            
             cell.delegate = self
             cell.setupCell(currentValue: savedHistoryValue)
             cell.selectionStyle = .none
             cell.contentView.isUserInteractionEnabled = true
+            
             return cell
         case 1:
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: goToDeveloperWebsiteCellIdentifier) as! GoToDeveloperWebsiteCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: GoToDeveloperWebsiteCell.reuseIdentifier) as? GoToDeveloperWebsiteCell else {
+                fatalError()
+            }
+            
             cell.selectionStyle = .none
+            
             return cell
         default:
             
@@ -159,9 +179,12 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - Delegates
+
 extension SettingsViewController: SavedHistorySettingsCellDelegate {
     
     func didFinishedChangingValue(value: Int) {
-        print("SAVED HISTORY VALUE CHANGED TO \(value)")
+        
+        savedHistoryValue = value
     }
 }

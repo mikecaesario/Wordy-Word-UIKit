@@ -24,7 +24,5 @@ class MainEditorStack: UIStackView {
         spacing = 10
         distribution = .fill
         alignment = .center
-//        layoutMargins = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-//        isLayoutMarginsRelativeArrangement = true
     }
 }

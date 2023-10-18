@@ -46,7 +46,7 @@ final class WebViewController: UIViewController {
     deinit {
         
         removeObserver()
-        print("DEINTILIZE WEBVIEW")
+        print("DEINITILIZE WEBVIEW")
     }
     
     private func goToWeb(withURL: URL?) {

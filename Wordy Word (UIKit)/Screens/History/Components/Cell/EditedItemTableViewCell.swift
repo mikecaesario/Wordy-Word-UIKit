@@ -10,6 +10,8 @@ import UIKit
 
 class EditedItemTableViewCell: UITableViewCell {
     
+    static let reuseIdentifier = "EditedItem-TableView-Cell-Identifier"
+    
     private let backgroundContainer = UIView()
     private let editedItemText = UITextView()
     private let timeStampLabel = UILabel()
@@ -38,7 +40,6 @@ class EditedItemTableViewCell: UITableViewCell {
         editedItemText.font = UIFont(name: .fonts.poppinsMedium, size: 16)
         editedItemText.textColor = .text.white
         editedItemText.textContainer.maximumNumberOfLines = 5
-        editedItemText.textContainer.lineBreakMode = .byTruncatingTail
         editedItemText.isEditable = false
         editedItemText.isSelectable = false
         editedItemText.isScrollEnabled = false

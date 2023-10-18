@@ -11,25 +11,10 @@ protocol RemoveButtonStackDelegate: AnyObject {
     func didFinishAddingRemovingItem(itemToRemove: [String])
 }
 
-class RemoveButtonStack: UIView {
+final class RemoveButtonStack: UIView {
 
-    private lazy var scrollView: UIScrollView = {
-        let scroll = UIScrollView()
-        scroll.alwaysBounceHorizontal = true
-        scroll.showsHorizontalScrollIndicator = false
-        return scroll
-    }()
-    
-    private lazy var stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.spacing = 3
-        stack.distribution = .fill
-        stack.alignment = .leading
-        stack.layoutMargins = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)
-        stack.isLayoutMarginsRelativeArrangement = true
-        return stack
-    }()
+    private let scrollView = UIScrollView()
+    private let stackView = UIStackView()
         
     private let removeCharacterArray = ["*", "_", "/", "+", "(", ")", "%", "#", "!", "?", "@", "|", "{", "}", ":", ".", ","]
     
@@ -41,7 +26,7 @@ class RemoveButtonStack: UIView {
         super.init(frame: frame)
         
         configureView()
-        setupUI()
+        layoutUI()
     }
     
     required init?(coder: NSCoder) {
@@ -52,9 +37,19 @@ class RemoveButtonStack: UIView {
         
         self.backgroundColor = .clear
         layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        
+        scrollView.alwaysBounceHorizontal = true
+        scrollView.showsHorizontalScrollIndicator = false
+        
+        stackView.axis = .horizontal
+        stackView.spacing = 3
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)
+        stackView.isLayoutMarginsRelativeArrangement = true
     }
     
-    private func setupUI() {
+    private func layoutUI() {
                 
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -125,12 +120,15 @@ class RemoveButtonStack: UIView {
         }
     }
     
-    func resetRemoveItemsButton() {
+    public func resetRemoveItemsButton() {
+        
         pickedRemovedCharacterArray = []
         print(pickedRemovedCharacterArray)
         
         for view in self.stackView.subviews as [UIView] {
+            
             if let button = view as? UIButton {
+                
                 button.setTitleColor(.text.grey, for: .normal)
                 button.backgroundColor = .clear
                 button.layer.borderColor = UIColor.button.strokeLight?.cgColor

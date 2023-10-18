@@ -16,7 +16,7 @@ extension UIColor {
         static let quarternary = UIColor(named: "QuarternaryBackgroundColor")
     }
     
-    struct accent {
+    struct accents {
         static let secondary = UIColor(named: "SecondaryAccentColor")
     }
     

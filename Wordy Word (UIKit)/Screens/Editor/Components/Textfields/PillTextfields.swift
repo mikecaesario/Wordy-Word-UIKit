@@ -43,7 +43,7 @@ class PillTextfields: UITextField {
         
         font = UIFont.systemFont(ofSize: 18, weight: .medium)
         backgroundColor = .background.secondary
-        tintColor = .accent.secondary
+        tintColor = .accents.secondary
         textAlignment = .left
         autocapitalizationType = .none
         autocorrectionType = .no

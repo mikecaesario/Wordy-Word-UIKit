@@ -9,6 +9,8 @@ import UIKit
 
 class HistoryTableViewCell: UITableViewCell {
 
+    static let reuseIdentifier = "History-TableView-Cell-Identifier"
+    
     private let backgroundContainer = UIView()
     private let historyPreviewText = UITextView()
     

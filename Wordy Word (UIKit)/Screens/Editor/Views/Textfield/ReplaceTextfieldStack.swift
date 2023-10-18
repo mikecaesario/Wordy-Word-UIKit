@@ -48,7 +48,9 @@ class ReplaceTextfieldStack: UIView {
         replaceTextfield.delegate = self
                 
         findTextfield.placeholder = "Find text"
+        findTextfield.tintColor = .accent
         replaceTextfield.placeholder = "Replace with"
+        replaceTextfield.tintColor = .accent
         
         textfieldStack.axis = .horizontal
         textfieldStack.distribution = .fillEqually
@@ -81,17 +83,19 @@ class ReplaceTextfieldStack: UIView {
         delegate?.didFinishInputingReplaceText(find: find, replaceWith: replace)
     }
     
-    private func animateTextfieldBackgroundColor(textfield: UITextField, isHighlighted: Bool) {
+    private func animateTextfieldColor(textfield: UITextField, isHighlighted: Bool) {
         
         if isHighlighted {
             
             UIView.animate(withDuration: 0.2) {
-                textfield.backgroundColor = .background.thirtiary
+                textfield.backgroundColor = .background.quarternary
+                textfield.textColor = .text.black
             }
         } else {
             
             UIView.animate(withDuration: 0.2) {
                 textfield.backgroundColor = .background.secondary
+                textfield.textColor = .text.white
             }
         }
     }
@@ -138,19 +142,19 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
             
         case findTextfield:
             
-            if let text = textField.text {
-                findText = text
+            if textField.hasText && textField.text != findText {
+                findText = textField.text
             }
             
-            animateTextfieldBackgroundColor(textfield: findTextfield, isHighlighted: false)
+            animateTextfieldColor(textfield: findTextfield, isHighlighted: false)
             
         case replaceTextfield:
             
-            if let text = textField.text {
-                replaceTextWith = text
+            if textField.hasText && textField.text != replaceTextWith {
+                replaceTextWith = textField.text
             }
             
-            animateTextfieldBackgroundColor(textfield: replaceTextfield, isHighlighted: false)
+            animateTextfieldColor(textfield: replaceTextfield, isHighlighted: false)
         default:
             break
         }
@@ -162,7 +166,7 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
             
         case findTextfield:
             
-            animateTextfieldBackgroundColor(textfield: findTextfield, isHighlighted: true)
+            animateTextfieldColor(textfield: findTextfield, isHighlighted: true)
             
             if !replaceTextfield.hasText {
               
@@ -173,7 +177,7 @@ extension ReplaceTextfieldStack: UITextFieldDelegate {
             }
         case replaceTextfield:
             
-            animateTextfieldBackgroundColor(textfield: replaceTextfield, isHighlighted: true)
+            animateTextfieldColor(textfield: replaceTextfield, isHighlighted: true)
             
             if !findTextfield.hasText {
                 

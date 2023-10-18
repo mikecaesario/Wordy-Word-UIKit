@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HistoryViewController: UIViewController {
+final class HistoryViewController: UIViewController {
     
     private let historyNavigationBar = SubviewNavigationTitle()
     private lazy var noHistoryLabel = UILabel()
@@ -19,7 +19,7 @@ class HistoryViewController: UIViewController {
     
     init(historyItems: [HistoryItems]) {
         
-        self.historyItems = historyItems
+        self.historyItems = historyItems.sorted { $0.date < $1.date }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -104,8 +104,8 @@ extension HistoryViewController {
         tableView.estimatedRowHeight = 400
         tableView.contentInset.top = 100
         tableView.contentOffset.y = -100
-        tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: tableViewCellReuseIdentifier)
-        tableView.register(HistoryHeader.self, forHeaderFooterViewReuseIdentifier: tableViewHeaderReuseIdentifier)
+        tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: HistoryTableViewCell.reuseIdentifier)
+        tableView.register(HistoryHeader.self, forHeaderFooterViewReuseIdentifier: HistoryHeader.reuseIdentifier)
     }
     
     private func prepareNoHistoryLabel() {
@@ -159,7 +159,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderReuseIdentifier) as! HistoryHeader
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HistoryHeader.reuseIdentifier) as! HistoryHeader
         
         header.setHeaderLabel(text: DateFormatter.formattedDateInFull.string(from: historyItems[section].date))
         print("HEADER ADDED")
@@ -173,7 +173,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellReuseIdentifier, for: indexPath) as! HistoryTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.reuseIdentifier, for: indexPath) as! HistoryTableViewCell
         
         let historyItem = historyItems[indexPath.section].items[indexPath.row]
         

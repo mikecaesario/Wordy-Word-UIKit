@@ -9,8 +9,8 @@ import UIKit
 
 class EditorViewController: UIViewController {
 
+    /// Views
     private let editorNavBar = EditorNavigationBar()
-    
     private let editorScrollView = UIScrollView()
     private let mainEditorStack = MainEditorStack()
     private let removeButtonStack = RemoveButtonStack()
@@ -21,15 +21,38 @@ class EditorViewController: UIViewController {
     
     private var editorMenu: EditorStylePickerViewController?
     
+    /// Services
     private let historyDataService: HistoryDataService
     private let textEditorService: TextEditorServiceProtocol
     
+    /// Animation
     private let animationDuration = 0.2
     private let textResultWillShowResultAnimationDuration = 0.3
     
-    private var findText: String?
-    private var replaceWithText: String?
-    private var removeCharacterArray: [String]?
+    private var findText: String? {
+        didSet {
+            
+            guard let findText = findText, let replaceWithText = replaceWithText else { return }
+            beginEditingText(text: editingText, editingStyle: editingStyle, remove: removeCharacterArray, find: findText, replace: replaceWithText)
+        }
+    }
+    
+    private var replaceWithText: String? {
+        didSet { 
+            
+            guard let replaceWithText = replaceWithText, let findText = findText else { return }
+            beginEditingText(text: editingText, editingStyle: editingStyle, remove: removeCharacterArray, find: findText, replace: replaceWithText)
+        }
+    }
+    
+    private var removeCharacterArray: [String]? {
+        didSet {
+            
+            guard let removeCharacterArray = removeCharacterArray else { return }
+            beginEditingText(text: editingText, editingStyle: editingStyle, remove: removeCharacterArray, find: findText, replace: replaceWithText)
+        }
+    }
+    
     private var resultText: String?
     private var historyDataArray: [HistoryItems] = []
     
@@ -89,6 +112,11 @@ extension EditorViewController {
         
         view.backgroundColor = .background.primary
         overrideUserInterfaceStyle = .dark
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
         editorScrollView.alwaysBounceVertical = true
         editorScrollView.showsVerticalScrollIndicator = false
         editorScrollView.contentInset = UIEdgeInsets(top: 75, left: 0, bottom: screenHeight, right: 0)
@@ -176,7 +204,7 @@ extension EditorViewController {
 
 extension EditorViewController {
     
-    // hide or unhide view inside of a stackview
+    // A function to hide or unhide view inside of a UIStackview
     private func hideOrUnhideViewFromMainStack(hide: Bool, view: UIView, stack: UIStackView, animationDuration: Double) {
         
         UIView.animate(withDuration: 0.3, delay: 0) {
@@ -188,32 +216,16 @@ extension EditorViewController {
         }
     }
         
+    // A function to present
     private func presentEditorStylePickerViewController() {
-        
-        guard editorMenu == nil else { return }
         
         view.endEditing(true)
         
-        editorMenu = EditorStylePickerViewController(currentSelectedStyle: editingStyle)
-        
-        if let editorMenu = editorMenu {
-            
-            editorMenu.delegate = self
-            editorMenu.modalPresentationStyle = .overFullScreen
-            editorMenu.modalTransitionStyle = .crossDissolve
-            self.present(editorMenu, animated: true)
-        }
-    }
-    
-    private func dismissEditorStylePickerViewController() {
-        
-        // check if editorMenu exist and not nil
-        guard let editorMenu = editorMenu else { return }
-        
-        // remove the delegates, dismiss the view, and set editorMenu to nil
-        editorMenu.delegate = nil
-        editorMenu.dismiss(animated: true)
-        self.editorMenu = nil
+        let menu = EditorStylePickerViewController(currentSelectedStyle: editingStyle)
+        menu.delegate = self
+        menu.modalTransitionStyle = .crossDissolve
+        menu.modalPresentationStyle = .overFullScreen
+        self.present(menu, animated: true)
     }
     
     private func rearrangeStacksIfNeeded(style: EditingStyleEnum?) {
@@ -261,6 +273,10 @@ extension EditorViewController {
         
         present(navigation, animated: true)
     }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 // MARK: - Editor Methods
@@ -285,25 +301,25 @@ extension EditorViewController {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) { [weak self] in
                 
-                if let self = self{
-                    
-                    self.textResultStack.setResultText(result: result)
-                    self.hideOrUnhideViewFromMainStack(hide: false, view: textResultStack, stack: mainEditorStack, animationDuration: textResultWillShowResultAnimationDuration)
-                }
+                guard let self = self else { return }
+                
+                self.textResultStack.setResultText(result: result)
+                self.hideOrUnhideViewFromMainStack(hide: false, view: textResultStack, stack: mainEditorStack, animationDuration: textResultWillShowResultAnimationDuration)
             }
+            
             
             haptics.impactOccurred()
             
-            print("FINISHED SHOWING RESULTS")
+            historyDataService.saveHistoryItemsToJSON(history: historyDataArray)
             
         } catch(let error as EditingTextError) {
             
             switch error {
             case .findTextIsEmpty, .replaceTextIsEmpty, .removeIsEmpty:
                 hideOrUnhideViewFromMainStack(hide: true, view: textResultStack, stack: mainEditorStack, animationDuration: animationDuration)
-                print(error.localizedDescription)
+                print(error.localizedDescription.uppercased())
             default:
-                print(error.localizedDescription)
+                print(error.localizedDescription.uppercased())
                 break
             }
         } catch {
@@ -319,19 +335,17 @@ extension EditorViewController: EditorStylePickerViewControllerDelegate {
         guard let style = style else { return }
         
         editingStyle = style
-        dismissEditorStylePickerViewController()
+//        dismissEditorStylePickerViewController()
     }
     
-    func didTappedCancelButton() {
-        dismissEditorStylePickerViewController()
-    }
+//    func didTappedCancelButton() {
+//        dismissEditorStylePickerViewController()
+//    }
 }
 
 extension EditorViewController: EditorNavigationBarDelegate {
     
     func didTapMenuButton() {
-        print("MENU BUTTON TAPPED")
-        
         presentEditorStylePickerViewController()
     }
 }
@@ -339,7 +353,6 @@ extension EditorViewController: EditorNavigationBarDelegate {
 extension EditorViewController: RemoveButtonStackDelegate {
     
     func didFinishAddingRemovingItem(itemToRemove: [String]) {
-        
         removeCharacterArray = itemToRemove
     }
 }
@@ -355,12 +368,10 @@ extension EditorViewController: ReplaceTextfieldStackDelegate {
 extension EditorViewController: TextEditorCapsuleViewDelegate {
     
     func didFinishInputingText(text: String) {
-        
         editingText = text
     }
     
     func didFinishPastingText(text: String) {
-        
         editingText = text
     }
 }
@@ -368,14 +379,22 @@ extension EditorViewController: TextEditorCapsuleViewDelegate {
 extension EditorViewController: HistoryAndSettingsTabBarDelegate {
     
     func didTappedHistoryButton() {
-        
         let historyViewController = HistoryViewController(historyItems: historyDataArray)
         openViewControllerModal(controller: historyViewController, autoResizeOnScrollEdge: true)
     }
     
     func didTappedSettingsButton() {
-        
         let settingsViewController = SettingsViewController(savedHistoryValue: historyDataLimit)
+        settingsViewController.delegate = self
         openViewControllerModal(controller: settingsViewController, autoResizeOnScrollEdge: false)
+    }
+}
+
+
+extension EditorViewController: SettingsViewControllerDelegate {
+    
+    func updatingCurrentHistoryDataLimitValue(value: Int) {
+        historyDataLimit = value
+        print("DATA LIMIT VALUE CHANGED")
     }
 }

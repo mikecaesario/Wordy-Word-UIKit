@@ -144,13 +144,14 @@ extension DetailedHistoryViewController: DetailedHistoryNavigationBarButtonsProt
     func didFinishTappingCopyToClipboardButton() {
         print("DID TAPPED COPY TO CLIPBOARD BUTTON")
         
+        let haptics = UIImpactFeedbackGenerator(style: .medium)
+
         if let historyText = detailedHistoryItem?.result {
             UIPasteboard.general.string = historyText
         } else if let originalText = originalText {
             UIPasteboard.general.string = originalText
         }
         
-        let haptics = UIImpactFeedbackGenerator(style: .medium)
         haptics.impactOccurred(intensity: 0.7)
         haptics.impactOccurred()
         detailedNavigationBar.animateCopyButtonOnSuccess()

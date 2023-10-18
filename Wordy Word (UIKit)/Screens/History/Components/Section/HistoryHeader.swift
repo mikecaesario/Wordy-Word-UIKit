@@ -9,7 +9,9 @@ import UIKit
 
 class HistoryHeader: UITableViewHeaderFooterView {
 
-    let dateLabelHeader = UILabel()
+    static let reuseIdentifier = "HistoryHeader-TableView-Header-Identifier"
+    
+    private let dateLabelHeader = UILabel()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)

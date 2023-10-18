@@ -9,27 +9,16 @@ import UIKit
 
 protocol EditorStylePickerViewControllerDelegate: AnyObject {
     func didFinishPickingEditingStyle(style: EditingStyleEnum?)
-    func didTappedCancelButton()
+//    func didTappedCancelButton()
 }
 
 class EditorStylePickerViewController: UIViewController {
 
-    private let currentEditingStyleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Select Style"
-        label.font = UIFont(name: .fonts.poppinsMedium, size: 28)
-        label.textColor = .text.white
-        label.minimumScaleFactor = 0.7
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
+    private let currentEditingStyleLabel = UILabel()
     private let editorPickerUICollectionViewButton = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     private let collectionViewLayout = UICollectionViewFlowLayout()
     private let cancelButton = CancelButton()
     
-    private let reusableCellIdentifier = "EditorMenuCell"
     private let currentSelectedStyle: EditingStyleEnum?
     
     weak var delegate: EditorStylePickerViewControllerDelegate?
@@ -45,7 +34,6 @@ class EditorStylePickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
 
         configureView()
         addBlurBackground()
@@ -69,37 +57,6 @@ class EditorStylePickerViewController: UIViewController {
         print("DEINITIALIZING EDITOR STYLE PICKER")
     }
     
-    private func configureCollectionView() {
-        
-        let verticalBounds = view.frame.height / 12
-        let horizontalPadding = 10.0
-        
-        collectionViewLayout.scrollDirection = .vertical
-        
-        editorPickerUICollectionViewButton.backgroundColor = .clear
-        editorPickerUICollectionViewButton.setCollectionViewLayout(collectionViewLayout, animated: true)
-        editorPickerUICollectionViewButton.register(EditorMenuItemCellCollectionViewCell.self, forCellWithReuseIdentifier: reusableCellIdentifier)
-        editorPickerUICollectionViewButton.contentInset = UIEdgeInsets(top: verticalBounds, left: horizontalPadding, bottom: verticalBounds, right: horizontalPadding)
-        
-        editorPickerUICollectionViewButton.delegate = self
-        editorPickerUICollectionViewButton.dataSource = self
-    }
-    
-    private func animateCollectionView() {
-        
-        let animator = UIViewPropertyAnimator(duration: 0.1, curve: .easeIn)
-        
-        animator.addAnimations {
-            self.editorPickerUICollectionViewButton.alpha = 1.0
-        }
-        
-        animator.addAnimations {
-            self.editorPickerUICollectionViewButton.transform = .identity
-        }
-        
-        animator.startAnimation()
-    }
-    
     private func didTappedEditorStyleCell(indexPath: IndexPath) {
                 
         let style = findEditingStyleEnum(indexPath: indexPath)
@@ -107,11 +64,14 @@ class EditorStylePickerViewController: UIViewController {
         
         haptic.impactOccurred()
         delegate?.didFinishPickingEditingStyle(style: style)
+        self.dismiss(animated: true)
     }
     
     @objc private func didTappedCancelButton() {
         
-        delegate?.didTappedCancelButton()
+        self.dismiss(animated: true)
+
+//        delegate?.didTappedCancelButton()
     }
     
     private func findEditingStyleEnum(indexPath: IndexPath) -> EditingStyleEnum? {
@@ -187,7 +147,45 @@ extension EditorStylePickerViewController {
         
         view.backgroundColor = .clear
         
+        currentEditingStyleLabel.text = "Select Style"
+        currentEditingStyleLabel.font = UIFont(name: .fonts.poppinsMedium, size: 28)
+        currentEditingStyleLabel.textColor = .text.white
+        currentEditingStyleLabel.minimumScaleFactor = 0.7
+        currentEditingStyleLabel.textAlignment = .center
+        currentEditingStyleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         cancelButton.addTarget(self, action: #selector(didTappedCancelButton), for: .touchUpInside)
+    }
+    
+    private func configureCollectionView() {
+        
+        let verticalBounds = view.frame.height / 12
+        let horizontalPadding = 10.0
+        
+        collectionViewLayout.scrollDirection = .vertical
+        
+        editorPickerUICollectionViewButton.backgroundColor = .clear
+        editorPickerUICollectionViewButton.setCollectionViewLayout(collectionViewLayout, animated: true)
+        editorPickerUICollectionViewButton.register(EditorMenuItemCellCollectionViewCell.self, forCellWithReuseIdentifier: EditorMenuItemCellCollectionViewCell.reuseIdentifier)
+        editorPickerUICollectionViewButton.contentInset = UIEdgeInsets(top: verticalBounds, left: horizontalPadding, bottom: verticalBounds, right: horizontalPadding)
+        
+        editorPickerUICollectionViewButton.delegate = self
+        editorPickerUICollectionViewButton.dataSource = self
+    }
+    
+    private func animateCollectionView() {
+        
+        let animator = UIViewPropertyAnimator(duration: 0.1, curve: .easeIn)
+        
+        animator.addAnimations {
+            self.editorPickerUICollectionViewButton.alpha = 1.0
+        }
+        
+        animator.addAnimations {
+            self.editorPickerUICollectionViewButton.transform = .identity
+        }
+        
+        animator.startAnimation()
     }
     
     private func addBlurBackground() {
@@ -251,7 +249,9 @@ extension EditorStylePickerViewController: UICollectionViewDelegate, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = editorPickerUICollectionViewButton.dequeueReusableCell(withReuseIdentifier: reusableCellIdentifier, for: indexPath) as! EditorMenuItemCellCollectionViewCell
+        guard let cell = editorPickerUICollectionViewButton.dequeueReusableCell(withReuseIdentifier: EditorMenuItemCellCollectionViewCell.reuseIdentifier, for: indexPath) as? EditorMenuItemCellCollectionViewCell else {
+            fatalError("ERROR: Editor Menu Item Cell Not Found")
+        }
         
         cell.isCurrentlySelected(style: currentSelectedStyle == findEditingStyleEnum(indexPath: indexPath))
         

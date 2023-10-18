@@ -67,27 +67,54 @@ class HistoryDataService: HistoryDataServiceProtocol {
         
         if let matchingDate = history.firstIndex(where: { currentDate.isSameDayAs(otherDate: $0.date) }) {
             
+            // check to see if the array contains the same String as the current editingText String value
             if let undeditedItemsAlreadyExistsInTheArrayIndex = history[matchingDate].items.firstIndex(where: { $0.uneditedItem == editingText }) {
                 
-                let newHistoryResult = EditHistoryItemResults(timeStamp: currentDate, style: editingStyle.rawValue, result: editingResult)
-                history[matchingDate].items[undeditedItemsAlreadyExistsInTheArrayIndex].result.append(newHistoryResult)
+                let newHistoryResult = EditHistoryItemResults(timeStamp: currentDate,
+                                                              style: editingStyle.rawValue,
+                                                              result: editingResult)
+                
+                history[matchingDate]
+                    .items[undeditedItemsAlreadyExistsInTheArrayIndex]
+                    .result
+                    .insert(newHistoryResult, at: 0)
+//                    .append(newHistoryResult)
+                
                 print("ADDED RESULT \(history[matchingDate].items[undeditedItemsAlreadyExistsInTheArrayIndex].result.count)")
+                
                 return history
             } else {
                 
-                let newHistoryResult = EditHistoryItemResults(timeStamp: currentDate, style: editingStyle.rawValue, result: editingResult)
-                let newEditHistoryItem = EditHistoryItem(uneditedItem: editingText, result: [newHistoryResult])
-                history[matchingDate].items.append(newEditHistoryItem)
+                let newHistoryResult = EditHistoryItemResults(timeStamp: currentDate,
+                                                              style: editingStyle.rawValue,
+                                                              result: editingResult)
+                
+                let newEditHistoryItem = EditHistoryItem(uneditedItem: editingText,
+                                                         result: [newHistoryResult])
+                
+//                history[matchingDate].items.append(newEditHistoryItem)
+                history[matchingDate]
+                    .items
+                    .insert(newEditHistoryItem, at: 0)
+                
                 print("ADDED ITEMS \(history[matchingDate].items.count)")
                 return history
             }
             
         } else {
             
-            let newHistoryResult = EditHistoryItemResults(timeStamp: currentDate, style: editingStyle.rawValue, result: editingResult)
-            let newEditHistoryItem = EditHistoryItem(uneditedItem: editingText, result: [newHistoryResult])
-            let newHistoryItems = HistoryItems(date: currentDate, items: [newEditHistoryItem])
-            history.append(newHistoryItems)
+            let newHistoryResult = EditHistoryItemResults(timeStamp: currentDate,
+                                                          style: editingStyle.rawValue,
+                                                          result: editingResult)
+            
+            let newEditHistoryItem = EditHistoryItem(uneditedItem: editingText,
+                                                     result: [newHistoryResult])
+            
+            let newHistoryItems = HistoryItems(date: currentDate,
+                                               items: [newEditHistoryItem])
+//            history.append(newHistoryItems)
+            history
+                .insert(newHistoryItems, at: 0)
             print("ADDED HISTORY ITEMS \(history.count)")
             return history
         }

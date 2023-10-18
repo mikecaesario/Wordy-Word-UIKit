@@ -14,6 +14,8 @@ protocol SavedHistorySettingsCellDelegate: AnyObject {
 
 class SavedHistorySettingsCell: UITableViewCell {
     
+    static let reuseIdentifier = "SavedHistorySettings-TableView-cell"
+    
     private let backgroundContainer = UIView()
     private let savedHistoryLabel = UILabel()
     private let valueLabel = UILabel()

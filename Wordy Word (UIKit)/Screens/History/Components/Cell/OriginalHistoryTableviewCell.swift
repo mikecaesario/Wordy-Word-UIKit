@@ -10,6 +10,7 @@ import UIKit
 
 class OriginalHistoryTableviewCell: UITableViewCell {
     
+    static let reuseIdentifier = "OriginalHistoryItem-TableView-Cell-Identifier"
     private let originalHistoryText = UITextView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -32,7 +33,6 @@ class OriginalHistoryTableviewCell: UITableViewCell {
         originalHistoryText.font = UIFont(name: .fonts.poppinsMedium, size: 22)
         originalHistoryText.textAlignment = .left
         originalHistoryText.textContainer.maximumNumberOfLines = 10
-        originalHistoryText.textContainer.lineBreakMode = .byTruncatingTail
         originalHistoryText.isEditable = false
         originalHistoryText.isSelectable = false
         originalHistoryText.isScrollEnabled = false

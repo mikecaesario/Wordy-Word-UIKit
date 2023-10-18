@@ -14,7 +14,6 @@ protocol EditHistoryNavigationBarDelegate: AnyObject {
 
 class EditHistoryNavigationBar: UIView {
     
-    private let grabberPill = UIView()
     private let backButton = NavigationBarCircleButton()
     private let gradientBackground = CAGradientLayer()
     
@@ -40,16 +39,12 @@ class EditHistoryNavigationBar: UIView {
     private func setGradientBackgroundAndAddCornerRadius() {
         
         gradientBackground.frame = self.bounds
-        
-        grabberPill.layer.cornerRadius = (grabberPill.frame.height / 2.0)
-        grabberPill.clipsToBounds = true
     }
     
     private func configureView() {
         
         self.backgroundColor = .clear
         
-        grabberPill.backgroundColor = .miscellaneous.grabber
         backButton.setImageForButton(imageName: "chevron.left", size: 20)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         
@@ -63,10 +58,8 @@ class EditHistoryNavigationBar: UIView {
     
     private func layoutUI() {
         
-        grabberPill.translatesAutoresizingMaskIntoConstraints = false
         backButton.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubview(grabberPill)
         self.addSubview(backButton)
         self.layer.insertSublayer(gradientBackground, at: 0)
         
@@ -74,12 +67,7 @@ class EditHistoryNavigationBar: UIView {
         let multiplier = 0.55
         
         NSLayoutConstraint.activate([
-            
-            grabberPill.topAnchor.constraint(equalTo: self.topAnchor, constant: 15),
-            grabberPill.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            grabberPill.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2),
-            grabberPill.heightAnchor.constraint(equalToConstant: 5),
-            
+
             backButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             backButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             backButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier),

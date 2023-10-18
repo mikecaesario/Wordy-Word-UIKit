@@ -14,7 +14,6 @@ protocol DetailedHistoryNavigationBarButtonsProtocol: AnyObject {
 
 class DetailedHistoryNavigationBarButtons: UIView {
     
-    private let grabberPill = UIView()
     private let backButton = NavigationBarCircleButton()
     private let copyButton = NavigationBarCircleButton()
     private let gradientBackground = CAGradientLayer()
@@ -62,8 +61,7 @@ class DetailedHistoryNavigationBarButtons: UIView {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         copyButton.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubview(backButton)
-        self.addSubview(copyButton)
+        self.addSubviews([backButton, copyButton])
         self.layer.insertSublayer(gradientBackground, at: 0)
         
         let padding = 18.0

@@ -14,10 +14,6 @@ class EditHistoryViewController: UIViewController {
     
     private let historyData: EditHistoryItem
     
-    private let editHistoryHeaderIdentifier = "editHistoryHeaderIdentifier"
-    private let originalTextCellIdentifier = "originalTextCellIdentifier"
-    private let editedItemCellIdentifier = "editedItemCellIdentifier"
-    
     init(historyData: EditHistoryItem) {
         
         self.historyData = historyData
@@ -58,9 +54,9 @@ extension EditHistoryViewController {
         
         allEditResultTableView.dataSource = self
         allEditResultTableView.delegate = self
-        allEditResultTableView.register(HistoryHeader.self, forHeaderFooterViewReuseIdentifier: editHistoryHeaderIdentifier)
-        allEditResultTableView.register(EditedItemTableViewCell.self, forCellReuseIdentifier: editedItemCellIdentifier)
-        allEditResultTableView.register(OriginalHistoryTableviewCell.self, forCellReuseIdentifier: originalTextCellIdentifier)
+        allEditResultTableView.register(HistoryHeader.self, forHeaderFooterViewReuseIdentifier: HistoryHeader.reuseIdentifier)
+        allEditResultTableView.register(EditedItemTableViewCell.self, forCellReuseIdentifier: EditedItemTableViewCell.reuseIdentifier)
+        allEditResultTableView.register(OriginalHistoryTableviewCell.self, forCellReuseIdentifier: OriginalHistoryTableviewCell.reuseIdentifier)
         allEditResultTableView.estimatedRowHeight = 400
         allEditResultTableView.rowHeight = UITableView.automaticDimension
         allEditResultTableView.showsVerticalScrollIndicator = false
@@ -104,7 +100,7 @@ extension EditHistoryViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: editHistoryHeaderIdentifier) as! HistoryHeader
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HistoryHeader.reuseIdentifier) as! HistoryHeader
         
         if section == 0 {
             header.setHeaderLabel(text: "Original")
@@ -130,8 +126,8 @@ extension EditHistoryViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let originalCell = tableView.dequeueReusableCell(withIdentifier: originalTextCellIdentifier) as! OriginalHistoryTableviewCell
-        let editCell = tableView.dequeueReusableCell(withIdentifier: editedItemCellIdentifier, for: indexPath) as! EditedItemTableViewCell
+        let originalCell = tableView.dequeueReusableCell(withIdentifier: OriginalHistoryTableviewCell.reuseIdentifier) as! OriginalHistoryTableviewCell
+        let editCell = tableView.dequeueReusableCell(withIdentifier: EditedItemTableViewCell.reuseIdentifier, for: indexPath) as! EditedItemTableViewCell
         
         if indexPath.section == 0 {
             
