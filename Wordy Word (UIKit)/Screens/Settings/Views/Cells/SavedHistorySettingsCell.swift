@@ -31,7 +31,6 @@ class SavedHistorySettingsCell: UITableViewCell {
         
         configureCell()
         layoutUI()
-        print("SAVED HISTORY CELL CONFIGURED")
     }
     
     required init?(coder: NSCoder) {

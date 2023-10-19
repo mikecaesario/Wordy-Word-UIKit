@@ -61,7 +61,6 @@ class HistoryAndSettingsTabBar: UIView {
         blurBackground.translatesAutoresizingMaskIntoConstraints = false
         blurBackground.frame = self.bounds
         self.insertSubview(blurBackground, at: 0)
-        print("ADDED BLUR")
     }
     
     private func layoutUI() {
@@ -69,8 +68,7 @@ class HistoryAndSettingsTabBar: UIView {
         historyButton.translatesAutoresizingMaskIntoConstraints = false
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubview(historyButton)
-        self.addSubview(settingsButton)
+        self.addSubviews([historyButton, settingsButton])
                 
         let padding = 5.0
         let multiplier = 0.9

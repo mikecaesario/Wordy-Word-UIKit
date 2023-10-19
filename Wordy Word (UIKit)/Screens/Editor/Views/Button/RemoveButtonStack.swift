@@ -94,9 +94,7 @@ final class RemoveButtonStack: UIView {
     @objc private func removeButtonAction(sender: UIButton) {
         
         let choosenCharacterFromButton = removeCharacterArray[sender.tag]
-        
-        print(choosenCharacterFromButton)
-        
+                
         if pickedRemovedCharacterArray.contains(choosenCharacterFromButton) {
             
             if let index = pickedRemovedCharacterArray.firstIndex(where: { $0 == choosenCharacterFromButton }) {
@@ -106,7 +104,6 @@ final class RemoveButtonStack: UIView {
                 sender.backgroundColor = .clear
                 pickedRemovedCharacterArray.remove(at: index)
                 delegate?.didFinishAddingRemovingItem(itemToRemove: pickedRemovedCharacterArray)
-                print(pickedRemovedCharacterArray)
             }
             
         } else {
@@ -116,14 +113,12 @@ final class RemoveButtonStack: UIView {
             sender.backgroundColor = .text.white
             pickedRemovedCharacterArray.append(choosenCharacterFromButton)
             delegate?.didFinishAddingRemovingItem(itemToRemove: pickedRemovedCharacterArray)
-            print(pickedRemovedCharacterArray)
         }
     }
     
     public func resetRemoveItemsButton() {
         
         pickedRemovedCharacterArray = []
-        print(pickedRemovedCharacterArray)
         
         for view in self.stackView.subviews as [UIView] {
             

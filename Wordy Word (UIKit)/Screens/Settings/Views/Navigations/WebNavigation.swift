@@ -104,19 +104,14 @@ final class WebNavigation: UIView {
     }
     
     @objc private func didTappedCloseButton() {
-        print("CLOSE BUTTON TAPPED")
         delegate?.didFinishTappingCloseButton()
     }
     
     @objc private func didTappedBackButton() {
-        print("BACK BUTTON TAPPED")
-
         delegate?.didFinishTappingBackButton()
     }
     
     @objc private func didTappedForwardButton() {
-        print("FORWARD BUTTON TAPPED")
-
         delegate?.didFinishTappingForwardButton()
     }
     

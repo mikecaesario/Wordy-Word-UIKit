@@ -123,8 +123,7 @@ class TextEditorCapsuleView: UIView {
         
         buttonScrollView.addSubview(buttonStack)
 
-        self.addSubview(textEditor)
-        self.addSubview(buttonScrollView)
+        self.addSubviews([textEditor, buttonScrollView])
         
         textEditor.layer.zPosition = -1
 
@@ -232,13 +231,10 @@ extension TextEditorCapsuleView: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        print("TEXT HAS CHANGED")
-        
         calculateText(text: textView.text)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        print("EDITING ENDS")
         
         /*
          if textview text is empty when the user ends editing inside the textview,

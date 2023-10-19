@@ -62,8 +62,7 @@ class DetailedHistoryNavigationFooter: UIView {
         timeStampLabel.translatesAutoresizingMaskIntoConstraints = false
         editingStyleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubview(timeStampLabel)
-        self.addSubview(editingStyleLabel)
+        self.addSubviews([timeStampLabel, editingStyleLabel])
         self.layer.insertSublayer(gradientBackground, at: 0)
         
         let padding = 20.0

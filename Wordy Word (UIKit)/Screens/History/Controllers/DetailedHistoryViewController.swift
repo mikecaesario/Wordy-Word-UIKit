@@ -29,8 +29,6 @@ class DetailedHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("DETAILED HISTORY VIEW CONTROLLER DID LOAD")
-
         configureView()
         layoutUI()
         setupDetailedFooter(item: detailedHistoryItem)
@@ -65,8 +63,7 @@ extension DetailedHistoryViewController {
         detailedNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         detailedHistoryItemText.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(detailedNavigationBar)
-        view.addSubview(detailedHistoryItemText)
+        view.addSubviews([detailedNavigationBar, detailedHistoryItemText])
         
         detailedHistoryItemText.layer.zPosition = -1
         view.bringSubviewToFront(detailedNavigationBar)
@@ -106,9 +103,6 @@ extension DetailedHistoryViewController {
             footer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             footer.heightAnchor.constraint(equalToConstant: 100)
         ])
-        
-        print("RESULT FOOTER ADDED")
-
     }
     
     private func setupOriginalFooter(text: String?) {
@@ -130,8 +124,6 @@ extension DetailedHistoryViewController {
             footer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             footer.heightAnchor.constraint(equalToConstant: 100)
         ])
-        
-        print("ORIGINAL FOOTER ADDED")
     }
 }
 
@@ -142,7 +134,6 @@ extension DetailedHistoryViewController: DetailedHistoryNavigationBarButtonsProt
     }
     
     func didFinishTappingCopyToClipboardButton() {
-        print("DID TAPPED COPY TO CLIPBOARD BUTTON")
         
         let haptics = UIImpactFeedbackGenerator(style: .medium)
 

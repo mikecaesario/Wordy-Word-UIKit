@@ -11,6 +11,7 @@ import UIKit
 class GoToDeveloperWebsiteCell: UITableViewCell {
     
     static let reuseIdentifier = "GoToDeveloper-TableView-Cell"
+    
     private let backgroundContainer = UIView()
     private let developerLabel = UILabel()
     private let developerNameLabel = UILabel()
@@ -22,7 +23,6 @@ class GoToDeveloperWebsiteCell: UITableViewCell {
         
         configureCell()
         layoutUI()
-        print("DEV CELL CONFIGURED")
     }
     
     required init?(coder: NSCoder) {

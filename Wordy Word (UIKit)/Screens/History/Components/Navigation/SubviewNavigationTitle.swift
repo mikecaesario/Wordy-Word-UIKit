@@ -52,6 +52,7 @@ class SubviewNavigationTitle: UIView {
         
         navigationLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        self.addSubview(navigationLabel)
         self.layer.insertSublayer(gradientBackground, at: 0)
         
         let padding = 18.0

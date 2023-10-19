@@ -120,8 +120,7 @@ extension TextResultCapsuleView {
         
         buttonScrollView.addSubview(buttonStack)
         
-        self.addSubview(buttonScrollView)
-        self.addSubview(textResult)
+        self.addSubviews([buttonScrollView, textResult])
         
         textResult.layer.zPosition = -1
         self.bringSubviewToFront(buttonScrollView)

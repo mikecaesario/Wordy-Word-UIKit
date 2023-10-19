@@ -68,10 +68,7 @@ class EditorStylePickerViewController: UIViewController {
     }
     
     @objc private func didTappedCancelButton() {
-        
         self.dismiss(animated: true)
-
-//        delegate?.didTappedCancelButton()
     }
     
     private func findEditingStyleEnum(indexPath: IndexPath) -> EditingStyleEnum? {
@@ -202,10 +199,8 @@ extension EditorStylePickerViewController {
         currentEditingStyleLabel.translatesAutoresizingMaskIntoConstraints = false
         editorPickerUICollectionViewButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(currentEditingStyleLabel)
-        view.addSubview(editorPickerUICollectionViewButton)
-        view.addSubview(cancelButton)
+
+        view.addSubviews([currentEditingStyleLabel, editorPickerUICollectionViewButton, cancelButton])
 
         let screenWidthDivided = (view.bounds.width / 4.2)
         let padding = 16.0

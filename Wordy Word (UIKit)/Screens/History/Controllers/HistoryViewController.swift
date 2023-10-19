@@ -29,7 +29,6 @@ final class HistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("\(historyItems.count) HISTORY ITEM FOUND")
         
         prepareView()
         configureView()
@@ -162,7 +161,6 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HistoryHeader.reuseIdentifier) as! HistoryHeader
         
         header.setHeaderLabel(text: DateFormatter.formattedDateInFull.string(from: historyItems[section].date))
-        print("HEADER ADDED")
         
         return header
     }
@@ -179,7 +177,6 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.setupCell(histroyItem: historyItem)
         cell.selectionStyle = .none
-        print("CELL ADDED")
         
         return cell
     }

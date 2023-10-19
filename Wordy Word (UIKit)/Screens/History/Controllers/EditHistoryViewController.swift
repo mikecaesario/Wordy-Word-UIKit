@@ -70,8 +70,7 @@ extension EditHistoryViewController {
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         allEditResultTableView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(navigationBar)
-        view.addSubview(allEditResultTableView)
+        view.addSubviews([navigationBar, allEditResultTableView])
         
         allEditResultTableView.layer.zPosition = -1
         view.bringSubviewToFront(navigationBar)
@@ -168,6 +167,5 @@ extension EditHistoryViewController: EditHistoryNavigationBarDelegate {
     
     func didFinishTappingBackButton() {
         navigationController?.popViewController(animated: true)
-        print("DISMISS BUTTON TAPPED")
     }
 }

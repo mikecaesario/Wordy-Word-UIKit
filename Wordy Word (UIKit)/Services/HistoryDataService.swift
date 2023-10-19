@@ -8,8 +8,6 @@
 import Foundation
 
 protocol HistoryDataServiceProtocol {
-    
-    var fileName: String { get }
     func fetchHistoryItemsFromJSON() -> [HistoryItems]
     func saveHistoryItemsToJSON(history: [HistoryItems]?)
     func didFinishEditingNowAppendingHistoryItem(history: [HistoryItems], editingText: String, editingResult: String, editingStyle: EditingStyleEnum) -> [HistoryItems]
@@ -17,7 +15,7 @@ protocol HistoryDataServiceProtocol {
 
 class HistoryDataService: HistoryDataServiceProtocol {
     
-    internal let fileName = "historyItems.json"
+    private let fileName = "historyItems.json"
     
     func fetchHistoryItemsFromJSON() -> [HistoryItems] {
         
@@ -26,19 +24,15 @@ class HistoryDataService: HistoryDataServiceProtocol {
         if FileManager.default.fileExists(atPath: fileURL.path) {
             
             do {
-                
                 let data = try Data(contentsOf: fileURL)
                 let decoder = JSONDecoder()
                 let items = try decoder.decode([HistoryItems].self, from: data)
-                print(items.count)
                 return items
             } catch {
-                
                 return []
             }
             
         } else {
-            
             return []
         }
     }
@@ -54,9 +48,8 @@ class HistoryDataService: HistoryDataServiceProtocol {
             let encoder = JSONEncoder()
             let data = try encoder.encode(items)
             try data.write(to: fileUrl)
-            print("SAVING ITEM TO JSON")
         } catch {
-            print("ERROR SAVING HISTORY: \(error.localizedDescription)")
+            
         }
     }
     
@@ -78,10 +71,7 @@ class HistoryDataService: HistoryDataServiceProtocol {
                     .items[undeditedItemsAlreadyExistsInTheArrayIndex]
                     .result
                     .insert(newHistoryResult, at: 0)
-//                    .append(newHistoryResult)
-                
-                print("ADDED RESULT \(history[matchingDate].items[undeditedItemsAlreadyExistsInTheArrayIndex].result.count)")
-                
+
                 return history
             } else {
                 
@@ -92,12 +82,10 @@ class HistoryDataService: HistoryDataServiceProtocol {
                 let newEditHistoryItem = EditHistoryItem(uneditedItem: editingText,
                                                          result: [newHistoryResult])
                 
-//                history[matchingDate].items.append(newEditHistoryItem)
                 history[matchingDate]
                     .items
                     .insert(newEditHistoryItem, at: 0)
                 
-                print("ADDED ITEMS \(history[matchingDate].items.count)")
                 return history
             }
             
@@ -112,10 +100,9 @@ class HistoryDataService: HistoryDataServiceProtocol {
             
             let newHistoryItems = HistoryItems(date: currentDate,
                                                items: [newEditHistoryItem])
-//            history.append(newHistoryItems)
             history
                 .insert(newHistoryItems, at: 0)
-            print("ADDED HISTORY ITEMS \(history.count)")
+            
             return history
         }
     }

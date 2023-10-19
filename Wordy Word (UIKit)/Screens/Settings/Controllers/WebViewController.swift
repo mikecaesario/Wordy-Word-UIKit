@@ -46,7 +46,6 @@ final class WebViewController: UIViewController {
     deinit {
         
         removeObserver()
-        print("DEINITILIZE WEBVIEW")
     }
     
     private func goToWeb(withURL: URL?) {
@@ -86,7 +85,6 @@ final class WebViewController: UIViewController {
             
             webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward))
             webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack))
-            print("WEBKIT HAS OBSERVER")
         }
     }
 }

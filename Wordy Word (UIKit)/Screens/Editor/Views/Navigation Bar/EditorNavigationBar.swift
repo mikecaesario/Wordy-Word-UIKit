@@ -71,8 +71,6 @@ class EditorNavigationBar: UIView {
         editorMenuButton.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubviews([navigationTitle, editorMenuButton])
-//        self.addSubview(navigationTitle)
-//        self.addSubview(editorMenuButton)
         self.layer.insertSublayer(gradientBackground, at: 0)
                 
         let padding = 16.0

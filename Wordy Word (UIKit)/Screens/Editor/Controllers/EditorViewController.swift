@@ -95,7 +95,6 @@ class EditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("MAX HISTORY DATA LIMIT", historyDataLimit)
         setupDelegates()
         configureView()
         layoutUI()
@@ -152,10 +151,7 @@ extension EditorViewController {
         mainEditorStack.insertArrangedSubview(textResultStack, at: 3)
         
         editorScrollView.addSubview(mainEditorStack)
-        
-        view.addSubview(editorNavBar)
-        view.addSubview(editorScrollView)
-        view.addSubview(tabBar)
+        view.addSubviews([editorNavBar, editorScrollView, tabBar])
         
         view.bringSubviewToFront(editorNavBar)
         editorScrollView.layer.zPosition = -1
@@ -317,13 +313,11 @@ extension EditorViewController {
             switch error {
             case .findTextIsEmpty, .replaceTextIsEmpty, .removeIsEmpty:
                 hideOrUnhideViewFromMainStack(hide: true, view: textResultStack, stack: mainEditorStack, animationDuration: animationDuration)
-                print(error.localizedDescription.uppercased())
             default:
-                print(error.localizedDescription.uppercased())
                 break
             }
         } catch {
-            print("UNKNOWN ERROR")
+            
         }
     }
 }
@@ -395,6 +389,5 @@ extension EditorViewController: SettingsViewControllerDelegate {
     
     func updatingCurrentHistoryDataLimitValue(value: Int) {
         historyDataLimit = value
-        print("DATA LIMIT VALUE CHANGED")
     }
 }

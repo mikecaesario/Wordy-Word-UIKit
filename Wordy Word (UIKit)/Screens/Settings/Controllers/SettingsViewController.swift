@@ -93,8 +93,7 @@ extension SettingsViewController {
         settingsNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         settingsTableView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(settingsNavigationBar)
-        view.addSubview(settingsTableView)
+        view.addSubviews([settingsNavigationBar, settingsTableView])
         settingsNavigationBar.layer.zPosition = 1
         
         NSLayoutConstraint.activate([

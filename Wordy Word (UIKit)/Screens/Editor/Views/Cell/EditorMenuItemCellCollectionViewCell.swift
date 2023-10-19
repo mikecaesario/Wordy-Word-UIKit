@@ -53,8 +53,7 @@ class EditorMenuItemCellCollectionViewCell: UICollectionViewCell {
         editingStyleImage.translatesAutoresizingMaskIntoConstraints = false
         editingStyleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addSubview(editingStyleImage)
-        self.addSubview(editingStyleLabel)
+        self.addSubviews([editingStyleImage, editingStyleLabel])
         
         NSLayoutConstraint.activate([
         
