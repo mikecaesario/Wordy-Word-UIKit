@@ -13,13 +13,11 @@ final class HistoryViewController: UIViewController {
     private lazy var noHistoryLabel = UILabel()
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
     
-    private var historyItems: [HistoryItems]
-    private let tableViewCellReuseIdentifier = "HistoryCell"
-    private let tableViewHeaderReuseIdentifier = "HistoryHeader"
+    private let historyItems: [HistoryItems]
     
     init(historyItems: [HistoryItems]) {
         
-        self.historyItems = historyItems.sorted { $0.date < $1.date }
+        self.historyItems = historyItems
         super.init(nibName: nil, bundle: nil)
     }
     

@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol TextEditorServiceProtocol {
+protocol TextEditorManagerProtocol {
     func startEditText(text: String?, editingStyle: EditingStyleEnum?, remove: [String]?, find: String?, replace: String?) throws -> String
 }
 
-class TextEditorService: TextEditorServiceProtocol {
+class TextEditorManager: TextEditorManagerProtocol {
     
     func startEditText(text: String?, editingStyle: EditingStyleEnum?, remove: [String]?, find: String?, replace: String?) throws -> String {
         

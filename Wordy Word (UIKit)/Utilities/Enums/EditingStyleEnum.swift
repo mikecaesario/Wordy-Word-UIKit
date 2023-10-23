@@ -7,23 +7,50 @@
 
 import Foundation
 
-enum EditingStyleEnum: String, CaseIterable {
+public enum EditingStyleEnum: CaseIterable {
     
-    case capitalize = "Capitalize"
-    case title = "Title"
-    case upper = "Uppercase"
-    case lower = "Lowercase"
-    case replace = "Replace"
-    case remove = "Remove"
-    case reverse = "Reverse"
+    /// Possible editing cases
+    case capitalize, title, upper, lower, replace, remove, reverse
     
-    enum EditingStyleEnumImage: String, CaseIterable {
-        case capitalize = "textformat"
-        case title = "textformat.alt"
-        case upper = "textformat.size.larger"
-        case lower = "textformat.abc"
-        case replace = "character.cursor.ibeam"
-        case remove = "xmark"
-        case reverse = "arrow.left.arrow.right"
+    /// Return string title of the selected enum case
+    var titleName: String {
+        
+        switch self {
+        case .capitalize:
+           return "Capitalize"
+        case .title:
+           return "Title"
+        case .upper:
+            return "Uppercase"
+        case .lower:
+            return "Lowercase"
+        case .replace:
+            return "Replace"
+        case .remove:
+            return "Remove"
+        case .reverse:
+            return "Reverse"
+        }
+    }
+    
+    /// Return SF Symbols glyph name of the selected enum case
+    var imageName: String {
+        
+        switch self {
+        case .capitalize:
+            "textformat"
+        case .title:
+            "textformat.alt"
+        case .upper:
+            "textformat.size.larger"
+        case .lower:
+            "textformat.abc"
+        case .replace:
+            "character.cursor.ibeam"
+        case .remove:
+            "xmark"
+        case .reverse:
+            "arrow.left.arrow.right"
+        }
     }
 }

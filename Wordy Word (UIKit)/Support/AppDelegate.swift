@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func registerDefaults() {
         
         let defaults = UserDefaults.standard
-        let defaultValue: [String: Any] = [UserDefaultsEnum.maxHistoryDataLimit: 5]
+        let defaultValue: [String: Any] = [.userDefaults.maxHistoryDataLimit: 5]
         defaults.register(defaults: defaultValue)
     }
 }

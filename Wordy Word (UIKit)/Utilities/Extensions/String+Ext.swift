@@ -77,9 +77,14 @@ extension String {
 
 extension String {
     
-    struct fonts {
+    public struct fonts {
         
         static let poppinsMedium = "Poppins-Medium"
         static let poppinsSemiBold = "Poppins-SemiBold"
+    }
+    
+    public struct userDefaults {
+        
+        static let maxHistoryDataLimit = "maxHistoryDataLimit"
     }
 }

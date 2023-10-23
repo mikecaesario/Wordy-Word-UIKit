@@ -9,7 +9,6 @@ import UIKit
 
 protocol EditorStylePickerViewControllerDelegate: AnyObject {
     func didFinishPickingEditingStyle(style: EditingStyleEnum?)
-//    func didTappedCancelButton()
 }
 
 class EditorStylePickerViewController: UIViewController {
@@ -17,7 +16,7 @@ class EditorStylePickerViewController: UIViewController {
     private let currentEditingStyleLabel = UILabel()
     private let editorPickerUICollectionViewButton = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     private let collectionViewLayout = UICollectionViewFlowLayout()
-    private let cancelButton = CancelButton()
+    private let cancelButton = EditingStyleCircularButton()
     
     private let currentSelectedStyle: EditingStyleEnum?
     
@@ -53,10 +52,6 @@ class EditorStylePickerViewController: UIViewController {
         animateCollectionView()
     }
     
-    deinit {
-        print("DEINITIALIZING EDITOR STYLE PICKER")
-    }
-    
     private func didTappedEditorStyleCell(indexPath: IndexPath) {
                 
         let style = findEditingStyleEnum(indexPath: indexPath)
@@ -72,38 +67,6 @@ class EditorStylePickerViewController: UIViewController {
     }
     
     private func findEditingStyleEnum(indexPath: IndexPath) -> EditingStyleEnum? {
-        
-        switch indexPath.section {
-        case 0:
-            
-            switch indexPath.row {
-            case 0: return .capitalize
-            case 1: return .title
-            case 2: return .upper
-            default: return nil
-            }
-            
-        case 1:
-            
-            switch indexPath.row {
-            case 0: return .lower
-            case 1: return .replace
-            case 2: return .remove
-            default: return nil
-            }
-            
-        case 2:
-            
-            switch indexPath.row {
-            case 0: return .reverse
-            default: return nil
-            }
-            
-        default: return nil
-        }
-    }
-    
-    private func findEditingStyleEnumImage(indexPath: IndexPath) -> EditingStyleEnum.EditingStyleEnumImage? {
         
         switch indexPath.section {
         case 0:
@@ -224,7 +187,7 @@ extension EditorStylePickerViewController {
     }
 }
 
-// MARK: - UICollectionView Delegate
+// MARK: - UICollectionView Data Source & Delegate
 
 extension EditorStylePickerViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -250,8 +213,8 @@ extension EditorStylePickerViewController: UICollectionViewDelegate, UICollectio
         
         cell.isCurrentlySelected(style: currentSelectedStyle == findEditingStyleEnum(indexPath: indexPath))
         
-        if let label = findEditingStyleEnum(indexPath: indexPath), let image = findEditingStyleEnumImage(indexPath: indexPath) {
-            cell.configureCell(image: image.rawValue, label: label.rawValue)
+        if let style = findEditingStyleEnum(indexPath: indexPath) {
+            cell.configureCell(image: style.imageName, label: style.titleName)
         }
         
         return cell
@@ -264,6 +227,8 @@ extension EditorStylePickerViewController: UICollectionViewDelegate, UICollectio
         didTappedEditorStyleCell(indexPath: indexPath)
     }
 }
+
+// MARK: - UICollectionView Layout Delegate
 
 extension EditorStylePickerViewController: UICollectionViewDelegateFlowLayout {
     
@@ -293,30 +258,5 @@ extension EditorStylePickerViewController: UICollectionViewDelegateFlowLayout {
             return UIEdgeInsets(top: verticalPaddingForCells, left: 0, bottom: verticalPaddingForCells, right: 0)
         }
 
-    }
-}
-
-class CancelButton: UIButton {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        prepareButton()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.cornerRadius = self.frame.height / 2
-        layer.masksToBounds = true
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func prepareButton() {
-        let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .medium, scale: .medium)
-        backgroundColor = .button.cancel
-        setImage(UIImage(systemName: "xmark", withConfiguration: config), for: .normal)
-        tintColor = .text.black
     }
 }

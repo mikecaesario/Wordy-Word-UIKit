@@ -1,5 +1,5 @@
 //
-//  HistoryDataService.swift
+//  HistoryDataManager.swift
 //  Wordy Word (UIKit)
 //
 //  Created by Michael Caesario on 16/05/23.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol HistoryDataServiceProtocol {
+protocol HistoryDataManagerProtocol {
     func fetchHistoryItemsFromJSON() -> [HistoryItems]
     func saveHistoryItemsToJSON(history: [HistoryItems]?)
     func didFinishEditingNowAppendingHistoryItem(history: [HistoryItems], editingText: String, editingResult: String, editingStyle: EditingStyleEnum) -> [HistoryItems]
 }
 
-class HistoryDataService: HistoryDataServiceProtocol {
+class HistoryDataManager: HistoryDataManagerProtocol {
     
     private let fileName = "historyItems.json"
     
@@ -64,7 +64,7 @@ class HistoryDataService: HistoryDataServiceProtocol {
             if let undeditedItemsAlreadyExistsInTheArrayIndex = history[matchingDate].items.firstIndex(where: { $0.uneditedItem == editingText }) {
                 
                 let newHistoryResult = EditHistoryItemResults(timeStamp: currentDate,
-                                                              style: editingStyle.rawValue,
+                                                              style: editingStyle.titleName,
                                                               result: editingResult)
                 
                 history[matchingDate]
@@ -76,7 +76,7 @@ class HistoryDataService: HistoryDataServiceProtocol {
             } else {
                 
                 let newHistoryResult = EditHistoryItemResults(timeStamp: currentDate,
-                                                              style: editingStyle.rawValue,
+                                                              style: editingStyle.titleName,
                                                               result: editingResult)
                 
                 let newEditHistoryItem = EditHistoryItem(uneditedItem: editingText,
@@ -92,7 +92,7 @@ class HistoryDataService: HistoryDataServiceProtocol {
         } else {
             
             let newHistoryResult = EditHistoryItemResults(timeStamp: currentDate,
-                                                          style: editingStyle.rawValue,
+                                                          style: editingStyle.titleName,
                                                           result: editingResult)
             
             let newEditHistoryItem = EditHistoryItem(uneditedItem: editingText,

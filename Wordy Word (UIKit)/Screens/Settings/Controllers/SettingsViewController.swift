@@ -183,7 +183,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 extension SettingsViewController: SavedHistorySettingsCellDelegate {
     
     func didFinishedChangingValue(value: Int) {
-        
         savedHistoryValue = value
     }
 }

@@ -75,12 +75,7 @@ class TextEditorCapsuleView: UIView {
         textEditor.textColor = .text.placeholder
                 
         pasteButton.addTarget(self, action: #selector(didTappedPasteButton), for: .touchUpInside)
-        pasteButton.setTitleColor(.text.white, for: .normal)
-        pasteButton.setImage(UIImage(systemName: "doc.on.clipboard"), for: .normal)
-        pasteButton.setTitle("Paste", for: .normal)
-        pasteButton.tintColor = .text.white
-        pasteButton.backgroundColor = .button.paste
-        pasteButton.setTitleColor(.text.white, for: .normal)
+        pasteButton.setupButton(withTitle: "Paste", andImage: "doc.on.clipboard", foregroundColor: .text.white, backgroundColor: .button.paste)
         
         buttonScrollView.alwaysBounceHorizontal = true
         buttonScrollView.showsHorizontalScrollIndicator = false
@@ -156,7 +151,7 @@ class TextEditorCapsuleView: UIView {
         ])
     }
     
-    @objc private func didTappedPasteButton(sender: UIButton) {
+    @objc private func didTappedPasteButton(sender: PillButtonImageWithText) {
         
         guard let pasteboardData = UIPasteboard.general.string else { return }
         
@@ -177,31 +172,18 @@ class TextEditorCapsuleView: UIView {
         paragraphCount = text.count >= 1 ? text.paragraphsCount() : 0
     }
     
-    private func animatePasteButtonOnSuccess(sender: UIButton) {
+    private func animatePasteButtonOnSuccess(sender: PillButtonImageWithText) {
         
         UIView.transition(with: sender, duration: 0.5, options: [.curveEaseIn, .transitionFlipFromBottom]) {
             
-            sender.setTitle("Pasted", for: .normal)
-            sender.setImage(UIImage(systemName: "checkmark"), for: .normal)
-            sender.backgroundColor = .background.quarternary
-            sender.setTitleColor(.text.black, for: .normal)
-            sender.tintColor = .text.black
-            sender.layer.borderWidth = 1.0
-            
-            if let color = UIColor.text.black?.cgColor {
-                sender.layer.borderColor = color
-            }
+            sender.setupButton(withTitle: "Pasted", andImage: "checkmark", needBorder: true, foregroundColor: .text.black, backgroundColor: .background.quarternary, borderColor: .text.black)
         } completion: { _ in
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 
                 UIView.transition(with: sender, duration: 0.5, options: [.curveEaseOut, .transitionFlipFromTop]) {
-                    sender.setTitle("Paste", for: .normal)
-                    sender.setImage(UIImage(systemName: "doc.on.clipboard"), for: .normal)
-                    sender.backgroundColor = .button.paste
-                    sender.setTitleColor(.text.white, for: .normal)
-                    sender.tintColor = .text.white
-                    sender.layer.borderWidth = 0
+
+                    sender.setupButton(withTitle: "Paste", andImage: "doc.on.clipboard", foregroundColor: .text.white, backgroundColor: .button.paste)
                 }
             }
         }

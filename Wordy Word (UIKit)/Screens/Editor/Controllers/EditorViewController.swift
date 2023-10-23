@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditorViewController: UIViewController {
+final class EditorViewController: UIViewController {
 
     /// Views
     private let editorNavBar = EditorNavigationBar()
@@ -18,12 +18,10 @@ class EditorViewController: UIViewController {
     private let textEditorStack = TextEditorCapsuleView()
     private let textResultStack = TextResultCapsuleView()
     private let tabBar = HistoryAndSettingsTabBar()
-    
-    private var editorMenu: EditorStylePickerViewController?
-    
+        
     /// Services
-    private let historyDataService: HistoryDataService
-    private let textEditorService: TextEditorServiceProtocol
+    private let historyDataService: HistoryDataManager
+    private let textEditorService: TextEditorManager
     
     /// Animation
     private let animationDuration = 0.2
@@ -77,7 +75,7 @@ class EditorViewController: UIViewController {
         }
     }
     
-    init(historyDataService: HistoryDataService, textEditorService: TextEditorServiceProtocol) {
+    init(historyDataService: HistoryDataManager, textEditorService: TextEditorManager) {
         
         self.historyDataService = historyDataService
         self.textEditorService = textEditorService
@@ -212,7 +210,7 @@ extension EditorViewController {
         }
     }
         
-    // A function to present
+    // A method to present Editor Style Picker
     private func presentEditorStylePickerViewController() {
         
         view.endEditing(true)
@@ -224,6 +222,7 @@ extension EditorViewController {
         self.present(menu, animated: true)
     }
     
+    // rearrange main stack view based on the editing style
     private func rearrangeStacksIfNeeded(style: EditingStyleEnum?) {
         
         guard let style = style else { return }
@@ -270,6 +269,7 @@ extension EditorViewController {
         present(navigation, animated: true)
     }
     
+    // A method to dismiss keyboard
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -329,12 +329,7 @@ extension EditorViewController: EditorStylePickerViewControllerDelegate {
         guard let style = style else { return }
         
         editingStyle = style
-//        dismissEditorStylePickerViewController()
     }
-    
-//    func didTappedCancelButton() {
-//        dismissEditorStylePickerViewController()
-//    }
 }
 
 extension EditorViewController: EditorNavigationBarDelegate {

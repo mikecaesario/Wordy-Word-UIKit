@@ -72,16 +72,10 @@ extension TextResultCapsuleView {
         let labelInsets = UIEdgeInsets(top: 15, left: 30, bottom: 15, right: 30)
 
         copyButton.addTarget(self, action: #selector(didTappedCopyButton), for: .touchUpInside)
+        copyButton.setupButton(withTitle: "Copy", andImage: "doc.on.doc", foregroundColor: .text.white, backgroundColor: .button.copy)
         
         textResult.text = resultText
         textResult.textColor = .text.white
-                
-        copyButton.setTitleColor(.text.white, for: .normal)
-        copyButton.setImage(UIImage(systemName: "doc.on.doc"), for: .normal)
-        copyButton.setTitle("Copy", for: .normal)
-        copyButton.tintColor = .text.white
-        copyButton.backgroundColor = .button.copy
-        copyButton.setTitleColor(.text.white, for: .normal)
         
         buttonScrollView.alwaysBounceHorizontal = true
         buttonScrollView.showsHorizontalScrollIndicator = false
@@ -154,31 +148,18 @@ extension TextResultCapsuleView {
         ])
     }
     
-    private func animateCopyButton(sender: UIButton) {
+    private func animateCopyButton(sender: PillButtonImageWithText) {
         
         UIView.transition(with: sender, duration: 0.5, options: [.curveEaseIn, .transitionFlipFromBottom]) {
-            
-            sender.setTitle("Copied", for: .normal)
-            sender.setImage(UIImage(systemName: "checkmark"), for: .normal)
-            sender.backgroundColor = .background.secondary
-            sender.setTitleColor(.text.white, for: .normal)
-            sender.tintColor = .text.white
-            sender.layer.borderWidth = 1.0
-            
-            if let color = UIColor.text.grey?.cgColor {
-                sender.layer.borderColor = color
-            }
+
+            sender.setupButton(withTitle: "Copied", andImage: "checkmark", needBorder: true, foregroundColor: .text.white, backgroundColor: .background.secondary, borderColor: .text.grey)
         } completion: { _ in
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 
                 UIView.transition(with: sender, duration: 0.5, options: [.curveEaseOut, .transitionFlipFromTop]) {
-                    sender.setTitle("Copy", for: .normal)
-                    sender.setImage(UIImage(systemName: "doc.on.doc"), for: .normal)
-                    sender.backgroundColor = .button.copy
-                    sender.setTitleColor(.text.white, for: .normal)
-                    sender.tintColor = .text.white
-                    sender.layer.borderWidth = 0
+                    
+                    sender.setupButton(withTitle: "Copy", andImage: "doc.on.doc", foregroundColor: .text.white, backgroundColor: .button.copy)
                 }
             }
         }
@@ -203,7 +184,7 @@ extension TextResultCapsuleView {
         paragraphCount = text.paragraphsCount()
     }
     
-    @objc private func didTappedCopyButton(sender: UIButton) {
+    @objc private func didTappedCopyButton(sender: PillButtonImageWithText) {
         
         guard let textItemReadyToBeCopiedToClipboard = resultText else { return }
         

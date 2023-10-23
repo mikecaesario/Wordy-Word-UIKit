@@ -42,7 +42,7 @@ class EditorNavigationBar: UIView {
         
         guard let title = title else { return }
         
-        navigationTitle.text = title.rawValue
+        navigationTitle.text = title.titleName
     }
     
     private func setGradientBackgroundFrame() {
@@ -93,7 +93,6 @@ class EditorNavigationBar: UIView {
 extension EditorNavigationBar {
     
     @objc private func showEditorMenu() {
-        
         delegate?.didTapMenuButton()
     }
 }
