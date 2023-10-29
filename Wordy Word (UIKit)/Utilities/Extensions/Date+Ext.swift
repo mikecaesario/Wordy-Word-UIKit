@@ -18,6 +18,4 @@ extension Date {
         
         return date1 == date2
     }
-    
-    
 }

@@ -198,7 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				4CF53A742A13EDB80038E043 /* Models */,
-				4CF53A712A13EDA00038E043 /* Services */,
+				4CF53A712A13EDA00038E043 /* Manager */,
 				4CABA4F02A00138D00442908 /* Screens */,
 				4CABA5062A00158F00442908 /* Utilities */,
 				931065BD2AD8766C007CC43B /* Support */,
@@ -390,13 +390,13 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
-		4CF53A712A13EDA00038E043 /* Services */ = {
+		4CF53A712A13EDA00038E043 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				4CF53A722A13EDAE0038E043 /* HistoryDataManager.swift */,
 				93436C032AAF8C6A006FC6BE /* TextEditorManager.swift */,
 			);
-			path = Services;
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		4CF53A742A13EDB80038E043 /* Models */ = {
