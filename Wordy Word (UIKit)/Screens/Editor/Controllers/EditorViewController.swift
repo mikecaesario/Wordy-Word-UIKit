@@ -15,8 +15,8 @@ final class EditorViewController: UIViewController {
     private let mainEditorStack = MainEditorStack()
     private let removeButtonStack = RemoveButtonStack()
     private let replaceTexfieldStack = ReplaceTextfieldStack()
-    private let textEditorStack = TextEditorCapsuleView()
-    private let textResultStack = TextResultCapsuleView()
+    private let textEditorStack = TextEditorCapsule()
+    private let textResultStack = TextResultCapsule()
     private let tabBar = HistoryAndSettingsTabBar()
         
     /// Services

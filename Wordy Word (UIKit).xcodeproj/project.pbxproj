@@ -24,7 +24,7 @@
 		4CA67A192A4623F300EACC02 /* EditorStylePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA67A182A4623F300EACC02 /* EditorStylePickerViewController.swift */; };
 		4CABA4EE2A00111700442908 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CABA4EC2A00111700442908 /* Poppins-Medium.ttf */; };
 		4CABA4EF2A00111700442908 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CABA4ED2A00111700442908 /* Poppins-SemiBold.ttf */; };
-		4CABA4F72A00155E00442908 /* TextEditorCapsuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA4F62A00155E00442908 /* TextEditorCapsuleView.swift */; };
+		4CABA4F72A00155E00442908 /* TextEditorCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA4F62A00155E00442908 /* TextEditorCapsule.swift */; };
 		4CABA5012A00157200442908 /* PillLabelsWithStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA4F92A00157200442908 /* PillLabelsWithStroke.swift */; };
 		4CABA5022A00157200442908 /* ButtonAndLabelStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA4FB2A00157200442908 /* ButtonAndLabelStack.swift */; };
 		4CABA5032A00157200442908 /* EditorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA4FC2A00157200442908 /* EditorStackView.swift */; };
@@ -33,7 +33,7 @@
 		4CABA5092A0015A200442908 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CABA5082A0015A200442908 /* UIColor+Ext.swift */; };
 		4CBAB0772A1D187E00342EAC /* ReplaceTextfieldStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBAB0762A1D187E00342EAC /* ReplaceTextfieldStack.swift */; };
 		4CBAB07A2A1D1B9500342EAC /* PillTextfields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBAB0792A1D1B9500342EAC /* PillTextfields.swift */; };
-		4CC56B502A056799006BE7C2 /* TextResultCapsuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B4F2A056799006BE7C2 /* TextResultCapsuleView.swift */; };
+		4CC56B502A056799006BE7C2 /* TextResultCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B4F2A056799006BE7C2 /* TextResultCapsule.swift */; };
 		4CC56B522A057224006BE7C2 /* ResultTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B512A057224006BE7C2 /* ResultTextView.swift */; };
 		4CC56B552A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B542A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift */; };
 		4CC56B572A0C1A99006BE7C2 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC56B562A0C1A99006BE7C2 /* TabBarButton.swift */; };
@@ -84,7 +84,7 @@
 		4CA67A182A4623F300EACC02 /* EditorStylePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorStylePickerViewController.swift; sourceTree = "<group>"; };
 		4CABA4EC2A00111700442908 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		4CABA4ED2A00111700442908 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
-		4CABA4F62A00155E00442908 /* TextEditorCapsuleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorCapsuleView.swift; sourceTree = "<group>"; };
+		4CABA4F62A00155E00442908 /* TextEditorCapsule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorCapsule.swift; sourceTree = "<group>"; };
 		4CABA4F92A00157200442908 /* PillLabelsWithStroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PillLabelsWithStroke.swift; sourceTree = "<group>"; };
 		4CABA4FB2A00157200442908 /* ButtonAndLabelStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonAndLabelStack.swift; sourceTree = "<group>"; };
 		4CABA4FC2A00157200442908 /* EditorStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorStackView.swift; sourceTree = "<group>"; };
@@ -93,7 +93,7 @@
 		4CABA5082A0015A200442908 /* UIColor+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		4CBAB0762A1D187E00342EAC /* ReplaceTextfieldStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceTextfieldStack.swift; sourceTree = "<group>"; };
 		4CBAB0792A1D1B9500342EAC /* PillTextfields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillTextfields.swift; sourceTree = "<group>"; };
-		4CC56B4F2A056799006BE7C2 /* TextResultCapsuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextResultCapsuleView.swift; sourceTree = "<group>"; };
+		4CC56B4F2A056799006BE7C2 /* TextResultCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextResultCapsule.swift; sourceTree = "<group>"; };
 		4CC56B512A057224006BE7C2 /* ResultTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTextView.swift; sourceTree = "<group>"; };
 		4CC56B542A081ADE006BE7C2 /* HistoryAndSettingsTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAndSettingsTabBar.swift; sourceTree = "<group>"; };
 		4CC56B562A0C1A99006BE7C2 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
@@ -290,8 +290,8 @@
 		4CABA4F52A00155E00442908 /* Text Editor */ = {
 			isa = PBXGroup;
 			children = (
-				4CABA4F62A00155E00442908 /* TextEditorCapsuleView.swift */,
-				4CC56B4F2A056799006BE7C2 /* TextResultCapsuleView.swift */,
+				4CABA4F62A00155E00442908 /* TextEditorCapsule.swift */,
+				4CC56B4F2A056799006BE7C2 /* TextResultCapsule.swift */,
 			);
 			path = "Text Editor";
 			sourceTree = "<group>";
@@ -628,10 +628,10 @@
 				4CABA5012A00157200442908 /* PillLabelsWithStroke.swift in Sources */,
 				9313AF952AA3C1D1005E02AC /* DateFormatter+Ext.swift in Sources */,
 				4CC56B572A0C1A99006BE7C2 /* TabBarButton.swift in Sources */,
-				4CC56B502A056799006BE7C2 /* TextResultCapsuleView.swift in Sources */,
+				4CC56B502A056799006BE7C2 /* TextResultCapsule.swift in Sources */,
 				4C397F4C2A000CF8006F8D3C /* AppDelegate.swift in Sources */,
 				4CABA5022A00157200442908 /* ButtonAndLabelStack.swift in Sources */,
-				4CABA4F72A00155E00442908 /* TextEditorCapsuleView.swift in Sources */,
+				4CABA4F72A00155E00442908 /* TextEditorCapsule.swift in Sources */,
 				93436C042AAF8C6A006FC6BE /* TextEditorManager.swift in Sources */,
 				93436C172AC20EC3006FC6BE /* UserDefaultsEnum.swift in Sources */,
 				4CABA5052A00157200442908 /* PillButtonImageWithText.swift in Sources */,

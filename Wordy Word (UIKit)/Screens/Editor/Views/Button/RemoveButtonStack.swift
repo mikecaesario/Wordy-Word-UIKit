@@ -109,8 +109,8 @@ final class RemoveButtonStack: UIView {
         } else {
             
             sender.setTitleColor(.text.black, for: .normal)
-            sender.layer.borderColor = UIColor.text.white?.cgColor
-            sender.backgroundColor = .text.white
+            sender.layer.borderColor = UIColor.background.quarternary?.cgColor
+            sender.backgroundColor = .background.quarternary
             pickedRemovedCharacterArray.append(choosenCharacterFromButton)
             delegate?.didFinishAddingRemovingItem(itemToRemove: pickedRemovedCharacterArray)
         }

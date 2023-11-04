@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TextResultCapsuleView: UIView {
+class TextResultCapsule: UIView {
 
     private let textResult = ResultTextView()
     private let buttonScrollView = UIScrollView()
@@ -65,7 +65,7 @@ class TextResultCapsuleView: UIView {
     }
 }
 
-extension TextResultCapsuleView {
+extension TextResultCapsule {
     
     private func prepareView() {
         
@@ -166,7 +166,7 @@ extension TextResultCapsuleView {
     }
 }
 
-extension TextResultCapsuleView {
+extension TextResultCapsule {
     
     func setResultText(result: String?) {
         

@@ -12,7 +12,7 @@ protocol TextEditorCapsuleViewDelegate: AnyObject {
     func didFinishPastingText(text: String)
 }
 
-class TextEditorCapsuleView: UIView {
+class TextEditorCapsule: UIView {
 
     private let textEditor = EditorTextView()
     private let buttonStack = ButtonAndLabelStack()
@@ -190,7 +190,7 @@ class TextEditorCapsuleView: UIView {
     }
 }
 
-extension TextEditorCapsuleView: UITextViewDelegate {
+extension TextEditorCapsule: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
