@@ -104,7 +104,7 @@ extension EditHistoryViewController: UITableViewDelegate, UITableViewDataSource 
         if section == 0 {
             header.setHeaderLabel(text: "Original")
         } else {
-            header.setHeaderLabel(text: "Edits")
+            header.setHeaderLabel(text: historyData.result.count > 1 ? "Edits" : "Edit")
         }
         
         return header
