@@ -40,8 +40,8 @@ final class SettingsViewController: UIViewController {
         layoutUI()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         delegate?.updatingCurrentHistoryDataLimitValue(value: savedHistoryValue)
     }
     

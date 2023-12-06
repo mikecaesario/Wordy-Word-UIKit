@@ -266,7 +266,7 @@ extension EditorViewController {
             historyVCSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
         }
         
-        present(navigation, animated: true)
+        self.present(navigation, animated: true)
     }
     
     // A method to dismiss keyboard
@@ -293,7 +293,7 @@ extension EditorViewController {
             
             resultText = result
             
-            historyDataArray = historyDataService.didFinishEditingNowAppendingHistoryItem(history: historyDataArray, editingText: text, editingResult: result, editingStyle: style)
+            historyDataArray = historyDataService.didFinishEditingNowAppendingHistoryItem(history: historyDataArray, editingText: text, editingResult: result, editingStyle: style, withLimit: historyDataLimit)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) { [weak self] in
                 
@@ -306,7 +306,7 @@ extension EditorViewController {
             
             haptics.impactOccurred()
             
-            historyDataService.saveHistoryItemsToJSON(history: historyDataArray)
+            historyDataService.writeHistoryItemsToJSON(history: historyDataArray)
             
         } catch(let error as EditingTextError) {
             
@@ -316,6 +316,7 @@ extension EditorViewController {
             default:
                 break
             }
+            
         } catch {
             
         }
@@ -328,7 +329,7 @@ extension EditorViewController: EditorStylePickerViewControllerDelegate {
         
         guard let style = style else { return }
         
-        editingStyle = style
+        self.editingStyle = style
     }
 }
 
@@ -342,26 +343,26 @@ extension EditorViewController: EditorNavigationBarDelegate {
 extension EditorViewController: RemoveButtonStackDelegate {
     
     func didFinishAddingRemovingItem(itemToRemove: [String]) {
-        removeCharacterArray = itemToRemove
+        self.removeCharacterArray = itemToRemove
     }
 }
 
 extension EditorViewController: ReplaceTextfieldStackDelegate {
     
     func didFinishInputingReplaceText(find: String, replaceWith: String) {
-        findText = find
-        replaceWithText = replaceWith
+        self.findText = find
+        self.replaceWithText = replaceWith
     }
 }
 
 extension EditorViewController: TextEditorCapsuleViewDelegate {
     
     func didFinishInputingText(text: String) {
-        editingText = text
+        self.editingText = text
     }
     
     func didFinishPastingText(text: String) {
-        editingText = text
+        self.editingText = text
     }
 }
 
@@ -384,5 +385,12 @@ extension EditorViewController: SettingsViewControllerDelegate {
     
     func updatingCurrentHistoryDataLimitValue(value: Int) {
         historyDataLimit = value
+        removeExcessHistoryDataIfNeeded(withLimit: value)
+    }
+    
+    private func removeExcessHistoryDataIfNeeded(withLimit: Int) {
+        
+        let newChangedLimitHistoryData = historyDataArray.suffix(withLimit)
+        historyDataArray = Array(newChangedLimitHistoryData)
     }
 }

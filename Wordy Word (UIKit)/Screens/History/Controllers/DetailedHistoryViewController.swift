@@ -144,7 +144,6 @@ extension DetailedHistoryViewController: DetailedHistoryNavigationBarButtonsProt
         }
         
         haptics.impactOccurred(intensity: 0.7)
-        haptics.impactOccurred()
         detailedNavigationBar.animateCopyButtonOnSuccess()
     }
 }

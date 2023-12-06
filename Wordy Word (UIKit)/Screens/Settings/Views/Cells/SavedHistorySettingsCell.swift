@@ -59,7 +59,7 @@ class SavedHistorySettingsCell: UITableViewCell {
         valueLabel.numberOfLines = 1
         
         valueSlider.isUserInteractionEnabled = true
-        valueSlider.setupSlider(minValue: 5, maxValue: 25)
+        valueSlider.setupSlider(minValue: 1, maxValue: 25)
         valueSlider.addTarget(self, action: #selector(onSliderValueChanged(sender:)), for: .valueChanged)
         
         moreInfoTextView.text = moreInfoText
