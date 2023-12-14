@@ -11,3 +11,32 @@
 //
 
 import Foundation
+
+public enum ToastTypeEnum {
+    case paste, copy, error
+    
+    var symbol: String {
+        
+        switch self {
+        case .paste:
+            "exclamationmark.triangle.fill"
+        case .copy:
+            "checkmark"
+        case .error:
+            "exclamationmark.triangle.fill"
+        }
+    }
+    
+    var message: String {
+        
+        switch self {
+        case .paste:
+            "There are no item to be pasted from the clipboard"
+        case .copy:
+            "Text has been successfully copied to clipboard"
+        case .error:
+            "Whoops! Something went wrong, please try again later"
+        }
+    }
+}
+

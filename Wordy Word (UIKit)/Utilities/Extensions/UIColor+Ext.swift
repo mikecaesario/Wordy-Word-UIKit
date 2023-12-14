@@ -33,7 +33,7 @@ extension UIColor {
     struct text {
         static let editor = UIColor(named: "EditorTextColor")
         static let white = UIColor(named: "WhiteTextColor")
-        static let placeholder = UIColor(named: "PlaceholderTextColor")
+        static let placeholder = UIColor(named: "LightGreyColor")
         static let black = UIColor(named: "BlackTextColor")
         static let grey = UIColor(named: "GreyTextColor")
     }

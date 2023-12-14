@@ -18,6 +18,7 @@ final class EditorViewController: UIViewController {
     private let textEditorStack = TextEditorCapsule()
     private let textResultStack = TextResultCapsule()
     private let tabBar = HistoryAndSettingsTabBar()
+    private var toastView: Toast?
         
     /// Services
     private let historyDataService: HistoryDataManager
@@ -127,6 +128,7 @@ extension EditorViewController {
         
         editorNavBar.delegate = self
         textEditorStack.delegate = self
+        textResultStack.delegate = self
         tabBar.delegate = self
         replaceTexfieldStack.delegate = self
         removeButtonStack.delegate = self
@@ -158,12 +160,12 @@ extension EditorViewController {
         
         NSLayoutConstraint.activate([
             
-            editorNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            editorNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             editorNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             editorNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             editorNavBar.heightAnchor.constraint(equalToConstant: 70),
             
-            editorScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            editorScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             editorScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             editorScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             editorScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -186,9 +188,9 @@ extension EditorViewController {
             textResultStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
             textResultStack.widthAnchor.constraint(equalTo: editorScrollView.widthAnchor, constant: -horizontalPadding),
             
-            tabBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tabBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
             tabBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tabBar.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.45),
+            tabBar.widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
             tabBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1)
         ])
     }
@@ -308,7 +310,7 @@ extension EditorViewController {
             
             historyDataService.writeHistoryItemsToJSON(history: historyDataArray)
             
-        } catch(let error as EditingTextError) {
+        } catch(let error as EditingTextErrorEnum) {
             
             switch error {
             case .findTextIsEmpty, .replaceTextIsEmpty, .removeIsEmpty:
@@ -319,6 +321,29 @@ extension EditorViewController {
             
         } catch {
             
+            self.showToast(withType: .error)
+        }
+    }
+}
+
+extension EditorViewController {
+    
+    private func showToast(withType: ToastTypeEnum) {
+        
+        guard toastView == nil else { return }
+        
+        self.toastView = Toast()
+        
+        guard let toast = toastView else { return }
+        
+        self.setupAndConfigureToastToView(toast: toast, withType: withType) { [weak self] completion in
+            
+            guard let self = self else { return }
+            
+            if completion {
+                
+                self.toastView = nil
+            }
         }
     }
 }
@@ -357,12 +382,23 @@ extension EditorViewController: ReplaceTextfieldStackDelegate {
 
 extension EditorViewController: TextEditorCapsuleViewDelegate {
     
+    func errorPastingTextItem() {
+        self.showToast(withType: .paste)
+    }
+    
     func didFinishInputingText(text: String) {
         self.editingText = text
     }
     
     func didFinishPastingText(text: String) {
         self.editingText = text
+    }
+}
+
+extension EditorViewController: TextResultCapsuleDelegate {
+    
+    func didFinishCopyingTextToClipboard() {
+        self.showToast(withType: .copy)
     }
 }
 
@@ -384,13 +420,15 @@ extension EditorViewController: HistoryAndSettingsTabBarDelegate {
 extension EditorViewController: SettingsViewControllerDelegate {
     
     func updatingCurrentHistoryDataLimitValue(value: Int) {
-        historyDataLimit = value
+        
+        self.historyDataLimit = value
         removeExcessHistoryDataIfNeeded(withLimit: value)
     }
     
     private func removeExcessHistoryDataIfNeeded(withLimit: Int) {
         
-        let newChangedLimitHistoryData = historyDataArray.suffix(withLimit)
+        let newChangedLimitHistoryData = historyDataArray.prefix(withLimit)
         historyDataArray = Array(newChangedLimitHistoryData)
+        historyDataService.writeHistoryItemsToJSON(history: historyDataArray)
     }
 }

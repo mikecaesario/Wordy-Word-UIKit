@@ -48,7 +48,7 @@ extension String {
         return result
     }
     
-    func capitalizeSentences() -> String {
+    func capitalizecased() -> String {
         
         let sentences = self.components(separatedBy: ".")
         var capitalizedSentences = [String]()
@@ -66,6 +66,30 @@ extension String {
         }
         
         return capitalizedSentences.joined(separator: ". ")
+    }
+    
+    func titlecased() -> String {
+        let commonWords = Set(["and", "as", "but", "for", "if", "nor", "or", "so", "yet",
+                               "a", "an", "the", "as", "is", "at", "by", "for", "in", "of", "off",
+                               "on", "per", "to", "up", "via"])
+        
+        let words = self.lowercased().components(separatedBy: " ")
+        let capitalizedWords = words.map { word -> String in
+            if commonWords.contains(word) {
+                return word
+            } else {
+                return word.prefix(1).capitalized + word.dropFirst()
+            }
+        }
+        
+        var result = capitalizedWords.joined(separator: " ")
+        
+        // Capitalize only the first letter of the first word
+        if let firstWord = capitalizedWords.first {
+            result = firstWord.prefix(1).capitalized + firstWord.dropFirst() + " " + capitalizedWords.dropFirst().joined(separator: " ")
+        }
+        
+        return result
     }
     
     func paragraphsCount() -> Int {

@@ -47,13 +47,13 @@ class HistoryDataManager: HistoryDataManagerProtocol {
             let data = try encoder.encode(history)
             try data.write(to: fileUrl)
         } catch {
-            
+            fatalError("ERROR: ERROR WRITING HISTORY DATA TO FILE MANAGER")
         }
     }
     
     func didFinishEditingNowAppendingHistoryItem(history: [HistoryItems], editingText: String, editingResult: String, editingStyle: EditingStyleEnum, withLimit: Int) -> [HistoryItems] {
                 
-        var history = Array(history.suffix(withLimit))
+        var history = Array(history.prefix(withLimit))
         let currentDate = Date()
         
         if let matchingDate = history.firstIndex(where: { currentDate.isSameDayAs(otherDate: $0.date) }) {

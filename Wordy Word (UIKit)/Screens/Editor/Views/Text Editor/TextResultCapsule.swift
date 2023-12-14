@@ -7,7 +7,11 @@
 
 import UIKit
 
-class TextResultCapsule: UIView {
+protocol TextResultCapsuleDelegate: AnyObject {
+    func didFinishCopyingTextToClipboard()
+}
+
+final class TextResultCapsule: UIView {
 
     private let textResult = ResultTextView()
     private let buttonScrollView = UIScrollView()
@@ -51,6 +55,8 @@ class TextResultCapsule: UIView {
             }
         }
     }
+    
+    weak var delegate: TextResultCapsuleDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -190,5 +196,6 @@ extension TextResultCapsule {
         
         UIPasteboard.general.string = textItemReadyToBeCopiedToClipboard
         animateCopyButton(sender: sender)
+        delegate?.didFinishCopyingTextToClipboard()
     }
 }

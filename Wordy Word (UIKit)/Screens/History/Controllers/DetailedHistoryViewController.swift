@@ -11,6 +11,7 @@ class DetailedHistoryViewController: UIViewController {
 
     private let detailedNavigationBar = DetailedHistoryNavigationBarButtons()
     private let detailedHistoryItemText = UITextView()
+    private var toastView: Toast?
     
     private var detailedHistoryItem: EditHistoryItemResults?
     private var originalText: String?
@@ -125,6 +126,21 @@ extension DetailedHistoryViewController {
             footer.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
+    
+    private func showToast(withType: ToastTypeEnum) {
+        
+        guard toastView == nil else { return }
+        
+        self.toastView = Toast()
+        
+        guard let toast = toastView else { return }
+        
+        self.setupAndConfigureToastToView(toast: toast, withType: withType) { [weak self] completion in
+            
+            guard let self = self else { return }
+            self.toastView = nil
+        }
+    }
 }
 
 extension DetailedHistoryViewController: DetailedHistoryNavigationBarButtonsProtocol {
@@ -145,5 +161,6 @@ extension DetailedHistoryViewController: DetailedHistoryNavigationBarButtonsProt
         
         haptics.impactOccurred(intensity: 0.7)
         detailedNavigationBar.animateCopyButtonOnSuccess()
+        self.showToast(withType: .copy)
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 protocol TextEditorCapsuleViewDelegate: AnyObject {
     func didFinishInputingText(text: String)
     func didFinishPastingText(text: String)
+    func errorPastingTextItem()
 }
 
 class TextEditorCapsule: UIView {
@@ -161,6 +162,9 @@ class TextEditorCapsule: UIView {
             calculateText(text: pasteboardData)
             delegate?.didFinishPastingText(text: pasteboardData)
             animatePasteButtonOnSuccess(sender: sender)
+        } else {
+            
+            delegate?.errorPastingTextItem()
         }
     }
     
