@@ -26,7 +26,7 @@ extension UIViewController {
             
             toast.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             toast.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            toast.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -26),
+            toast.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             toast.heightAnchor.constraint(greaterThanOrEqualTo: self.view.heightAnchor, multiplier: 0.12)
         ])
         

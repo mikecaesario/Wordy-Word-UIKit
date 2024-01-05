@@ -79,6 +79,7 @@ extension SettingsViewController {
         settingsNavigationBar.setNavigationTitle(title: "Settings")
         
         settingsTableView.backgroundColor = .clear
+        settingsTableView.separatorColor = .clear
         settingsTableView.dataSource = self
         settingsTableView.delegate = self
         settingsTableView.register(SavedHistorySettingsCell.self, forCellReuseIdentifier: SavedHistorySettingsCell.reuseIdentifier)
